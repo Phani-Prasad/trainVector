@@ -186,10 +186,10 @@ const App = () => {
             }} 
           />
         </div>
-        <div className="nav-links" style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
-          <a href="#curriculum" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>CURRICULUM</a>
-          <a href="#faq" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>FAQ</a>
-          <button onClick={handleApply} className="glow-btn" style={{ fontSize: '0.8rem', padding: '8px 20px' }}>Join Cohort</button>
+        <div className="nav-links">
+          <a href="#curriculum" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>CURRICULUM</a>
+          <a href="#faq" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>FAQ</a>
+          <button onClick={handleApply} className="glow-btn" style={{ fontSize: 'min(0.8rem, 3vw)', padding: '8px 20px' }}>Join Cohort</button>
         </div>
       </nav>
 
@@ -232,14 +232,13 @@ const App = () => {
         <h2 style={{ textAlign: 'center', marginBottom: '80px', fontSize: '2.5rem' }}>The Knowledge <span style={{ color: 'var(--primary)' }}>Temple</span></h2>
         
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-            {/* The Roof (Mastery) */}
             <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 style={{ 
                     width: '100%', 
-                    padding: '40px', 
+                    padding: 'clamp(20px, 5vw, 40px)', 
                     textAlign: 'center',
                     background: 'linear-gradient(to right, var(--primary), var(--secondary))',
                     borderRadius: '100% 100% 0 0 / 100% 100% 0 0',
@@ -253,12 +252,12 @@ const App = () => {
                 <div className="data-beam" style={{ left: '10%', height: '200%', top: '-50%', animationDelay: '0.5s' }} />
                 <div className="data-beam" style={{ right: '15%', height: '200%', top: '-50%', animationDelay: '1.2s', background: 'var(--secondary)' }} />
                 
-                <GraduationCap style={{ marginBottom: '10px' }} />
-                <div className="font-orbitron" style={{ fontSize: '1.5rem' }}>trainVector Role based AI MASTERY</div>
+                <GraduationCap style={{ marginBottom: '10px' }} size={32} />
+                <div className="font-orbitron" style={{ fontSize: 'clamp(1rem, 4vw, 1.5rem)' }}>trainVector Role based AI MASTERY</div>
             </motion.div>
 
             {/* The Pillars (Role Spikes) */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px', marginBottom: '10px', position: 'relative' }}>
+            <div className="temple-pillars-grid">
                 {roles.map((role, i) => (
                     <motion.div 
                         key={i} 
@@ -289,7 +288,9 @@ const App = () => {
                         <div className="data-beam" style={{ left: '0', background: role.color, animationDelay: `${i * 0.4}s`, opacity: activeColor === role.color ? 0.8 : 0.3 }} />
                         <div className="data-beam" style={{ right: '0', background: role.color, animationDelay: `${i * 0.6}s`, opacity: activeColor === role.color ? 0.8 : 0.3 }} />
                         
-                        <div style={{ marginBottom: '20px' }}>{role.icon}</div>
+                        <div style={{ marginBottom: '20px' }}>
+                          {React.cloneElement(role.icon as React.ReactElement, { size: 'clamp(18px, 4vw, 24px)' })}
+                        </div>
                         <h4 style={{ color: role.color, fontSize: '0.9rem', marginBottom: '20px', letterSpacing: '1px' }}>{role.title.toUpperCase()}</h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', flexGrow: 1 }}>
                             {role.skills.map((skill, si) => (
@@ -313,16 +314,16 @@ const App = () => {
                     background: 'var(--bg-card)', 
                     border: '2px solid var(--primary)', 
                     borderRadius: '0 0 12px 12px',
-                    padding: '50px 30px',
+                    padding: 'clamp(30px, 8vw, 50px) clamp(20px, 5vw, 30px)',
                     textAlign: 'center',
                     position: 'relative',
                     zIndex: 1
                 }}
             >
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'var(--primary)', color: '#000', padding: '5px 15px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '20px' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'var(--primary)', color: '#000', padding: '5px 15px', borderRadius: '20px', fontSize: 'clamp(0.6rem, 2.5vw, 0.75rem)', fontWeight: 800, textTransform: 'uppercase', marginBottom: '20px' }}>
                     <Target size={14} /> The Shared Core
                 </div>
-                <h3 className="font-orbitron" style={{ fontSize: '1.8rem', color: 'var(--primary)', marginBottom: '30px' }}>THE AI FOUNDATION MODULE</h3>
+                <h3 className="font-orbitron" style={{ fontSize: 'clamp(1.2rem, 5vw, 1.8rem)', color: 'var(--primary)', marginBottom: '30px' }}>THE AI FOUNDATION MODULE</h3>
                 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
                     {foundationItems.map((item, i) => (
