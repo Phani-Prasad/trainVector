@@ -125,17 +125,38 @@ h1, h2, h3, .font-orbitron {
     display: none !important;
   }
 
-  .temple-pillars-grid {
+  .temple-pillars-container {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
+    gap: 0 !important;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .timeline-row {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 20px !important;
   }
   
+  .timeline-row > div {
+    text-align: center !important;
+  }
+
   .curriculum-timeline {
     padding-left: 20px !important;
   }
   
   .curriculum-timeline::before {
     left: -21px !important;
+  }
+
+  .subway-branches {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .revealed-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
   }
 }
 
@@ -158,6 +179,24 @@ h1, h2, h3, .font-orbitron {
   0% { transform: translateY(100%); opacity: 0; }
   50% { opacity: 0.8; }
   100% { transform: translateY(-100%); opacity: 0; }
+}
+
+@keyframes energy-rise {
+  0% { transform: translateY(100%) scale(1); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(-500px) scale(0.5); opacity: 0; }
+}
+
+.energy-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  filter: blur(2px);
+  pointer-events: none;
+  z-index: 5;
+  animation: energy-rise 3s infinite linear;
 }
 
 .data-beam {
@@ -248,4 +287,44 @@ h1, h2, h3, .font-orbitron {
   0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
   70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
   100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* AgentForge Platform Grid */
+.platform-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .platform-grid {
+    grid-template-columns: 0.7fr 1.8fr; /* Prioritize image width */
+    gap: 10px;
+    padding: 0 5px;
+  }
+  
+  .platform-grid h2 {
+    font-size: 1.1rem !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .platform-grid p {
+    font-size: 0.7rem !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .platform-features {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+  
+  .platform-features div {
+    font-size: 0.6rem !important;
+  }
+  
+  .platform-grid img {
+    height: auto !important; /* Let it grow naturally with the wider column */
+    max-height: 250px;
+  }
 }

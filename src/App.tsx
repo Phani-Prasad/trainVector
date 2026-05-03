@@ -31,9 +31,9 @@ import {
 } from 'lucide-react';
 
 import logo from './assets/logo_wide.png';
+import agentforgePreview from './assets/agentforge_preview.png';
 
 const App = () => {
-  const [activeColor, setActiveColor] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState(1);
@@ -138,24 +138,6 @@ const App = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Interactive Sync Glow */}
-      <AnimatePresence>
-        {activeColor && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            exit={{ opacity: 0 }}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              background: `radial-gradient(circle at 50% 50%, ${activeColor}33 0%, transparent 70%)`,
-              zIndex: -1,
-              pointerEvents: 'none'
-            }}
-          />
-        )}
-      </AnimatePresence>
-
       <div className="glow-orb" style={{ width: '400px', height: '400px', top: '10%', left: '5%', background: 'var(--primary)' }} />
       <div className="glow-orb" style={{ width: '500px', height: '500px', bottom: '10%', right: '5%', background: 'var(--secondary)', animationDelay: '-10s' }} />
       <div className="glow-orb" style={{ width: '300px', height: '300px', top: '40%', right: '20%', background: 'var(--accent-blue)', animationDelay: '-5s' }} />
@@ -190,6 +172,7 @@ const App = () => {
         </div>
         <div className="nav-links">
           <a href="#curriculum" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>CURRICULUM</a>
+          <a href="#agentforge" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>AgentForge</a>
           <a href="#faq" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>FAQ</a>
           <button onClick={handleApply} className="glow-btn" style={{ fontSize: 'min(0.8rem, 3vw)', padding: '8px 20px' }}>Join Cohort</button>
         </div>
@@ -209,13 +192,46 @@ const App = () => {
             BUILD YOUR <span style={{ color: 'var(--primary)', textShadow: '0 0 20px var(--primary-glow)' }}>AI FUTURE</span> <br />
             ON A SOLID FOUNDATION
           </h1>
-          <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: '800px', margin: '30px auto', fontSize: '1.25rem', lineHeight: '1.6' }}>
-            One common intelligence core. Four specialized professional paths. <br />
-            <span style={{ color: '#fff', fontWeight: 600, display: 'block', marginTop: '10px', textShadow: '0 0 20px rgba(255,255,255,0.2)' }}>
-              trainVector Academy's structured blueprint for your next career move.
-            </span>
+          <p style={{ maxWidth: '1000px', margin: '30px auto', fontSize: '1.2rem', lineHeight: '1.7' }}>
+            <span style={{ color: '#fff', fontWeight: 800, letterSpacing: '0.5px' }}>One common intelligence core. Four specialized professional paths.</span>
+            <span style={{ color: 'rgba(255,255,255,0.5)', margin: '0 15px' }}>|</span>
+            <span style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 500 }}>trainVector Academy's structured blueprint for transforming your knowledge into a career-defining advantage.</span>
           </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '40px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '60px', position: 'relative' }}>
+            {/* Pulsing Badge */}
+            <motion.div
+              animate={{ 
+                scale: [1, 1.1, 1],
+                boxShadow: [
+                  '0 0 0px rgba(255, 222, 0, 0)',
+                  '0 0 20px rgba(255, 222, 0, 0.4)',
+                  '0 0 0px rgba(255, 222, 0, 0)'
+                ]
+              }}
+              transition={{ 
+                duration: 2, 
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              style={{
+                position: 'absolute',
+                top: '-40px',
+                left: 'calc(50% - 150px)',
+                background: '#ffde00',
+                color: '#000',
+                padding: '4px 12px',
+                borderRadius: '20px',
+                fontSize: '0.7rem',
+                fontWeight: 900,
+                letterSpacing: '1px',
+                zIndex: 10,
+                boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+                pointerEvents: 'none'
+              }}
+            >
+              FIRST 10 SEATS FREE
+            </motion.div>
+
             <button onClick={handleApply} className="glow-btn">Apply Now <ArrowRight size={18} style={{ marginLeft: '10px' }} /></button>
             <button
               onClick={() => document.getElementById('curriculum')?.scrollIntoView({ behavior: 'smooth' })}
@@ -228,54 +244,256 @@ const App = () => {
         </motion.div>
       </section>
 
+      {/* Program Structure / Timeline */}
+      <section style={{ padding: '40px 5%', background: 'rgba(255,255,255,0.02)', borderY: '1px solid var(--border)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div style={{ padding: '12px', background: 'var(--primary)15', color: 'var(--primary)', borderRadius: '12px' }}>
+              <Compass size={24} />
+            </div>
+            <div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>Duration</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 600 }}>4-Week Intensive</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div style={{ padding: '12px', background: 'var(--accent-blue)15', color: 'var(--accent-blue)', borderRadius: '12px' }}>
+              <Layers size={24} />
+            </div>
+            <div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>Phase 1 (Week 1-2)</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 600 }}>AI Core Foundation</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div style={{ padding: '12px', background: 'var(--secondary)15', color: 'var(--secondary)', borderRadius: '12px' }}>
+              <Target size={24} />
+            </div>
+            <div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>Phase 2 (Week 3-4)</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 600 }}>Role-Based Mastery</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div style={{ padding: '12px', background: '#ffde0015', color: '#ffde00', borderRadius: '12px' }}>
+              <Zap size={24} />
+            </div>
+            <div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>Commitment</div>
+              <div style={{ fontSize: '1rem', fontWeight: 600, margin: '4px 0' }}>Flexible (Approx. 3h/Day)</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--primary)', fontWeight: 600 }}>Self-paced modules + Scheduled live workshops</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The 2+2 Mastery Roadmap */}
+      <section style={{ padding: '60px 5%', background: 'rgba(255,255,255,0.01)', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ textAlign: 'center', marginBottom: '50px' }}>
+          <h2 style={{ fontSize: '2.2rem', marginBottom: '15px' }}>THE <span style={{ color: 'var(--primary)' }}>MASTERY</span> ROADMAP</h2>
+          <p style={{ color: 'var(--text-dim)', maxWidth: '600px', margin: '0 auto', fontSize: '0.9rem' }}>From a unified core to specialized mastery in 4 weeks.</p>
+        </div>
+
+        <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative' }}>
+          <div className="glass-card" style={{ 
+            padding: '60px 40px', 
+            border: '1px solid rgba(249, 115, 22, 0.3)', 
+            background: 'rgba(255,255,255,0.02)', 
+            position: 'relative', 
+            overflow: 'hidden',
+            boxShadow: '0 0 30px rgba(249, 115, 22, 0.05)'
+          }}>
+            {/* Phase 1: The Core Foundation */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', position: 'relative', marginBottom: '80px' }}>
+              <div style={{ textAlign: 'center', marginBottom: '10px' }}>
+                <div style={{ 
+                  display: 'inline-flex', 
+                  alignItems: 'center', 
+                  gap: '8px', 
+                  background: 'rgba(249, 115, 22, 0.1)', 
+                  color: 'var(--primary)', 
+                  padding: '6px 16px', 
+                  borderRadius: '30px', 
+                  fontSize: '0.95rem', 
+                  fontWeight: 900, 
+                  border: '1px solid var(--primary)33',
+                  letterSpacing: '1px'
+                }}>
+                  <Target size={12} /> PHASE 1: THE AI FOUNDATION MODULE
+                </div>
+              </div>
+
+              <div style={{ 
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '40px'
+              }}>
+                {[
+                  { week: "WEEK 01", title: "AI Core Foundation", desc: "Deep understanding of ML, DL and applications. Master LLM fundamentals and architecture.", color: "var(--primary)", icon: <Cpu size={20} /> },
+                  { week: "WEEK 02", title: "Agentic Systems & Tools", desc: "Build autonomous workflows, integrate tools, and master RAG pipelines.", color: "var(--accent-blue)", icon: <Zap size={20} /> }
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    style={{ 
+                      display: 'flex', 
+                      flexDirection: i % 2 === 0 ? 'row' : 'row-reverse',
+                      alignItems: 'center',
+                      gap: '30px',
+                      width: '100%'
+                    }}
+                    className="timeline-row"
+                  >
+                    <div style={{ flex: 1, textAlign: i % 2 === 0 ? 'right' : 'left' }}>
+                      <div style={{ color: item.color, fontWeight: 800, letterSpacing: '2px', fontSize: '0.7rem', marginBottom: '5px' }}>{item.week}</div>
+                      <h3 style={{ fontSize: '1.2rem', marginBottom: '8px' }}>{item.title}</h3>
+                      <p style={{ color: 'var(--text-dim)', lineHeight: 1.5, fontSize: '0.85rem' }}>{item.desc}</p>
+                    </div>
+                    <div style={{ 
+                      width: '50px', 
+                      height: '50px', 
+                      background: 'var(--bg-card)', 
+                      border: `2px solid ${item.color}`, 
+                      borderRadius: '50%', 
+                      display: 'grid', 
+                      placeItems: 'center', 
+                      zIndex: 2,
+                      boxShadow: `0 0 15px ${item.color}22`,
+                      flexShrink: 0
+                    }}>
+                      {item.icon}
+                    </div>
+                    <div style={{ flex: 1 }} className="hidden md:block" />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Separator Line */}
+            <div style={{ width: '100%', height: '1px', background: 'linear-gradient(to right, transparent, var(--border), transparent)', margin: '40px 0' }} />
+
+            {/* Phase 2: Specialization */}
+            <div style={{ textAlign: 'center', position: 'relative' }}>
+              <div style={{ 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '8px', 
+                background: 'rgba(139, 92, 246, 0.1)', 
+                color: 'var(--secondary)', 
+                padding: '6px 16px', 
+                borderRadius: '30px', 
+                fontSize: '0.95rem', 
+                fontWeight: 900, 
+                border: '1px solid var(--secondary)33',
+                letterSpacing: '1px',
+                marginBottom: '40px'
+              }}>
+                <Compass size={12} /> PHASE 2: ROLE-BASED SPECIALIZATION
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '15px' }} className="revealed-grid">
+                {roles.map((role, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    style={{ 
+                      padding: '20px 15px', 
+                      background: 'rgba(255,255,255,0.02)', 
+                      border: `1px solid ${role.color}33`, 
+                      borderRadius: '16px',
+                      textAlign: 'center',
+                      transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                    }}
+                    whileHover={{ 
+                      y: -5, 
+                      borderColor: role.color, 
+                      background: 'rgba(255,255,255,0.04)'
+                    }}
+                  >
+                    <div style={{ color: role.color, marginBottom: '10px' }}>{role.icon}</div>
+                    <div style={{ fontSize: '0.65rem', fontWeight: 800, color: 'var(--text-dim)', textTransform: 'uppercase', marginBottom: '5px' }}>Weeks 3-4</div>
+                    <h4 style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '8px' }}>{role.title}</h4>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', lineHeight: 1.4 }}>Deep dive into {role.title.split(' & ')[0]} AI workflows.</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* The AI Knowledge Temple (The House) */}
-      <section id="curriculum" style={{ padding: '100px 5%' }}>
+      <section id="curriculum" style={{ padding: '70px 5%' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '80px', fontSize: '2.5rem' }}>The Knowledge <span style={{ color: 'var(--primary)' }}>Temple</span></h2>
 
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column' }}>
+          {/* 1. The Roof */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            style={{
-              width: '100%',
-              padding: 'clamp(20px, 5vw, 40px)',
+            style={{ 
+              maxWidth: '1100px', 
+              margin: '0 auto',
+              background: 'linear-gradient(90deg, var(--primary), var(--secondary))',
+              padding: '15px 40px',
+              borderRadius: '20px 20px 0 0',
               textAlign: 'center',
-              background: 'linear-gradient(to right, var(--primary), var(--secondary))',
-              borderRadius: '100% 100% 0 0 / 100% 100% 0 0',
-              marginBottom: '10px',
-              color: '#000',
-              fontWeight: 900,
               position: 'relative',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              zIndex: 3,
+              width: '100%'
             }}
           >
             <div className="data-beam" style={{ left: '10%', height: '200%', top: '-50%', animationDelay: '0.5s' }} />
             <div className="data-beam" style={{ right: '15%', height: '200%', top: '-50%', animationDelay: '1.2s', background: 'var(--secondary)' }} />
-
-            <GraduationCap style={{ marginBottom: '10px' }} size={32} />
-            <div className="font-orbitron" style={{ fontSize: 'clamp(1rem, 4vw, 1.5rem)' }}>trainVector Role based AI MASTERY</div>
+            
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
+              <GraduationCap style={{ color: '#000' }} size={24} />
+              <div className="font-orbitron" style={{ fontSize: '1.2rem', color: '#000', fontWeight: 900, letterSpacing: '1px' }}>
+                trainVector Role based AI MASTERY
+              </div>
+            </div>
           </motion.div>
 
-          {/* The Pillars (Role Spikes) */}
-          <div className="temple-pillars-grid">
+          {/* 2. The Pillars (Joined together) */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(4, 1fr)', 
+            gap: '0', // NO GAP
+            position: 'relative',
+            zIndex: 2,
+            borderLeft: '1px solid var(--border)',
+            borderRight: '1px solid var(--border)',
+            background: 'var(--bg-card)'
+          }} className="temple-pillars-container">
+            {/* Global Energy Particles (Flowing Up) */}
+            <div className="energy-particle" style={{ bottom: '0', left: '10%', background: 'var(--primary)', animationDelay: '0s' }} />
+            <div className="energy-particle" style={{ bottom: '0', left: '35%', background: 'var(--accent-blue)', animationDelay: '1s' }} />
+            <div className="energy-particle" style={{ bottom: '0', left: '60%', background: 'var(--secondary)', animationDelay: '2s' }} />
+            <div className="energy-particle" style={{ bottom: '0', left: '85%', background: '#ffde00', animationDelay: '1.5s' }} />
+            
+            <div className="energy-particle" style={{ bottom: '0', left: '22%', background: 'var(--primary)', animationDelay: '0.5s', opacity: 0.5 }} />
+            <div className="energy-particle" style={{ bottom: '0', left: '47%', background: 'var(--accent-blue)', animationDelay: '1.5s', opacity: 0.5 }} />
+            <div className="energy-particle" style={{ bottom: '0', left: '72%', background: 'var(--secondary)', animationDelay: '0.8s', opacity: 0.5 }} />
+            <div className="energy-particle" style={{ bottom: '0', left: '95%', background: '#ffde00', animationDelay: '2.2s', opacity: 0.5 }} />
+            
             {roles.map((role, i) => (
               <motion.div
                 key={i}
-                onMouseEnter={() => setActiveColor(role.color)}
-                onMouseLeave={() => setActiveColor(null)}
                 onClick={handleApply}
-                initial={{ opacity: 0, height: 0 }}
-                whileInView={{ opacity: 1, height: 'auto' }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 + (i * 0.1), duration: 0.5 }}
                 style={{
-                  background: 'var(--bg-card)',
-                  borderLeft: `4px solid ${role.color}`,
-                  borderRight: `4px solid ${role.color}`,
-                  padding: '30px 20px',
-                  minHeight: '350px',
+                  borderRight: i < 3 ? '1px solid var(--border)' : 'none',
+                  borderTop: '1px solid var(--border)',
+                  padding: '40px 20px',
+                  minHeight: '380px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -283,20 +501,22 @@ const App = () => {
                   position: 'relative',
                   overflow: 'hidden',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                }}
+                whileHover={{ 
+                  background: 'rgba(255,255,255,0.02)', 
+                  scale: 1.01
                 }}
               >
-                {/* Data Beam climbing the pillar */}
-                <div className="data-beam" style={{ left: '0', background: role.color, animationDelay: `${i * 0.4}s`, opacity: activeColor === role.color ? 0.8 : 0.3 }} />
-                <div className="data-beam" style={{ right: '0', background: role.color, animationDelay: `${i * 0.6}s`, opacity: activeColor === role.color ? 0.8 : 0.3 }} />
-
-                <div style={{ marginBottom: '20px' }}>
-                  {React.cloneElement(role.icon as React.ReactElement, { size: 'clamp(18px, 4vw, 24px)' })}
+                <div className="data-beam" style={{ left: '0', background: role.color, animationDelay: `${i * 0.4}s`, opacity: 0.3 }} />
+                
+                <div style={{ marginBottom: '25px', color: role.color }}>
+                  {role.icon}
                 </div>
-                <h4 style={{ color: role.color, fontSize: '0.9rem', marginBottom: '20px', letterSpacing: '1px' }}>{role.title.toUpperCase()}</h4>
+                <h4 style={{ color: role.color, fontSize: '0.85rem', marginBottom: '20px', letterSpacing: '1px', fontWeight: 800 }}>{role.title.toUpperCase()}</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', flexGrow: 1 }}>
                   {role.skills.map((skill, si) => (
-                    <div key={si} style={{ fontSize: '0.85rem', color: 'var(--text-dim)', borderBottom: '1px solid var(--border)', paddingBottom: '5px' }}>
+                    <div key={si} style={{ fontSize: '0.8rem', color: 'var(--text-dim)', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '5px' }}>
                       {skill}
                     </div>
                   ))}
@@ -305,37 +525,120 @@ const App = () => {
             ))}
           </div>
 
-          {/* The Foundation (The Base) */}
+          {/* 3. The Foundation (The Base) */}
           <motion.div
-            initial={{ opacity: 0.6, scaleX: 0 }}
-            whileInView={{ opacity: 1, scaleX: 1, boxShadow: '0 0 50px var(--primary-glow)' }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
             style={{
-              width: '100%',
+              width: 'calc(100% + 40px)', // Slightly wider to look like a foundation base
+              marginLeft: '-20px',
               background: 'var(--bg-card)',
               border: '2px solid var(--primary)',
-              borderRadius: '0 0 12px 12px',
-              padding: 'clamp(30px, 8vw, 50px) clamp(20px, 5vw, 30px)',
+              boxShadow: '0 0 40px var(--primary-glow)',
+              borderRadius: '10px',
+              padding: '50px 30px',
               textAlign: 'center',
               position: 'relative',
-              zIndex: 1
+              zIndex: 1,
+              marginTop: '-2px' // Overlap slightly to 'attach'
             }}
           >
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'var(--primary)', color: '#000', padding: '5px 15px', borderRadius: '20px', fontSize: 'clamp(0.6rem, 2.5vw, 0.75rem)', fontWeight: 800, textTransform: 'uppercase', marginBottom: '20px' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'var(--primary)', color: '#000', padding: '5px 15px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '25px' }}>
               <Target size={14} /> The Shared Core
             </div>
-            <h3 className="font-orbitron" style={{ fontSize: 'clamp(1.2rem, 5vw, 1.8rem)', color: 'var(--primary)', marginBottom: '30px' }}>THE AI FOUNDATION MODULE</h3>
+            <h3 className="font-orbitron" style={{ fontSize: '1.6rem', color: 'var(--primary)', marginBottom: '30px' }}>THE AI FOUNDATION MODULE</h3>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
               {foundationItems.map((item, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '15px', padding: '15px', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px' }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '15px', padding: '15px', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
                   <div style={{ color: 'var(--primary)' }}>{item.icon}</div>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 600, textAlign: 'left' }}>{item.label}</span>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 600, textAlign: 'left' }}>{item.label}</span>
                 </div>
               ))}
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* The Agentic Sandbox Section */}
+      <section id="agentforge" style={{ padding: '30px 5%', background: 'rgba(0,0,0,0.3)', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          <div className="platform-grid">
+            
+            {/* Text Side */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 style={{ fontSize: '2.5rem', marginBottom: '25px' }}>The trainVector's <br /><span style={{ color: 'var(--primary)' }}>Agent</span><span style={{ color: '#fff' }}>Forge</span> <span style={{ color: 'var(--primary)' }}>Platform</span></h2>
+              <p style={{ color: 'var(--text-dim)', fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '30px' }}>
+                Don't just learn about AI, deploy it. Every student gets exclusive access to our high-fidelity sandbox designed for testing complex multi-agent systems.
+              </p>
+              
+              <div className="platform-features" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '10px' }}>
+                {[
+                  { title: "Multi-Agent Orchestration", desc: "Build and deploy complex AI systems." },
+                  { title: "Deep Observability", desc: "Track reasoning, tool-calls, and run history." },
+                  { title: "Integrated Knowledge", desc: "Connect vector DBs and RAG pipelines." },
+                  { title: "Real-time Analytics", desc: "Monitor success rates and token usage." }
+                ].map((feat, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '12px' }}>
+                    <div style={{ color: 'var(--primary)', marginTop: '3px' }}><CheckCircle2 size={16} /></div>
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: '2px' }}>{feat.title}</div>
+                      <div style={{ color: 'var(--text-dim)', fontSize: '0.8rem', lineHeight: 1.4 }}>{feat.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Visual Side: Dashboard Preview */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              style={{ 
+                position: 'relative',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                border: '1.5px solid #f97316',
+                boxShadow: '0 30px 60px rgba(0,0,0,0.5)'
+              }}
+            >
+              <img 
+                src={agentforgePreview} 
+                alt="AgentForge Dashboard" 
+                style={{ width: '100%', height: '350px', objectFit: 'contain', display: 'block' }} 
+              />
+              <div style={{ 
+                position: 'absolute', 
+                inset: 0, 
+                background: 'linear-gradient(to top, rgba(5,6,10,0.8), transparent 40%)',
+                pointerEvents: 'none'
+              }} />
+              
+              {/* Floating Badge */}
+              <div style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                background: 'rgba(0,0,0,0.7)',
+                backdropFilter: 'blur(10px)',
+                padding: '8px 15px',
+                borderRadius: '30px',
+                fontSize: '0.7rem',
+                fontWeight: 800,
+                color: 'var(--primary)',
+                border: '1px solid var(--primary)44',
+                letterSpacing: '1px'
+              }}>
+                LIVE PLATFORM
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -351,14 +654,14 @@ const App = () => {
               color: "var(--accent-blue)"
             },
             {
-              title: "Builder Workshops",
-              desc: "Interactive, hands-on sessions where you build real-world AI projects and custom agentic workflows.",
+              title: "Expert-Led Masterclasses",
+              desc: "Live, instructor-guided sessions where you architect real-world AI projects and custom agentic workflows under expert mentorship.",
               icon: <Code size={32} />,
               color: "var(--primary)"
             },
             {
-              title: "Expert Guest Talks",
-              desc: "Strategic insights and cutting-edge trends directly from industry leaders and AI pioneers.",
+              title: "Executive AI Briefings",
+              desc: "Strategic insights and cutting-edge trends directly from industry pioneers and global AI authorities.",
               icon: <MessageSquare size={32} />,
               color: "var(--secondary)"
             }
@@ -392,36 +695,6 @@ const App = () => {
         </div>
       </section>
 
-      {/* Fast-Track Timeline */}
-      <section style={{ padding: '100px 5%', textAlign: 'center' }}>
-        <h2 style={{ marginBottom: '60px' }}>YOUR <span style={{ color: 'var(--secondary)' }}>3-STEP</span> JOURNEY</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '0', maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
-          {[
-            { step: "01", title: "Apply for Cohort", desc: "Select your career-synced track and submit your application for the next masterclass." },
-            { step: "02", title: "Master AI Modules", desc: "Complete the Shared Core and branch into high-impact role-specific specialized training." },
-            { step: "03", title: "Scale Your Role", desc: "Deploy your custom AI workflows and lead the transformation in your organization." }
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.2 }}
-              style={{ padding: '40px', position: 'relative', borderLeft: i !== 0 ? '1px solid var(--border)' : 'none' }}
-            >
-              <div style={{ fontSize: '4rem', fontWeight: 900, color: 'rgba(255,255,255,0.03)', position: 'absolute', top: '10px', left: '20px', zIndex: 0 }}>{item.step}</div>
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <h4 style={{ color: i === 0 ? 'var(--primary)' : i === 1 ? 'var(--secondary)' : 'var(--accent-blue)', marginBottom: '15px', fontSize: '1.2rem' }}>{item.title}</h4>
-                <p style={{ color: 'var(--text-dim)', fontSize: '0.95rem', lineHeight: 1.6 }}>{item.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-
-
-
-
       {/* FAQ Section */}
       <section id="faq" style={{ padding: '100px 5%' }}>
         <motion.div
@@ -438,11 +711,11 @@ const App = () => {
           </p>
 
           {[
-            { q: "Is this program suitable for beginners?", a: "Yes! The program starts with a Shared AI Foundation module that brings everyone up to speed — regardless of your background. From there, you branch into your role-specific track. You only need curiosity and a growth mindset." },
-            { q: "How much time do I need to commit per week?", a: "We recommend 6–8 hours per week. This includes self-paced modules, live workshops (2 hrs/week), and hands-on project work." },
-            { q: "Which track should I choose?", a: "Choose based on your current role: Builder Track -Developers & Architects , Product Management Track- Product Managers & BAs, Delivery & Execution Track -Program Managers and Scrum Masters and Strategic Decision Makers Track - Executives & Leaders . Not sure? Apply and we'll guide you." },
-            { q: "Do I get a certificate at the end?", a: "Yes! Upon successful completion of your track, you receive a trainVector AI Mastery Certificate verified and shareable on LinkedIn. You also get access to exclusive alumni community and resources." },
-            { q: "Is the content updated regularly?", a: "Absolutely. AI moves fast and so do we. The curriculum is reviewed and updated every cohort to reflect the latest models, tools, and industry best practices — including emerging topics like MCP and multi-agent systems." },
+            { q: "Is this program suitable for beginners?", a: "Yes! The program starts with a 2-week 'Shared AI Foundation' module that brings everyone up to speed — regardless of your background. From there, you branch into your role-specific track for another 2 weeks. You only need curiosity and a growth mindset." },
+            { q: "How much time do I need to commit per week?", a: "This is a 4-week high-intensity program. We recommend a commitment of 15-20 hours per week. This includes interactive modules, live builder workshops, and hands-on project work." },
+            { q: "Which track should I choose?", a: "Choose based on your current role: Builder Track (Developers & Architects), Product Track (Product Managers & BAs), Delivery Track (Program Managers and Scrum Masters), or Strategy Track (Executives & Leaders). Not sure? Apply and we'll guide you." },
+            { q: "Do I get a certificate at the end?", a: "Yes! Upon successful completion of your track, you receive a trainVector AI Mastery Certificate. You also get access to exclusive alumni community and resources." },
+            { q: "Is the content updated regularly?", a: "Absolutely. AI is advancing at an unprecedented pace and so does our curriculum, updated every cohort with the latest tools, models, and emerging trends." },
             { q: "What is the investment/cost?", a: "Pricing is based on your selected track and cohort. Apply now and our admissions team will share the full fee structure and any early-bird offers available for the upcoming cohort." }
           ].map((item, i) => (
             <motion.div
@@ -579,70 +852,87 @@ const App = () => {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit}>
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '8px', 
+                    background: '#ffde0022', 
+                    color: '#ffde00', 
+                    padding: '8px 16px', 
+                    borderRadius: '12px', 
+                    fontSize: '0.75rem', 
+                    fontWeight: 800,
+                    border: '1px solid #ffde0033',
+                    marginBottom: '25px',
+                    justifyContent: 'center'
+                  }}>
+                    <Zap size={14} /> SCHOLARSHIP ALERT: FIRST 10 SEATS ARE FREE
+                  </div>
+
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
                     <h3 className="font-orbitron" style={{ fontSize: '1.2rem' }}>
-                      {step === 1 && "PROFESSIONAL IDENTITY"}
-                      {step === 2 && "SELECT SPECIALIZATION"}
-                      {step === 3 && "CURRICULUM INTENT"}
+                      {step === 1 && "TELL US ABOUT YOU"}
+                      {step === 2 && "CHOOSE YOUR PATH"}
+                      {step === 3 && "ADMISSIONS CONTEXT"}
                     </h3>
                     <span style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 700 }}>STEP {step}/3</span>
                   </div>
 
-                  <AnimatePresence mode="wait">
-                    {step === 1 && (
-                      <motion.div key="step1" initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -20, opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                        <div className="input-field">
-                          <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Full Name <span style={{ color: 'var(--primary)' }}>*</span></label>
-                          <input
-                            required
-                            type="text"
-                            className="glass-card"
-                            style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
-                            value={formData.name}
-                            onChange={(e) => {
-                              setFormData({ ...formData, name: e.target.value });
-                              setFormError('');
-                            }}
-                          />
-                        </div>
-                        <div className="input-field">
-                          <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Email <span style={{ color: 'var(--primary)' }}>*</span></label>
-                          <input
-                            required
-                            type="email"
-                            className="glass-card"
-                            style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
-                            value={formData.email}
-                            onChange={(e) => {
-                              setFormData({ ...formData, email: e.target.value });
-                              setFormError('');
-                            }}
-                          />
-                        </div>
-                        <div className="input-field">
-                          <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Phone Number <span style={{ color: 'var(--primary)' }}>*</span></label>
-                          <input
-                            required
-                            type="tel"
-                            className="glass-card"
-                            style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
-                            value={formData.phone}
-                            onChange={(e) => {
-                              setFormData({ ...formData, phone: e.target.value });
-                              setFormError('');
-                            }}
-                          />
-                        </div>
-                        <div className="input-field">
-                          <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Company / Organization (Optional)</label>
-                          <input
-                            type="text"
-                            className="glass-card"
-                            style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
-                            value={formData.company}
-                            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                          />
-                        </div>
+                      <AnimatePresence mode="wait">
+                        {step === 1 && (
+                          <motion.div key="step1" initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -20, opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                            <div className="input-field">
+                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Name <span style={{ color: 'var(--primary)' }}>*</span></label>
+                              <input
+                                required
+                                type="text"
+                                className="glass-card"
+                                style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
+                                value={formData.name}
+                                onChange={(e) => {
+                                  setFormData({ ...formData, name: e.target.value });
+                                  setFormError('');
+                                }}
+                              />
+                            </div>
+                            <div className="input-field">
+                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Email <span style={{ color: 'var(--primary)' }}>*</span></label>
+                              <input
+                                required
+                                type="email"
+                                className="glass-card"
+                                style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
+                                value={formData.email}
+                                onChange={(e) => {
+                                  setFormData({ ...formData, email: e.target.value });
+                                  setFormError('');
+                                }}
+                              />
+                            </div>
+                            <div className="input-field">
+                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Phone <span style={{ color: 'var(--primary)' }}>*</span></label>
+                              <input
+                                required
+                                type="tel"
+                                className="glass-card"
+                                style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
+                                value={formData.phone}
+                                onChange={(e) => {
+                                  setFormData({ ...formData, phone: e.target.value });
+                                  setFormError('');
+                                }}
+                              />
+                            </div>
+                            <div className="input-field">
+                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Company (Optional)</label>
+                              <input
+                                type="text"
+                                className="glass-card"
+                                style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
+                                value={formData.company}
+                                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                              />
+                            </div>
                         {formError && (
                           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ color: '#ef4444', fontSize: '0.8rem', fontWeight: 600 }}>
                             {formError}
