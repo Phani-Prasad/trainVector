@@ -56,24 +56,28 @@ const App = () => {
       title: "Developers & Architects",
       icon: <Terminal size={24} color="var(--accent-blue)" />,
       skills: ["RAG Architecture & Retrieval Pipelines", "Model Fine-Tuning & Customization Strategies", "API Orchestration & AI Service Integration", "AI Observability, Evaluation & Guardrails"],
+      summary: "Model Fine-Tuning & Customization Strategies, AI Observability, Evaluation & Guardrails",
       color: "var(--accent-blue)"
     },
     {
       title: "Product Managers & Business Analysts",
       icon: <Compass size={24} color="var(--primary)" />,
       skills: ["AI-Driven User Insights & Analytics", "Product-Market Fit", "Prompt Engineering Strategy", "Strategic Prioritization"],
+      summary: "AI-Driven User Insights, Product-Market Fit, and Prompt Engineering Strategy.",
       color: "var(--primary)"
     },
     {
       title: "Project & Delivery Managers",
       icon: <ClipboardList size={24} color="#ffde00" />,
       skills: ["End-to-End AI Lifecycle Management", "Proactive Risk Management & Mitigation", "Strategic Resource Planning", "Vendor Strategy, Evaluation"],
+      summary: "End-to-End AI Lifecycle Management, Risk Mitigation, and Resource Planning.",
       color: "#ffde00"
     },
     {
       title: "Executives & Leaders",
       icon: <Briefcase size={24} color="var(--secondary)" />,
       skills: ["Value Realization & AI-Driven ROI", "AI Governance & Responsible Oversight", "Enterprise Transformation & Change Leadership", "Ethical AI, Risk & Regulatory Compliance"],
+      summary: "Value Realization, AI ROI, Governance, and Enterprise Transformation.",
       color: "var(--secondary)"
     }
   ];
@@ -417,7 +421,7 @@ const App = () => {
                     <div style={{ color: role.color, marginBottom: '10px' }}>{role.icon}</div>
                     <div style={{ fontSize: '0.65rem', fontWeight: 800, color: 'var(--text-dim)', textTransform: 'uppercase', marginBottom: '5px' }}>Weeks 3-4</div>
                     <h4 style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '8px' }}>{role.title}</h4>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', lineHeight: 1.4 }}>Deep dive into {role.title.split(' & ')[0]} AI workflows.</p>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', lineHeight: 1.4 }}>{role.summary}</p>
                   </motion.div>
                 ))}
               </div>
