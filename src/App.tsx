@@ -562,8 +562,8 @@ const App = () => {
       </section>
 
       {/* The Agentic Sandbox Section */}
-      <section id="agentforge" style={{ padding: '30px 5%', background: 'rgba(0,0,0,0.3)', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      <section id="agentforge" style={{ padding: '50px 5%', background: 'rgba(0,0,0,0.3)', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div className="platform-grid">
             
             {/* Text Side */}
@@ -572,12 +572,12 @@ const App = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 style={{ fontSize: '2.5rem', marginBottom: '25px' }}>The trainVector's <br /><span style={{ color: 'var(--primary)' }}>Agent</span><span style={{ color: '#fff' }}>Forge</span> <span style={{ color: 'var(--primary)' }}>Platform</span></h2>
-              <p style={{ color: 'var(--text-dim)', fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '30px' }}>
+              <h2 style={{ fontSize: '2.2rem', marginBottom: '20px' }}>The trainVector's <br /><span style={{ color: 'var(--primary)' }}>Agent</span><span style={{ color: '#fff' }}>Forge</span> <span style={{ color: 'var(--primary)' }}>Platform</span></h2>
+              <p style={{ color: 'var(--text-dim)', fontSize: '1rem', lineHeight: 1.6, marginBottom: '25px' }}>
                 Don't just learn about AI, deploy it. Every student gets exclusive access to our high-fidelity sandbox designed for testing complex multi-agent systems.
               </p>
               
-              <div className="platform-features" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '10px' }}>
+              <div className="platform-features" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginTop: '10px' }}>
                 {[
                   { title: "Multi-Agent Orchestration", desc: "Build and deploy complex AI systems." },
                   { title: "Deep Observability", desc: "Track reasoning, tool-calls, and run history." },
@@ -611,7 +611,7 @@ const App = () => {
               <img 
                 src={agentforgePreview} 
                 alt="AgentForge Dashboard" 
-                style={{ width: '100%', height: '350px', objectFit: 'contain', display: 'block' }} 
+                style={{ width: '100%', height: '380px', objectFit: 'contain', display: 'block' }} 
               />
               <div style={{ 
                 position: 'absolute', 
