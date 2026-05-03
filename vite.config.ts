@@ -11,5 +11,16 @@ export default defineConfig({
       '@firebase/app',
       '@firebase/firestore',
     ]
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        }
+      }
+    }
   }
 })
