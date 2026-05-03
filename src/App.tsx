@@ -245,7 +245,7 @@ const App = () => {
       </section>
 
       {/* Program Structure / Timeline */}
-      <section style={{ padding: '40px 5%', background: 'rgba(255,255,255,0.02)', borderY: '1px solid var(--border)' }}>
+      <section style={{ padding: '40px 5%', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
             <div style={{ padding: '12px', background: 'var(--primary)15', color: 'var(--primary)', borderRadius: '12px' }}>
