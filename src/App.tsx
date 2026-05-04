@@ -31,7 +31,7 @@ import {
 } from 'lucide-react';
 
 import logo from './assets/logo_wide.png';
-import agentforgePreview from './assets/agentforge_preview.png';
+import agentclampPreview from './assets/agentclamp_preview.png';
 
 const App = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -176,7 +176,7 @@ const App = () => {
         </div>
         <div className="nav-links">
           <a href="#curriculum" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>CURRICULUM</a>
-          <a href="#agentforge" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>AgentForge</a>
+          <a href="#agentclamp" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>AgentClamp</a>
           <a href="#faq" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>FAQ</a>
           <button onClick={handleApply} className="glow-btn" style={{ fontSize: 'min(0.8rem, 3vw)', padding: '8px 20px' }}>Join Cohort</button>
         </div>
@@ -566,7 +566,7 @@ const App = () => {
       </section>
 
       {/* The Agentic Sandbox Section */}
-      <section id="agentforge" style={{ padding: '50px 5%', background: 'rgba(0,0,0,0.3)', position: 'relative', overflow: 'hidden' }}>
+      <section id="agentclamp" style={{ padding: '50px 5%', background: 'rgba(0,0,0,0.3)', position: 'relative', overflow: 'hidden' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div className="platform-grid">
             
@@ -576,7 +576,7 @@ const App = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 style={{ fontSize: '2.2rem', marginBottom: '20px' }}>The trainVector's <br /><span style={{ color: 'var(--primary)' }}>Agent</span><span style={{ color: '#fff' }}>Forge</span> <span style={{ color: 'var(--primary)' }}>Platform</span></h2>
+              <h2 style={{ fontSize: '2.2rem', marginBottom: '20px' }}>The trainVector's <br /><span style={{ color: 'var(--primary)' }}>Agent</span><span style={{ color: '#fff' }}>Clamp</span> <span style={{ color: 'var(--primary)' }}>Platform</span></h2>
               <p style={{ color: 'var(--text-dim)', fontSize: '1rem', lineHeight: 1.6, marginBottom: '25px' }}>
                 Don't just learn about AI, deploy it. Every student gets exclusive access to our high-fidelity sandbox designed for testing complex multi-agent systems.
               </p>
@@ -613,9 +613,9 @@ const App = () => {
               }}
             >
               <img 
-                src={agentforgePreview} 
-                alt="AgentForge Dashboard" 
-                style={{ width: '100%', height: '380px', objectFit: 'contain', display: 'block' }} 
+                src={agentclampPreview} 
+                alt="AgentClamp Dashboard" 
+                style={{ width: '100%', height: '320px', objectFit: 'contain', display: 'block' }} 
               />
               <div style={{ 
                 position: 'absolute', 
@@ -624,23 +624,6 @@ const App = () => {
                 pointerEvents: 'none'
               }} />
               
-              {/* Floating Badge */}
-              <div style={{
-                position: 'absolute',
-                top: '20px',
-                right: '20px',
-                background: 'rgba(0,0,0,0.7)',
-                backdropFilter: 'blur(10px)',
-                padding: '8px 15px',
-                borderRadius: '30px',
-                fontSize: '0.7rem',
-                fontWeight: 800,
-                color: 'var(--primary)',
-                border: '1px solid var(--primary)44',
-                letterSpacing: '1px'
-              }}>
-                LIVE PLATFORM
-              </div>
             </motion.div>
           </div>
         </div>
