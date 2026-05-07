@@ -315,3 +315,13 @@ h1, h2, h3, .font-orbitron {
     max-height: 350px !important;
   }
 }
+
+.social-link:hover svg {
+  color: var(--primary) !important;
+  transform: translateY(-3px);
+  filter: drop-shadow(0 0 8px var(--primary-glow));
+}
+
+.social-link svg {
+  transition: all 0.3s ease;
+}

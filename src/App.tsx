@@ -27,7 +27,8 @@ import {
   Code,
   X,
   CheckCircle2,
-  ChevronLeft
+  ChevronLeft,
+  Instagram
 } from 'lucide-react';
 
 import logo from './assets/logo_wide.png';
@@ -785,12 +786,18 @@ const App = () => {
         </div>
         <p style={{ color: 'var(--text-dim)', marginBottom: '10px' }}>&copy; {new Date().getFullYear()} trainVector Academy. All Rights Reserved.</p>
         <p style={{ color: 'var(--primary)', fontWeight: 600, marginBottom: '30px', fontSize: '1.1rem' }}>
-          Questions? Call us: <a href="tel:+918310590859" style={{ color: 'inherit', textDecoration: 'none' }}>+91 8310590859</a>
+          Questions? Call us: +91 8310590859
         </p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
-          <Twitter size={20} color="var(--text-dim)" />
-          <Linkedin size={20} color="var(--text-dim)" />
-          <BookOpen size={20} color="var(--text-dim)" />
+          <a href="https://x.com/TrainVector9" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', transition: 'color 0.3s ease' }} className="social-link">
+            <Twitter size={20} color="var(--text-dim)" />
+          </a>
+          <a href="https://www.linkedin.com/company/trainvector/about/?viewAsMember=true" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', transition: 'color 0.3s ease' }} className="social-link">
+            <Linkedin size={20} color="var(--text-dim)" />
+          </a>
+          <a href="https://www.instagram.com/trainvector9/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', transition: 'color 0.3s ease' }} className="social-link">
+            <Instagram size={20} color="var(--text-dim)" />
+          </a>
         </div>
       </footer>
 
