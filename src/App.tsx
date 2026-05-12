@@ -104,7 +104,7 @@ const App = () => {
 
     try {
       // 1. Save to Firebase Firestore
-      await addDoc(collection(db, 'leads'), {
+      await addDoc(collection(db, 'submissions'), {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
@@ -112,7 +112,7 @@ const App = () => {
         specialization: formData.specialization,
         goals: formData.goals,
         experience: formData.experience,
-        submittedAt: serverTimestamp()
+        createdAt: serverTimestamp()
       });
 
       // 2. Send email notification via EmailJS
@@ -164,7 +164,7 @@ const App = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <img
             src={logo}
-            alt="trainVector Logo"
+            alt="trainVector™ Logo"
             style={{
               height: 'var(--logo-height, 70px)',
               maxHeight: '12vw',
@@ -200,7 +200,7 @@ const App = () => {
           <p style={{ maxWidth: '1000px', margin: '30px auto', fontSize: '1.2rem', lineHeight: '1.7' }}>
             <span style={{ color: '#fff', fontWeight: 800, letterSpacing: '0.5px' }}>One common intelligence core. Four specialized professional paths.</span>
             <span style={{ color: 'rgba(255,255,255,0.5)', margin: '0 15px' }}>|</span>
-            <span style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 500 }}>trainVector Academy's structured blueprint for transforming your knowledge into a career-defining advantage.</span>
+            <span style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 500 }}>trainVector™ Academy's structured blueprint for transforming your knowledge into a career-defining advantage.</span>
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '60px', position: 'relative' }}>
             {/* Pulsing Badge */}
@@ -295,7 +295,7 @@ const App = () => {
       {/* The 2+2 Mastery Roadmap */}
       <section style={{ padding: '60px 5%', background: 'rgba(255,255,255,0.01)', position: 'relative', overflow: 'hidden' }}>
         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-          <h2 style={{ fontSize: '2.2rem', marginBottom: '15px' }}>THE <span style={{ color: 'var(--primary)' }}>MASTERY</span> ROADMAP</h2>
+          <h2 style={{ fontSize: '2.2rem', marginBottom: '15px' }}>THE trainVector™ <span style={{ color: 'var(--primary)' }}>MASTERY ROADMAP</span></h2>
           <p style={{ color: 'var(--text-dim)', maxWidth: '600px', margin: '0 auto', fontSize: '0.9rem' }}>From a unified core to specialized mastery in 4 weeks.</p>
         </div>
 
@@ -308,6 +308,18 @@ const App = () => {
             overflow: 'hidden',
             boxShadow: '0 0 30px rgba(249, 115, 22, 0.05)'
           }}>
+            {/* Watermark */}
+            <div style={{ 
+              position: 'absolute', 
+              bottom: '15px', 
+              right: '20px', 
+              fontSize: '0.65rem', 
+              color: 'rgba(255, 255, 255, 0.5)', 
+              pointerEvents: 'none',
+              letterSpacing: '1px'
+            }}>
+              Proprietary Framework of trainVector™ Academy. All Rights Reserved.
+            </div>
             {/* Phase 1: The Core Foundation */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', position: 'relative', marginBottom: '80px' }}>
               <div style={{ textAlign: 'center', marginBottom: '10px' }}>
@@ -431,9 +443,9 @@ const App = () => {
         </div>
       </section>
 
-      {/* The AI Knowledge Temple (The House) */}
+      {/* The trainVector™ AI Adoption Framework (The House) */}
       <section id="curriculum" style={{ padding: '70px 5%' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '80px', fontSize: '2.5rem' }}>The Knowledge <span style={{ color: 'var(--primary)' }}>Temple</span></h2>
+        <h2 style={{ textAlign: 'center', marginBottom: '80px', fontSize: '2.5rem' }}>trainVector™ AI <span style={{ color: 'var(--primary)' }}>Adoption Framework</span></h2>
 
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column' }}>
           {/* 1. The Roof */}
@@ -460,7 +472,7 @@ const App = () => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
               <GraduationCap style={{ color: '#000' }} size={24} />
               <div className="font-orbitron" style={{ fontSize: '1.2rem', color: '#000', fontWeight: 900, letterSpacing: '1px' }}>
-                trainVector Role based AI MASTERY
+                trainVector™ Role based AI MASTERY
               </div>
             </div>
           </motion.div>
@@ -562,6 +574,18 @@ const App = () => {
                 </div>
               ))}
             </div>
+              {/* Watermark */}
+              <div style={{ 
+                position: 'absolute', 
+                bottom: '15px', 
+                right: '20px', 
+                fontSize: '0.65rem', 
+                color: 'rgba(255, 255, 255, 0.5)', 
+                pointerEvents: 'none',
+                letterSpacing: '1px'
+              }}>
+                Proprietary Framework of trainVector™ Academy. All Rights Reserved.
+              </div>
           </motion.div>
         </div>
       </section>
@@ -577,7 +601,7 @@ const App = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 style={{ fontSize: '2.2rem', marginBottom: '20px' }}>The trainVector's <br /><span style={{ color: 'var(--primary)' }}>Agent</span><span style={{ color: '#fff' }}>Clamp</span> <span style={{ color: 'var(--primary)' }}>Platform</span></h2>
+              <h2 style={{ fontSize: '2.2rem', marginBottom: '20px' }}>The trainVector™ <br /><span style={{ color: 'var(--primary)' }}>Agent</span><span style={{ color: '#fff' }}>Clamp</span> <span style={{ color: 'var(--primary)' }}>Platform</span></h2>
               <p style={{ color: 'var(--text-dim)', fontSize: '1rem', lineHeight: 1.6, marginBottom: '25px' }}>
                 Don't just learn about AI, deploy it. Every student gets exclusive access to our high-fidelity sandbox designed for testing complex multi-agent systems.
               </p>
@@ -683,6 +707,7 @@ const App = () => {
         </div>
       </section>
 
+
       {/* FAQ Section */}
       <section id="faq" style={{ padding: '100px 5%' }}>
         <motion.div
@@ -702,7 +727,7 @@ const App = () => {
             { q: "Is this program suitable for beginners?", a: "Yes! The program starts with a 2-week 'Shared AI Foundation' module that brings everyone up to speed — regardless of your background. From there, you branch into your role-specific track for another 2 weeks. You only need curiosity and a growth mindset." },
             { q: "How much time do I need to commit per week?", a: "This is a 4-week high-intensity program. We recommend a commitment of 15-20 hours per week. This includes interactive modules, live builder workshops, and hands-on project work." },
             { q: "Which track should I choose?", a: "Choose based on your current role: Builder Track (Developers & Architects), Product Track (Product Managers & BAs), Delivery Track (Program Managers and Scrum Masters), or Strategy Track (Executives & Leaders). Not sure? Apply and we'll guide you." },
-            { q: "Do I get a certificate at the end?", a: "Yes! Upon successful completion of your track, you receive a trainVector AI Mastery Certificate. You also get access to exclusive alumni community and resources." },
+            { q: "Do I get a certificate at the end?", a: "Yes! Upon successful completion of your track, you receive a trainVector™ AI Mastery Certificate. You also get access to exclusive alumni community and resources." },
             { q: "Is the content updated regularly?", a: "Absolutely. AI is advancing at an unprecedented pace and so does our curriculum, updated every cohort with the latest tools, models, and emerging trends." },
             { q: "What is the investment/cost?", a: "Pricing is based on your selected track and cohort. Apply now and our admissions team will share the full fee structure and any early-bird offers available for the upcoming cohort." }
           ].map((item, i) => (
@@ -773,7 +798,7 @@ const App = () => {
         <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', alignItems: 'center', marginBottom: '30px' }}>
           <img
             src={logo}
-            alt="trainVector Logo"
+            alt="trainVector™ Logo"
             style={{
               height: 'var(--logo-height, 70px)',
               maxHeight: '12vw',
@@ -784,7 +809,7 @@ const App = () => {
             }}
           />
         </div>
-        <p style={{ color: 'var(--text-dim)', marginBottom: '10px' }}>&copy; {new Date().getFullYear()} trainVector Academy. All Rights Reserved.</p>
+        <p style={{ color: 'var(--text-dim)', marginBottom: '10px' }}>&copy; {new Date().getFullYear()} trainVector™ Academy. All Rights Reserved.</p>
         <p style={{ color: 'var(--primary)', fontWeight: 600, marginBottom: '30px', fontSize: '1.1rem' }}>
           Questions? Call us: +91 8310590859
         </p>
