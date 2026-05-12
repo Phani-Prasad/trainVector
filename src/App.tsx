@@ -31,7 +31,7 @@ import {
   Instagram
 } from 'lucide-react';
 
-import logo from './assets/logo_wide.png';
+import logo from './assets/logo_new.png';
 import agentclampPreview from './assets/agentclamp_preview.png';
 
 const App = () => {
@@ -170,13 +170,11 @@ const App = () => {
               maxHeight: '12vw',
               minHeight: '40px',
               borderRadius: '6px',
-              background: '#fff',
-              padding: '6px'
             }}
           />
         </div>
         <div className="nav-links">
-          <a href="#curriculum" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>CURRICULUM</a>
+          <a href="#curriculum" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Adoption Framework</a>
           <a href="#agentclamp" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>AgentClamp</a>
           <a href="#faq" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>FAQ</a>
           <button onClick={handleApply} className="glow-btn" style={{ fontSize: 'min(0.8rem, 3vw)', padding: '8px 20px' }}>Join Cohort</button>
@@ -804,8 +802,6 @@ const App = () => {
               maxHeight: '12vw',
               minHeight: '40px',
               borderRadius: '6px',
-              background: '#fff',
-              padding: '6px'
             }}
           />
         </div>
