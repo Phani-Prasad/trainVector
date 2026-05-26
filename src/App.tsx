@@ -445,9 +445,9 @@ const App = () => {
                   Accelerate your transition into AI development. Learn from core concepts to dynamic model orchestrations with dedicated portfolio builder placement.
                 </p>
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
-                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Build real-world AI applications</li>
+                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Master the Foundations of AI</li>
                   <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Understand modern GenAI & Agentic AI systems</li>
-                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Gain enterprise AI exposure</li>
+                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Build Real-World AI Solutions</li>
                   <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Become industry-ready AI professionals</li>
                 </ul>
               </div>
@@ -499,7 +499,7 @@ const App = () => {
                   Apply as Professional
                 </button>
                 <button onClick={() => document.getElementById('professional-roadmap')?.scrollIntoView({ behavior: 'smooth' })} className="glass-card" style={{ padding: '10px 16px', fontSize: '0.8rem', fontWeight: 600, flex: 1, textAlign: 'center' }}>
-                  Explore Tracks
+                  Explore Track
                 </button>
               </div>
             </div>
@@ -1372,9 +1372,8 @@ const App = () => {
                         {userType === 'student' ? (
                           <>
                             <div className="input-field">
-                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>College / University <span style={{ color: 'var(--primary)' }}>*</span></label>
+                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>College / University</label>
                               <input
-                                required
                                 type="text"
                                 className="glass-card"
                                 style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
@@ -1384,9 +1383,8 @@ const App = () => {
                               />
                             </div>
                             <div className="input-field">
-                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Degree & Branch <span style={{ color: 'var(--primary)' }}>*</span></label>
+                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Degree & Branch</label>
                               <input
-                                required
                                 type="text"
                                 className="glass-card"
                                 style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
@@ -1399,9 +1397,8 @@ const App = () => {
                         ) : (
                           <>
                             <div className="input-field">
-                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Company Name <span style={{ color: 'var(--primary)' }}>*</span></label>
+                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Company Name</label>
                               <input
-                                required
                                 type="text"
                                 className="glass-card"
                                 style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
@@ -1411,9 +1408,8 @@ const App = () => {
                               />
                             </div>
                             <div className="input-field">
-                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Current Designation <span style={{ color: 'var(--primary)' }}>*</span></label>
+                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Current Designation</label>
                               <input
-                                required
                                 type="text"
                                 className="glass-card"
                                 style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
@@ -1436,7 +1432,7 @@ const App = () => {
                           <button 
                             type="button" 
                             onClick={() => {
-                              if (!formData.name || !formData.email || !formData.phone || !formData.company || !formData.designationOrDegree) {
+                              if (!formData.name || !formData.email || !formData.phone) {
                                 setFormError('All fields with * are mandatory');
                               } else {
                                 setStep(3);
