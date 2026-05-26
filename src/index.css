@@ -158,6 +158,15 @@ h1, h2, h3, .font-orbitron {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px !important;
   }
+
+  .timeline-connector-line {
+    display: none !important;
+  }
+
+  .roadmap-timeline-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
 }
 
 .nav-links {
