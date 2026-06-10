@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ChatWidget from './components/ChatWidget';
 import { motion, AnimatePresence } from 'framer-motion';
 import { db } from './firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -28,11 +29,17 @@ import {
   X,
   CheckCircle2,
   ChevronLeft,
-  Instagram
+  Instagram,
+  Github,
+  Mail,
+  Phone,
+  MapPin
 } from 'lucide-react';
 
 import logo from './assets/logo_new.png';
 import agentclampPreview from './assets/agentclamp_preview.png';
+import phaniProfile from './assets/phani_profile.png';
+
 
 const App = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -41,7 +48,7 @@ const App = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [formError, setFormError] = useState('');
-  const [userType, setUserType] = useState<'student' | 'professional' | null>(null);
+  const [userType, setUserType] = useState<'student' | 'professional' | 'consulting' | null>(null);
   const [activeProfRoadmap, setActiveProfRoadmap] = useState<'developer' | 'executive'>('developer');
 
   const [formData, setFormData] = useState({
@@ -273,7 +280,7 @@ const App = () => {
 
 
 
-  const handleApply = (type?: 'student' | 'professional') => {
+  const handleApply = (type?: 'student' | 'professional' | 'consulting') => {
     setIsModalOpen(true);
     setStep(type ? 2 : 1); // Skip selection screen if pre-selected in hero!
     setUserType(type || null);
@@ -291,22 +298,29 @@ const App = () => {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setIsSubmitting(true);
+
+    let resolvedUserType = 'Working Professional';
+    if (userType === 'student') {
+      resolvedUserType = 'Campus / Fresh Graduate';
+    } else if (userType === 'consulting') {
+      resolvedUserType = 'Enterprise Consulting';
+    }
 
     try {
       // 1. Save to Firebase Firestore
       await addDoc(collection(db, 'submissions'), {
-        userType: userType === 'student' ? 'Campus / Fresh Graduate' : 'Working Professional',
+        userType: resolvedUserType,
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         companyOrCollege: formData.company,
         designationOrDegree: formData.designationOrDegree,
-        specialization: formData.specialization,
-        goals: formData.goals,
-        experience: formData.experience,
+        specialization: formData.specialization || (userType === 'consulting' ? 'AI Consulting' : ''),
+        goals: formData.goals || (userType === 'consulting' ? 'Consulting Request' : ''),
+        experience: formData.experience || '',
         createdAt: serverTimestamp()
       });
 
@@ -315,15 +329,15 @@ const App = () => {
         'service_hntv8qm',
         'template_nnw0myj',
         {
-          userType: userType === 'student' ? 'Campus / Fresh Graduate' : 'Working Professional',
+          userType: resolvedUserType,
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
           company: formData.company,
           designationOrDegree: formData.designationOrDegree,
-          specialization: formData.specialization,
-          goals: formData.goals,
-          experience: formData.experience,
+          specialization: formData.specialization || (userType === 'consulting' ? 'AI Consulting' : ''),
+          goals: formData.goals || (userType === 'consulting' ? 'Consulting Request' : ''),
+          experience: formData.experience || '',
         },
         'eNkzn7ZO6GbcTQ8wL'
       );
@@ -373,31 +387,36 @@ const App = () => {
           <img
             src={logo}
             alt="trainVector™ Logo"
+            draggable={false}
             style={{
               height: 'var(--logo-height, 70px)',
               maxHeight: '12vw',
               minHeight: '40px',
               borderRadius: '6px',
-            }}
+              userSelect: 'none',
+              WebkitUserDrag: 'none'
+            } as any}
           />
         </div>
         <div className="nav-links">
           <a href="#student-roadmap" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Roadmaps</a>
           <a href="#agentclamp" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>AgentClamp</a>
+          <a href="#consulting" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Consulting</a>
+          <a href="#team" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Team</a>
           <a href="#faq" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>FAQ</a>
           <button onClick={() => handleApply()} className="glow-btn" style={{ fontSize: 'min(0.8rem, 3vw)', padding: '8px 20px' }}>Join Cohort</button>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="hero-section" style={{ padding: '160px 5% 100px', textAlign: 'center', position: 'relative' }}>
+      <section className="hero-section" style={{ padding: '160px 5% 30px', textAlign: 'center', position: 'relative' }}>
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
         >
           <span style={{ color: 'var(--primary)', letterSpacing: '4px', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase' }}>
-            The Architecture of Intelligence
+            GenAI Academy & Enterprise Consulting
           </span>
           <h1 style={{ fontSize: 'clamp(2.1rem, 4.2vw, 3.2rem)', marginTop: '20px', lineHeight: 1.25 }}>
             BUILD YOUR <span style={{ color: 'var(--primary)', textShadow: '0 0 20px var(--primary-glow)' }}>AI FUTURE</span> <br />
@@ -509,7 +528,7 @@ const App = () => {
 
 
       {/* Student Specialization Roadmap */}
-      <section id="student-roadmap" style={{ padding: '60px 5%', background: 'rgba(255,255,255,0.01)', position: 'relative', overflow: 'hidden' }}>
+      <section id="student-roadmap" style={{ padding: '20px 5% 60px', background: 'rgba(255,255,255,0.01)', position: 'relative', overflow: 'hidden' }}>
         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
           <h2 style={{ fontSize: '2.2rem', marginBottom: '15px' }}>THE trainVector™ <span style={{ color: '#06b6d4' }}>STUDENT ROADMAP</span></h2>
           <p style={{ color: 'var(--text-dim)', margin: '0 auto', fontSize: '0.9rem' }}>Fast-track your technical specialized AI domain knowledge in a high-intensity 5-week cohort.</p>
@@ -601,7 +620,7 @@ const App = () => {
                   }}>
                     {step.skills.map((skill, si) => (
                       <div key={si} style={{
-                        fontSize: '0.75rem',
+                        fontSize: '0.85rem',
                         color: 'var(--text-dim)',
                         display: 'flex',
                         gap: '6px',
@@ -757,7 +776,7 @@ const App = () => {
                   }}>
                     {step.skills.map((skill, si) => (
                       <div key={si} style={{
-                        fontSize: '0.75rem',
+                        fontSize: '0.85rem',
                         color: 'var(--text-dim)',
                         display: 'flex',
                         gap: '6px',
@@ -779,7 +798,7 @@ const App = () => {
 
 
       {/* The Agentic Sandbox Section */}
-      <section id="agentclamp" style={{ padding: '50px 5%', background: 'rgba(0,0,0,0.3)', position: 'relative', overflow: 'hidden' }}>
+      <section id="agentclamp" style={{ padding: '50px 5% 20px', background: 'rgba(0,0,0,0.3)', position: 'relative', overflow: 'hidden' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div className="platform-grid">
             
@@ -828,7 +847,8 @@ const App = () => {
               <img 
                 src={agentclampPreview} 
                 alt="AgentClamp Dashboard" 
-                style={{ width: '100%', height: '320px', objectFit: 'contain', display: 'block' }} 
+                draggable={false}
+                style={{ width: '100%', height: '320px', objectFit: 'contain', display: 'block', userSelect: 'none', WebkitUserDrag: 'none' } as any} 
               />
               <div style={{ 
                 position: 'absolute', 
@@ -844,7 +864,7 @@ const App = () => {
 
 
       {/* What's Included Section */}
-      <section style={{ padding: '80px 5% 40px', background: 'rgba(255,255,255,0.01)', borderTop: '1px solid var(--border)' }}>
+      <section style={{ padding: '20px 5% 40px', background: 'rgba(255,255,255,0.01)', borderTop: '1px solid var(--border)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
           <span style={{ color: 'var(--primary)', letterSpacing: '3px', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase' }}>
             Comprehensive Program Features
@@ -947,7 +967,7 @@ const App = () => {
       </section>
 
       {/* Prerequisites & Schedule Section */}
-      <section style={{ padding: '20px 5% 80px', background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid var(--border)' }}>
+      <section style={{ padding: '20px 5% 30px', background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid var(--border)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{
             display: 'grid',
@@ -1054,7 +1074,7 @@ const App = () => {
                   {
                     title: "Self-Directed Learning",
                     time: "3 Hours / Week",
-                    desc: "Concept preps, supplemental guides, deep-dive readings, and pre-session sandbox testing.",
+                    desc: "Concept preperations, supplemental guides, deep-dive readings, and working with Agent Clamp",
                     icon: <BookOpen size={20} color="var(--primary)" />
                   }
                 ].map((item, index) => (
@@ -1086,8 +1106,357 @@ const App = () => {
         </div>
       </section>
 
+      {/* Consulting Section */}
+      <section id="consulting" style={{ padding: '20px 5% 20px', background: 'rgba(255,255,255,0.01)', borderBottom: 'none' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center', marginBottom: '60px' }}>
+          <span style={{ color: 'var(--primary)', letterSpacing: '4px', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase' }}>
+            Enterprise Solutions
+          </span>
+          <h2 style={{ fontSize: '2.4rem', marginTop: '15px', marginBottom: '20px' }}>
+            AI ARCHITECTURE & <span style={{ color: 'var(--primary)', textShadow: '0 0 20px var(--primary-glow)' }}>CONSULTING</span>
+          </h2>
+          <p style={{ color: 'var(--text-dim)', maxWidth: '750px', margin: '0 auto', fontSize: '1.05rem', lineHeight: '1.7' }}>
+            We help enterprises build, secure, and scale production-ready cognitive systems, from initial feasibility mapping to custom multi-agent orchestration and compliance-ready deployment.
+          </p>
+        </div>
+
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px' }}>
+            {/* Pillar 1 */}
+            <div className="glass-card" style={{ padding: '35px', borderRadius: '16px', border: '1px solid var(--border)' }}>
+              <div style={{ display: 'inline-flex', padding: '12px', background: 'rgba(249, 115, 22, 0.1)', color: 'var(--primary)', borderRadius: '10px', marginBottom: '20px' }}>
+                <Compass size={24} />
+              </div>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '12px', color: '#fff' }}>
+                AI Strategy & Use Case Mapping
+              </h3>
+              <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '20px' }}>
+                Analyze business processes, evaluate model options (open-source vs. proprietary), measure ROI expectations, and draft executable implementation roadmaps tailored to your operations.
+              </p>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem', color: 'var(--text-dim)' }}>
+                <li style={{ display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--primary)" /> Sourcing & Data Readiness Audits</li>
+                <li style={{ display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--primary)" /> Model Suitability Assessments</li>
+                <li style={{ display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--primary)" /> ROI & Cost Scoping Frameworks</li>
+              </ul>
+            </div>
+
+            {/* Pillar 2 */}
+            <div className="glass-card" style={{ padding: '35px', borderRadius: '16px', border: '1px solid var(--border)' }}>
+              <div style={{ display: 'inline-flex', padding: '12px', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--accent-blue)', borderRadius: '10px', marginBottom: '20px' }}>
+                <Code size={24} />
+              </div>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '12px', color: '#fff' }}>
+                Bespoke Cognitive Systems
+              </h3>
+              <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '20px' }}>
+                Architect and build production-grade agentic platforms, state-driven multi-agent workflows, and advanced context retrieval (RAG) engines grounded in your private enterprise knowledge.
+              </p>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem', color: 'var(--text-dim)' }}>
+                <li style={{ display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--accent-blue)" /> Stateful Multi-Agent Pipelines</li>
+                <li style={{ display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--accent-blue)" /> Advanced Chunking & Embedding</li>
+                <li style={{ display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--accent-blue)" /> Custom Tooling & Model Integration</li>
+              </ul>
+            </div>
+
+            {/* Pillar 3 */}
+            <div className="glass-card" style={{ padding: '35px', borderRadius: '16px', border: '1px solid var(--border)' }}>
+              <div style={{ display: 'inline-flex', padding: '12px', background: 'rgba(139, 92, 246, 0.1)', color: 'var(--secondary)', borderRadius: '10px', marginBottom: '20px' }}>
+                <ShieldCheck size={24} />
+              </div>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '12px', color: '#fff' }}>
+                Safety, Governance & Scale
+              </h3>
+              <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '20px' }}>
+                Hardening AI completions with strict policy filters, token cost tracing, and secure proxy integrations—including prompt injection protection and PII masking.
+              </p>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem', color: 'var(--text-dim)' }}>
+                <li style={{ display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--secondary)" /> PII Detection & Anonymization</li>
+                <li style={{ display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--secondary)" /> Prompt Injection Protection Shields</li>
+                <li style={{ display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--secondary)" /> Cost, Latency & Quality Monitoring</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '50px' }}>
+            <button 
+              type="button"
+              onClick={() => {
+                handleApply('consulting');
+              }} 
+              className="glow-btn"
+            >
+              Request AI Consultation
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section id="team" className="about-section" style={{ padding: '20px 5% 20px', borderBottom: 'none' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center', marginBottom: '50px' }}>
+          <span style={{ color: 'var(--primary)', letterSpacing: '4px', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase' }}>
+            The Architects of Intelligence
+          </span>
+          <h2 style={{ fontSize: '2.4rem', marginTop: '15px', marginBottom: '20px' }}>
+            OUR CORE <span style={{ color: 'var(--primary)', textShadow: '0 0 20px var(--primary-glow)' }}>TEAM</span>
+          </h2>
+        </div>
+
+        <div className="tab-content-container">
+          {/* Mission Statement */}
+          <div className="glass-card" style={{ 
+            maxWidth: '800px', 
+            margin: '0 auto 50px', 
+            padding: '30px 40px', 
+            textAlign: 'center', 
+            border: '1px solid rgba(249, 115, 22, 0.25)', 
+            background: 'rgba(249, 115, 22, 0.01)',
+            borderRadius: '16px',
+            boxShadow: '0 10px 30px rgba(249, 115, 22, 0.02)'
+          }}>
+            <h3 className="font-orbitron" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--primary)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '15px' }}>
+              Our Mission
+            </h3>
+            <p style={{ color: 'var(--text-dim)', fontSize: '0.98rem', lineHeight: '1.7', margin: 0 }}>
+              To empower individuals and organizations with the knowledge, skills and strategic guidance needed to harness AI, drive innovation and accelerate digital transformation. Through world-class training, consulting, and hands-on implementation, we help turn emerging technologies into measurable business outcomes.
+            </p>
+          </div>
+
+          <div className="team-grid">
+            {/* Phani Kumar */}
+            <div className="team-card team-orange">
+              <div className="avatar-container">
+                <div className="avatar-glow"></div>
+                <img 
+                  src={phaniProfile} 
+                  alt="Phani Prasad Thimmapuram" 
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    borderRadius: '50%', 
+                    objectFit: 'cover', 
+                    zIndex: 2, 
+                    position: 'relative',
+                    border: '2px solid rgba(255, 255, 255, 0.1)'
+                  }} 
+                />
+              </div>
+              <h3 className="team-card-name">Phani Prasad Thimmapuram</h3>
+              <div className="team-card-role" style={{ color: 'var(--primary)' }}>Founder and CTO</div>
+              <p className="team-card-bio" style={{ marginBottom: '0px' }}>
+                Visionary Engineering and Transformation leader with 29 years of IT experience driving large-scale digital transformations across global banking and financial services enterprises. Deep technical expertise leading major programs in GenAI architecture, cloud transformation (AWS, GCP), and microservices. Expert at translating ambiguous business strategy into executable roadmaps, building high-performing engineering cultures, and scaling AI-ready platforms.
+              </p>
+              
+              <div style={{ 
+                width: '100%', 
+                marginTop: '0px', 
+                marginBottom: '25px', 
+                borderTop: '1px solid rgba(255,255,255,0.08)', 
+                paddingTop: '18px',
+                textAlign: 'center'
+              }}>
+                <span style={{ 
+                  display: 'block', 
+                  fontSize: '0.68rem', 
+                  color: 'var(--text-dim)', 
+                  letterSpacing: '2px', 
+                  textTransform: 'uppercase', 
+                  marginBottom: '15px', 
+                  fontWeight: 700 
+                }}>
+                  Prior Enterprise Leadership
+                </span>
+                <div style={{ 
+                  display: 'flex', 
+                  flexWrap: 'wrap', 
+                  gap: '15px 24px', 
+                  justifyContent: 'center', 
+                  alignItems: 'center', 
+                  opacity: 0.6,
+                  color: 'var(--text-bright)',
+                  transition: 'opacity 0.3s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '0.95'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.6'}
+                >
+                  {/* Bank of America */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="Bank of America">
+                    <svg viewBox="0 0 100 100" width="18" height="18" fill="currentColor" style={{ flexShrink: 0 }}>
+                      <path d="M10 25 L45 10 L45 35 L10 50 Z M55 10 L90 25 L90 50 L55 35 Z M10 60 L45 45 L45 70 L10 85 Z M55 45 L90 60 L90 85 L55 70 Z" />
+                    </svg>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.3px' }}>Bank of America</span>
+                  </div>
+
+                  <span style={{ color: 'var(--primary)', fontSize: '0.8rem', fontWeight: 900 }}>•</span>
+
+                  {/* J.P. Morgan */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="J.P. Morgan">
+                    <svg viewBox="0 0 100 100" width="18" height="18" fill="currentColor" style={{ flexShrink: 0 }}>
+                      <path d="M50 18 L82 50 L65 50 L50 35 Z M82 50 L50 82 L50 65 L65 50 Z M50 82 L18 50 L35 50 L50 65 Z M18 50 L50 18 L50 35 L35 50 Z" />
+                    </svg>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.1px', fontFamily: 'Georgia, serif' }}>J.P. Morgan</span>
+                  </div>
+
+                  <span style={{ color: 'var(--primary)', fontSize: '0.8rem', fontWeight: 900 }}>•</span>
+
+                  {/* DBS */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="DBS">
+                    <svg viewBox="0 0 100 100" width="16" height="16" fill="currentColor" style={{ flexShrink: 0 }}>
+                      <rect x="25" y="25" width="50" height="50" transform="rotate(45 50 50)" />
+                    </svg>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 900, letterSpacing: '0.5px' }}>DBS</span>
+                  </div>
+
+                  <span style={{ color: 'var(--primary)', fontSize: '0.8rem', fontWeight: 900 }}>•</span>
+
+                  {/* Société Générale */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="Société Générale">
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', width: '16px', height: '16px', justifyContent: 'center', flexShrink: 0 }}>
+                      <div style={{ background: 'currentColor', height: '6px', width: '16px' }}></div>
+                      <div style={{ background: 'currentColor', height: '6px', width: '16px' }}></div>
+                    </div>
+                    <span style={{ fontSize: '0.76rem', fontWeight: 800, letterSpacing: '0.3px', textTransform: 'uppercase' }}>Société Générale</span>
+                  </div>
+
+                  <span style={{ color: 'var(--primary)', fontSize: '0.8rem', fontWeight: 900 }}>•</span>
+
+                  {/* Virtusa */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="Virtusa">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M8 10l4 4 4-4" />
+                    </svg>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 600, letterSpacing: '1px' }}>virtusa</span>
+                  </div>
+
+                  <span style={{ color: 'var(--primary)', fontSize: '0.8rem', fontWeight: 900 }}>•</span>
+
+                  {/* IBM */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="IBM">
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', flexShrink: 0 }}>
+                      {[...Array(6)].map((_, i) => (
+                        <div key={i} style={{ height: '2px', width: '18px', background: 'currentColor' }}></div>
+                      ))}
+                    </div>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 900, letterSpacing: '1.5px', fontFamily: 'monospace' }}>IBM</span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="team-socials">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="team-social-link">
+                  <Linkedin size={18} />
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="team-social-link">
+                  <Github size={18} />
+                </a>
+                <a href="mailto:phani@example.com" className="team-social-link">
+                  <Mail size={18} />
+                </a>
+              </div>
+            </div>
+
+            {/* K. Sreedhar */}
+            <div className="team-card team-blue">
+              <div className="avatar-container">
+                <div className="avatar-glow"></div>
+                <div className="avatar-image-placeholder">
+                  <Briefcase size={36} color="var(--accent-blue)" />
+                </div>
+              </div>
+              <h3 className="team-card-name">K. Sreedhar</h3>
+              <div className="team-card-role" style={{ color: 'var(--accent-blue)' }}>Chief Operating Officer</div>
+              <p className="team-card-bio">
+                Seasoned operations leader with deep expertise in scaling enterprise programs, driving cross-functional alignment, and operationalizing AI-led transformation initiatives across complex, multi-stakeholder environments.
+              </p>
+
+              <div style={{
+                width: '100%',
+                marginTop: '0px',
+                marginBottom: '25px',
+                borderTop: '1px solid rgba(255,255,255,0.08)',
+                paddingTop: '18px',
+                textAlign: 'center'
+              }}>
+                <span style={{
+                  display: 'block',
+                  fontSize: '0.68rem',
+                  color: 'var(--text-dim)',
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                  marginBottom: '15px',
+                  fontWeight: 700
+                }}>
+                  Prior Enterprise Leadership
+                </span>
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '15px 24px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  opacity: 0.6,
+                  color: 'var(--text-bright)',
+                  transition: 'opacity 0.3s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '0.95'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.6'}
+                >
+                  {/* Fidelity Information Systems */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="Fidelity Information Systems">
+                    <svg viewBox="0 0 100 100" width="16" height="16" fill="currentColor" style={{ flexShrink: 0 }}>
+                      <rect x="10" y="10" width="35" height="35" rx="4" />
+                      <rect x="55" y="10" width="35" height="35" rx="4" />
+                      <rect x="10" y="55" width="35" height="35" rx="4" />
+                      <rect x="55" y="55" width="35" height="35" rx="4" />
+                    </svg>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.3px' }}>FIS</span>
+                  </div>
+
+                  <span style={{ color: 'var(--accent-blue)', fontSize: '0.8rem', fontWeight: 900 }}>•</span>
+
+                  {/* GE */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="General Electric">
+                    <svg viewBox="0 0 100 100" width="18" height="18" fill="currentColor" style={{ flexShrink: 0 }}>
+                      <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="8" />
+                      <path d="M28 50 Q50 22 72 50" fill="none" stroke="currentColor" strokeWidth="8" />
+                      <path d="M28 50 Q50 78 72 50" fill="none" stroke="currentColor" strokeWidth="8" />
+                    </svg>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 900, letterSpacing: '1px' }}>GE</span>
+                  </div>
+
+                  <span style={{ color: 'var(--accent-blue)', fontSize: '0.8rem', fontWeight: 900 }}>•</span>
+
+                  {/* Ramco Systems */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="Ramco Systems">
+                    <svg viewBox="0 0 100 100" width="16" height="16" fill="currentColor" style={{ flexShrink: 0 }}>
+                      <polygon points="50,10 90,35 90,65 50,90 10,65 10,35" fill="none" stroke="currentColor" strokeWidth="8" />
+                      <circle cx="50" cy="50" r="12" />
+                    </svg>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.3px' }}>Ramco</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="team-socials">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="team-social-link">
+                  <Linkedin size={18} />
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="team-social-link">
+                  <Github size={18} />
+                </a>
+                <a href="mailto:sreedhar@trainvector.ai" className="team-social-link">
+                  <Mail size={18} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
-      <section id="faq" style={{ padding: '100px 5%' }}>
+      <section id="faq" style={{ padding: '20px 5% 20px' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -1172,23 +1541,47 @@ const App = () => {
       </section>
 
       {/* Footer */}
-      <footer className="footer" style={{ padding: '80px 5% 40px', borderTop: '1px solid var(--border)', textAlign: 'center' }}>
+      <footer className="footer" style={{ padding: '20px 5% 40px', borderTop: '1px solid var(--border)', textAlign: 'center' }}>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', alignItems: 'center', marginBottom: '30px' }}>
           <img
             src={logo}
             alt="trainVector™ Logo"
+            draggable={false}
             style={{
               height: 'var(--logo-height, 70px)',
               maxHeight: '12vw',
               minHeight: '40px',
               borderRadius: '6px',
-            }}
+              userSelect: 'none',
+              WebkitUserDrag: 'none'
+            } as any}
           />
         </div>
-        <p style={{ color: 'var(--text-dim)', marginBottom: '10px' }}>&copy; {new Date().getFullYear()} trainVector™ Academy. All Rights Reserved.</p>
-        <p style={{ color: 'var(--primary)', fontWeight: 600, marginBottom: '30px', fontSize: '1.1rem' }}>
-          Questions? Call us: +91 8310590859
-        </p>
+        <p style={{ color: 'var(--text-dim)', marginBottom: '10px' }}>&copy; {new Date().getFullYear()} trainVector™. All Rights Reserved.</p>
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          gap: '12px', 
+          margin: '25px auto 35px',
+          maxWidth: '500px'
+        }}>
+          {/* Phone block */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary)', fontWeight: 700, fontSize: '1.05rem' }}>
+            <Phone size={18} style={{ flexShrink: 0 }} />
+            <span>Questions? Call us: </span>
+            <a href="tel:+918310590859" style={{ color: 'var(--primary)', textDecoration: 'none' }} onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'} onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}>
+              +91 83105 90859
+            </a>
+          </div>
+
+          {/* Address block */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: '1.5' }}>
+            <MapPin size={18} style={{ color: 'var(--primary)', flexShrink: 0 }} />
+            <span>50, Bethel Nagar, KR Puram, Bangalore - 560036</span>
+          </div>
+        </div>
+
         <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
           <a href="https://x.com/TrainVector9" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', transition: 'color 0.3s ease' }} className="social-link">
             <Twitter size={20} color="var(--text-dim)" />
@@ -1222,8 +1615,10 @@ const App = () => {
               style={{
                 width: '100%',
                 maxWidth: '550px',
+                maxHeight: '90vh',
+                overflowY: 'auto',
                 position: 'relative',
-                padding: '40px',
+                padding: '30px 25px',
                 zIndex: 1001,
                 border: `1px solid ${formData.specialization ? 'var(--primary)' : 'var(--border)'}`,
                 boxShadow: `0 20px 50px rgba(0,0,0,0.5)`
@@ -1239,40 +1634,52 @@ const App = () => {
               {isSuccess ? (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ textAlign: 'center', padding: '40px 0' }}>
                   <CheckCircle2 size={64} color="var(--primary)" style={{ marginBottom: '20px' }} />
-                  <h2 className="font-orbitron">APPLICATION RECEIVED</h2>
+                  <h2 className="font-orbitron">
+                    {userType === 'consulting' ? "CONSULTATION REQUEST RECEIVED" : "APPLICATION RECEIVED"}
+                  </h2>
                   <p style={{ color: 'var(--text-dim)', marginTop: '20px' }}>
-                    Welcome to the trainVector Academy, <strong>{formData.name}</strong>. Our admissions team will review your profile for the <strong>{formData.specialization}</strong> track and reach out within 48 hours.
+                    {userType === 'consulting' ? (
+                      <>
+                        Thank you for reaching out, <strong>{formData.name}</strong>. Our enterprise consulting team will review your inquiry for <strong>{formData.company}</strong> and contact you within 24 hours.
+                      </>
+                    ) : (
+                      <>
+                        Welcome to the trainVector Academy, <strong>{formData.name}</strong>. Our admissions team will review your profile for the <strong>{formData.specialization}</strong> track and reach out within 48 hours.
+                      </>
+                    )}
                   </p>
                   <button onClick={() => setIsModalOpen(false)} className="glow-btn" style={{ marginTop: '40px' }}>Close Terminal</button>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit}>
-                  <div style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '8px', 
-                    background: '#ffde0022', 
-                    color: '#ffde00', 
-                    padding: '8px 16px', 
-                    borderRadius: '12px', 
-                    fontSize: '0.75rem', 
-                    fontWeight: 800,
-                    border: '1px solid #ffde0033',
-                    marginBottom: '25px',
-                    justifyContent: 'center'
-                  }}>
-                    <Zap size={14} /> SCHOLARSHIP ALERT: FIRST 10 SEATS ARE FREE
-                  </div>
+                  {userType !== 'consulting' && (
+                    <div style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '8px', 
+                      background: '#ffde0022', 
+                      color: '#ffde00', 
+                      padding: '8px 16px', 
+                      borderRadius: '12px', 
+                      fontSize: '0.75rem', 
+                      fontWeight: 800,
+                      border: '1px solid #ffde0033',
+                      marginBottom: '25px',
+                      justifyContent: 'center'
+                    }}>
+                      <Zap size={14} /> SCHOLARSHIP ALERT: FIRST 10 SEATS ARE FREE
+                    </div>
+                  )}
 
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
                     <h3 className="font-orbitron" style={{ fontSize: '1.1rem' }}>
                       {step === 1 && "CHOOSE YOUR PATHWAY"}
-                      {step === 2 && (userType === 'student' ? "STUDENT ENROLLMENT" : "PROFESSIONAL ENROLLMENT")}
+                      {step === 2 && (userType === 'consulting' ? "REQUEST AI CONSULTATION" : userType === 'student' ? "STUDENT ENROLLMENT" : "PROFESSIONAL ENROLLMENT")}
                       {step === 3 && "CHOOSE SPECIALIZATION"}
                       {step === 4 && "COHORT CONTEXT"}
                     </h3>
                     <span style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 700 }}>
-                      STEP {userType ? step - 1 : step}/{userType ? 3 : 4}
+                      {userType === 'consulting' ? "STEP 1/1" : `STEP ${userType ? step - 1 : step}/${userType ? 3 : 4}`}
                     </span>
                   </div>
 
@@ -1369,7 +1776,7 @@ const App = () => {
                           />
                         </div>
 
-                        {userType === 'student' ? (
+                        {userType === 'student' && (
                           <>
                             <div className="input-field">
                               <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>College / University</label>
@@ -1394,7 +1801,9 @@ const App = () => {
                               />
                             </div>
                           </>
-                        ) : (
+                        )}
+
+                        {userType === 'professional' && (
                           <>
                             <div className="input-field">
                               <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>Company Name</label>
@@ -1421,29 +1830,79 @@ const App = () => {
                           </>
                         )}
 
+                        {userType === 'consulting' && (
+                          <div className="input-field">
+                            <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '8px', textTransform: 'uppercase' }}>
+                              Company Name <span style={{ color: 'var(--primary)' }}>*</span>
+                            </label>
+                            <input
+                              required
+                              type="text"
+                              className="glass-card"
+                              style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)' }}
+                              value={formData.company}
+                              onChange={(e) => {
+                                setFormData({ ...formData, company: e.target.value });
+                                setFormError('');
+                              }}
+                              placeholder="e.g. Enterprise Corp"
+                            />
+                          </div>
+                        )}
+
                         {formError && (
                           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ color: '#ef4444', fontSize: '0.8rem', fontWeight: 600 }}>
                             {formError}
                           </motion.div>
                         )}
 
-                        <div style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
-                          <button onClick={() => { setUserType(null); setStep(1); }} type="button" className="glass-card" style={{ padding: '12px 20px', flex: 1 }}><ChevronLeft size={18} /> Back</button>
-                          <button 
-                            type="button" 
-                            onClick={() => {
-                              if (!formData.name || !formData.email || !formData.phone) {
-                                setFormError('All fields with * are mandatory');
-                              } else {
-                                setStep(3);
-                              }
-                            }} 
-                            className="glow-btn" 
-                            style={{ flex: 2 }}
-                          >
-                            Next Step
-                          </button>
-                        </div>
+                        {userType === 'consulting' ? (
+                          <div style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
+                            <button 
+                              type="button" 
+                              disabled={isSubmitting}
+                              onClick={() => {
+                                if (!formData.name || !formData.email || !formData.phone || !formData.company) {
+                                  setFormError('All fields with * are mandatory');
+                                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+                                  setFormError('Please enter a valid email address');
+                                } else if (!/^\+?[0-9\s\-()]{10,20}$/.test(formData.phone)) {
+                                  setFormError('Please enter a valid phone number (minimum 10 digits)');
+                                } else {
+                                  setFormError('');
+                                  handleSubmit();
+                                }
+                              }} 
+                              className="glow-btn" 
+                              style={{ flex: 1 }}
+                            >
+                              {isSubmitting ? "TRANSMITTING..." : "SUBMIT CONSULTATION REQUEST"}
+                            </button>
+                          </div>
+                        ) : (
+                          <div style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
+                            <button onClick={() => { setUserType(null); setStep(1); }} type="button" className="glass-card" style={{ padding: '12px 20px', flex: 1 }}><ChevronLeft size={18} /> Back</button>
+                            <button 
+                              type="button" 
+                              onClick={() => {
+                                if (!formData.name || !formData.email || !formData.phone) {
+                                  setFormError('All fields with * are mandatory');
+                                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+                                  setFormError('Please enter a valid email address');
+                                } else if (!/^\+?[0-9\s\-()]{10,20}$/.test(formData.phone)) {
+                                  setFormError('Please enter a valid phone number (minimum 10 digits)');
+                                } else {
+                                  setFormError('');
+                                  setStep(3);
+                                }
+                              }} 
+                              className="glow-btn" 
+                              style={{ flex: 2 }}
+                            >
+                              Next Step
+                            </button>
+                          </div>
+                        )}
                       </motion.div>
                     )}
 
@@ -1552,6 +2011,7 @@ const App = () => {
         )}
       </AnimatePresence>
 
+      <ChatWidget />
     </div>
   );
 };
