@@ -527,7 +527,7 @@ const ChatWidget: React.FC = () => {
               background: 'rgba(0,0,0,0.15)',
               flexShrink: 0,
             }}>
-              Powered by <span style={{ color: 'var(--primary)', fontWeight: 700 }}>trainVector AI</span> · Groq
+              Powered by <span style={{ color: 'var(--primary)', fontWeight: 700 }}>trainVector AI</span>
             </div>
           </motion.div>
         )}
