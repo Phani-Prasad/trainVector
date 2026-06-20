@@ -33,7 +33,8 @@ import {
   Github,
   Mail,
   Phone,
-  MapPin
+  MapPin,
+  Youtube
 } from 'lucide-react';
 
 import logo from './assets/logo_new.png';
@@ -44,12 +45,14 @@ import phaniProfile from './assets/phani_profile.png';
 const App = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [formError, setFormError] = useState('');
   const [userType, setUserType] = useState<'student' | 'professional' | 'consulting' | null>(null);
   const [activeProfRoadmap, setActiveProfRoadmap] = useState<'developer' | 'executive'>('developer');
+  const [heroTab, setHeroTab] = useState<'academy' | 'consulting'>('academy');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -399,9 +402,10 @@ const App = () => {
           />
         </div>
         <div className="nav-links">
-          <a href="#student-roadmap" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Roadmaps</a>
+          <a href="#why-trainvector" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Why trainVector</a>
+          <a href="#student-roadmap" onClick={() => setHeroTab('academy')} className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Academy Roadmaps</a>
           <a href="#agentclamp" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>AgentClamp</a>
-          <a href="#consulting" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Consulting</a>
+          <a href="#consulting" onClick={() => setHeroTab('consulting')} className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Consulting & Advisory</a>
           <a href="#team" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Team</a>
           <a href="#faq" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>FAQ</a>
           <button onClick={() => handleApply()} className="glow-btn" style={{ fontSize: 'min(0.8rem, 3vw)', padding: '8px 20px' }}>Join Cohort</button>
@@ -418,112 +422,507 @@ const App = () => {
           <span style={{ color: 'var(--primary)', letterSpacing: '4px', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase' }}>
             GenAI Academy & Enterprise Consulting
           </span>
-          <h1 style={{ fontSize: 'clamp(2.1rem, 4.2vw, 3.2rem)', marginTop: '20px', lineHeight: 1.25 }}>
-            BUILD YOUR <span style={{ color: 'var(--primary)', textShadow: '0 0 20px var(--primary-glow)' }}>AI FUTURE</span> <br />
-            <span style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', color: 'var(--text-dim)', fontWeight: 600 }}>ON A SOLID FOUNDATION</span>
+          <h1 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', marginTop: '20px', lineHeight: 1.25, marginBottom: '35px', fontWeight: 800 }}>
+            FROM <span style={{ color: 'var(--primary)', textShadow: '0 0 20px var(--primary-glow)' }}>AI SKILLS</span> TO <span style={{ color: 'var(--text-dim)' }}>ENTERPRISE IMPACT</span>
           </h1>
-          <h2 style={{ fontSize: 'clamp(1.25rem, 3vw, 1.8rem)', color: 'var(--text-bright)', marginTop: '30px', marginBottom: '40px', fontWeight: 800, letterSpacing: '0.5px', textTransform: 'uppercase', lineHeight: 1.4 }}>
-            Are you a <span style={{ color: '#06b6d4', textShadow: '0 0 15px rgba(6,182,212,0.25)' }}>Student</span> or a <span style={{ color: 'var(--primary)', textShadow: '0 0 15px rgba(249,115,22,0.25)' }}>Working Professional</span>? <br />
-            <span style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', color: 'var(--text-dim)', fontWeight: 700, letterSpacing: '3px', display: 'inline-block', marginTop: '10px' }}>Choose your path</span>
-          </h2>
 
-          {/* Split Hero Segment Cards */}
+          {/* Premium Segmented Tab Switcher */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '30px',
-            maxWidth: '1200px',
-            margin: '0 auto',
-            padding: '0 20px',
-            textAlign: 'left'
+            display: 'inline-flex',
+            background: 'rgba(255, 255, 255, 0.03)',
+            border: '1px solid var(--border)',
+            padding: '6px',
+            borderRadius: '30px',
+            marginBottom: '45px',
+            position: 'relative',
+            zIndex: 5,
+            gap: '4px'
           }}>
-            {/* Campus Students Block */}
-            <div className="glass-card" style={{
-              border: '1px solid rgba(6, 182, 212, 0.25)',
-              background: 'rgba(6, 182, 212, 0.02)',
-              padding: '24px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              boxShadow: '0 10px 40px rgba(6, 182, 212, 0.05)',
-              borderRadius: '16px'
-            }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
-                  <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(6, 182, 212, 0.1)', color: '#06b6d4', borderRadius: '10px', flexShrink: 0 }}>
-                    <GraduationCap size={24} />
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '2px' }}>Students & Fresh Graduates</h3>
-                    <p style={{ color: '#06b6d4', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>
-                      Career Launchpad
-                    </p>
-                  </div>
-                </div>
-                <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>
-                  Accelerate your transition into AI development. Learn from core concepts to dynamic model orchestrations with dedicated portfolio builder placement.
-                </p>
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
-                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Master the Foundations of AI</li>
-                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Understand modern GenAI & Agentic AI systems</li>
-                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Build Real-World AI Solutions</li>
-                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Become industry-ready AI professionals</li>
-                </ul>
-              </div>
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <button onClick={() => handleApply('student')} className="glow-btn" style={{ background: '#06b6d4', boxShadow: 'none', animation: 'none', flex: 1, padding: '10px 16px', fontSize: '0.8rem' }}>
-                  Apply as Student
-                </button>
-                <button onClick={() => document.getElementById('student-roadmap')?.scrollIntoView({ behavior: 'smooth' })} className="glass-card" style={{ padding: '10px 16px', fontSize: '0.8rem', fontWeight: 600, flex: 1, textAlign: 'center' }}>
-                  Explore Track
-                </button>
-              </div>
-            </div>
-
-            {/* Working Professionals Block */}
-            <div className="glass-card" style={{
-              border: '1px solid rgba(249, 115, 22, 0.25)',
-              background: 'rgba(249, 115, 22, 0.02)',
-              padding: '24px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              boxShadow: '0 10px 40px rgba(249, 115, 22, 0.05)',
-              borderRadius: '16px'
-            }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
-                  <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(249, 115, 22, 0.1)', color: 'var(--primary)', borderRadius: '10px', flexShrink: 0 }}>
-                    <Briefcase size={24} />
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '2px' }}>Working Professionals</h3>
-                    <p style={{ color: 'var(--primary)', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>
-                      Enterprise Scaling
-                    </p>
-                  </div>
-                </div>
-                <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>
-                  Drive ROI and architect complex, safety-guarded enterprise systems. Branch into engineering specialization or executive decision leadership.
-                </p>
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
-                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--primary)" /> Identify and prioritize high-value AI and GenAI use cases</li>
-                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--primary)" /> Gain practical understanding of modern GenAI, Agentic AI, RAG</li>
-                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--primary)" /> Learn AI governance, observability, ROI, and responsible AI</li>
-                  <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--primary)" /> Drive AI-led transformation, innovation, and value realization</li>
-                </ul>
-              </div>
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <button onClick={() => handleApply('professional')} className="glow-btn" style={{ flex: 1, padding: '10px 16px', fontSize: '0.8rem' }}>
-                  Apply as Professional
-                </button>
-                <button onClick={() => document.getElementById('professional-roadmap')?.scrollIntoView({ behavior: 'smooth' })} className="glass-card" style={{ padding: '10px 16px', fontSize: '0.8rem', fontWeight: 600, flex: 1, textAlign: 'center' }}>
-                  Explore Track
-                </button>
-              </div>
-            </div>
+            <button
+              onClick={() => setHeroTab('academy')}
+              style={{
+                padding: '12px 32px',
+                borderRadius: '24px',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '0.95rem',
+                fontWeight: 800,
+                fontFamily: 'Orbitron, sans-serif',
+                letterSpacing: '1px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                background: heroTab === 'academy' ? 'linear-gradient(135deg, var(--primary), #ff9a44)' : 'transparent',
+                color: heroTab === 'academy' ? '#000' : 'var(--text-dim)',
+                boxShadow: heroTab === 'academy' ? '0 4px 15px rgba(249,115,22,0.3)' : 'none',
+              }}
+            >
+              GenAI Academy
+            </button>
+            <button
+              onClick={() => setHeroTab('consulting')}
+              style={{
+                padding: '12px 32px',
+                borderRadius: '24px',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '0.95rem',
+                fontWeight: 800,
+                fontFamily: 'Orbitron, sans-serif',
+                letterSpacing: '1px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                background: heroTab === 'consulting' ? 'linear-gradient(135deg, var(--secondary), #a78bfa)' : 'transparent',
+                color: heroTab === 'consulting' ? '#fff' : 'var(--text-dim)',
+                boxShadow: heroTab === 'consulting' ? '0 4px 15px rgba(139,92,246,0.3)' : 'none',
+              }}
+            >
+              Consulting & Advisory
+            </button>
           </div>
+
+          <AnimatePresence mode="wait">
+            {heroTab === 'academy' ? (
+              <motion.div
+                key="academy-tab"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h2 style={{ fontSize: 'clamp(1.25rem, 3vw, 1.8rem)', color: 'var(--text-bright)', marginBottom: '40px', fontWeight: 800, letterSpacing: '0.5px', textTransform: 'uppercase', lineHeight: 1.4 }}>
+                  Are you a <span style={{ color: '#06b6d4', textShadow: '0 0 15px rgba(6,182,212,0.25)' }}>Student</span> or a <span style={{ color: 'var(--primary)', textShadow: '0 0 15px rgba(249,115,22,0.25)' }}>Working Professional</span>? <br />
+                  <span style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', color: 'var(--text-dim)', fontWeight: 700, letterSpacing: '3px', display: 'inline-block', marginTop: '10px' }}>Choose your path</span>
+                </h2>
+
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                  gap: '30px',
+                  maxWidth: '1200px',
+                  margin: '0 auto',
+                  padding: '0 20px',
+                  textAlign: 'left'
+                }}>
+                  {/* Campus Students Block */}
+                  <div className="glass-card" style={{
+                    border: '1px solid rgba(6, 182, 212, 0.25)',
+                    background: 'rgba(6, 182, 212, 0.02)',
+                    padding: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 10px 40px rgba(6, 182, 212, 0.05)',
+                    borderRadius: '16px'
+                  }}>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+                        <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(6, 182, 212, 0.1)', color: '#06b6d4', borderRadius: '10px', flexShrink: 0 }}>
+                          <GraduationCap size={24} />
+                        </div>
+                        <div>
+                          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '2px' }}>Students & Fresh Graduates</h3>
+                          <p style={{ color: '#06b6d4', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>
+                            Career Launchpad
+                          </p>
+                        </div>
+                      </div>
+                      <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>
+                        Accelerate your transition into AI development. Learn from core concepts to dynamic model orchestrations with dedicated portfolio builder placement.
+                      </p>
+                      <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
+                        <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Master the Foundations of AI</li>
+                        <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Understand modern GenAI & Agentic AI systems</li>
+                        <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Build Real-World AI Solutions</li>
+                        <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="#06b6d4" /> Become industry-ready AI professionals</li>
+                      </ul>
+                    </div>
+                    <div style={{ display: 'flex', gap: '12px' }}>
+                      <button onClick={() => handleApply('student')} className="glow-btn" style={{ background: '#06b6d4', boxShadow: 'none', animation: 'none', flex: 1, padding: '10px 16px', fontSize: '0.8rem' }}>
+                        Apply as Student
+                      </button>
+                      <button onClick={() => document.getElementById('student-roadmap')?.scrollIntoView({ behavior: 'smooth' })} className="glass-card" style={{ padding: '10px 16px', fontSize: '0.8rem', fontWeight: 600, flex: 1, textAlign: 'center' }}>
+                        Explore Track
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Working Professionals Block */}
+                  <div className="glass-card" style={{
+                    border: '1px solid rgba(249, 115, 22, 0.25)',
+                    background: 'rgba(249, 115, 22, 0.02)',
+                    padding: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 10px 40px rgba(249, 115, 22, 0.05)',
+                    borderRadius: '16px'
+                  }}>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+                        <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(249, 115, 22, 0.1)', color: 'var(--primary)', borderRadius: '10px', flexShrink: 0 }}>
+                          <Briefcase size={24} />
+                        </div>
+                        <div>
+                          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '2px' }}>Working Professionals</h3>
+                          <p style={{ color: 'var(--primary)', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>
+                            Enterprise Scaling
+                          </p>
+                        </div>
+                      </div>
+                      <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>
+                        Drive ROI and architect complex, safety-guarded enterprise systems. Branch into engineering specialization or executive decision leadership.
+                      </p>
+                      <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
+                        <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--primary)" /> Identify and prioritize high-value AI and GenAI use cases</li>
+                        <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--primary)" /> Gain practical understanding of modern GenAI, Agentic AI, RAG</li>
+                        <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--primary)" /> Learn AI governance, observability, ROI, and responsible AI</li>
+                        <li style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'flex', gap: '8px' }}><CheckCircle2 size={16} color="var(--primary)" /> Drive AI-led transformation, innovation, and value realization</li>
+                      </ul>
+                    </div>
+                    <div style={{ display: 'flex', gap: '12px' }}>
+                      <button onClick={() => handleApply('professional')} className="glow-btn" style={{ flex: 1, padding: '10px 16px', fontSize: '0.8rem' }}>
+                        Apply as Professional
+                      </button>
+                      <button onClick={() => document.getElementById('professional-roadmap')?.scrollIntoView({ behavior: 'smooth' })} className="glass-card" style={{ padding: '10px 16px', fontSize: '0.8rem', fontWeight: 600, flex: 1, textAlign: 'center' }}>
+                        Explore Track
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="consulting-tab"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="glass-card" style={{
+                  maxWidth: '1100px',
+                  margin: '0 auto',
+                  border: '1px solid rgba(139, 92, 246, 0.25)',
+                  background: 'rgba(139, 92, 246, 0.02)',
+                  padding: '45px 35px',
+                  boxShadow: '0 20px 60px rgba(139, 92, 246, 0.08)',
+                  borderRadius: '20px',
+                  textAlign: 'left'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '25px', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'inline-flex', padding: '14px', background: 'rgba(139, 92, 246, 0.1)', color: 'var(--secondary)', borderRadius: '12px', flexShrink: 0 }}>
+                      <Globe size={32} />
+                    </div>
+                    <div>
+                      <h3 style={{ fontSize: '1.65rem', fontWeight: 900, marginBottom: '4px', fontFamily: 'Orbitron, sans-serif', letterSpacing: '0.5px' }}>ENTERPRISE GENAI ADVISORY</h3>
+                      <p style={{ color: 'var(--secondary)', fontSize: '0.82rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2px' }}>
+                        From Scoping to Production-Ready Cognitive Systems
+                      </p>
+                    </div>
+                  </div>
+                  <p style={{ color: 'var(--text-dim)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '35px' }}>
+                    Empower your organization with tailored enterprise cognitive systems, advanced Retrieval-Augmented Generation (RAG) pipelines, and autonomous agent orchestration. We implement robust, compliant, and cost-controlled solutions with built-in PII protection and observability frameworks.
+                  </p>
+                  
+                  {/* Outcomes / Pillars Grid */}
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                    gap: '30px',
+                    marginBottom: '35px'
+                  }}>
+                    <div className="glass-card" style={{ padding: '20px', background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+                      <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '10px' }}>
+                        <CheckCircle2 size={18} color="var(--secondary)" style={{ marginTop: '2px', flexShrink: 0 }} />
+                        <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#fff' }}>🎯 ROI & Feasibility</h4>
+                      </div>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', lineHeight: 1.5 }}>
+                        Stop guessing. We identify high-impact AI use cases and assess data readiness before you write a single line of code.
+                      </p>
+                    </div>
+
+                    <div className="glass-card" style={{ padding: '20px', background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+                      <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '10px' }}>
+                        <CheckCircle2 size={18} color="var(--secondary)" style={{ marginTop: '2px', flexShrink: 0 }} />
+                        <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#fff' }}>⚙️ Bespoke Agentic Systems</h4>
+                      </div>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', lineHeight: 1.5 }}>
+                        From stateful multi-agent workflow pipelines to advanced context-grounded RAG engines built for your private data.
+                      </p>
+                    </div>
+
+                    <div className="glass-card" style={{ padding: '20px', background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+                      <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '10px' }}>
+                        <CheckCircle2 size={18} color="var(--secondary)" style={{ marginTop: '2px', flexShrink: 0 }} />
+                        <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#fff' }}>🛡️ Enterprise Guardrails</h4>
+                      </div>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', lineHeight: 1.5 }}>
+                        Production-ready safety shields with real-time PII masking, prompt-injection defense, and token cost evaluations.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Technology Badges */}
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '10px',
+                    marginBottom: '40px',
+                    alignItems: 'center'
+                  }}>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', marginRight: '10px' }}>Capabilities:</span>
+                    {['LangGraph', 'CrewAI', 'LiteLLM Client', 'MCP Protocol', 'Vector Search & RAG', 'PII & Security Guardrails'].map((tech) => (
+                      <span key={tech} style={{
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        padding: '6px 14px',
+                        borderRadius: '20px',
+                        background: 'rgba(139, 92, 246, 0.05)',
+                        border: '1px solid rgba(139, 92, 246, 0.15)',
+                        color: 'var(--secondary)',
+                        letterSpacing: '0.5px'
+                      }}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Engagement Process Timeline */}
+                  <div style={{
+                    borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                    paddingTop: '35px',
+                    marginBottom: '40px'
+                  }}>
+                    <h4 style={{
+                      fontSize: '0.8rem',
+                      fontWeight: 800,
+                      color: 'var(--secondary)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '2px',
+                      marginBottom: '25px',
+                      fontFamily: 'Orbitron, sans-serif'
+                    }}>
+                      Our Advisory & Delivery Process
+                    </h4>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                      gap: '30px',
+                      position: 'relative'
+                    }}>
+                      {[
+                        {
+                          step: "01",
+                          title: "Audit & Scope",
+                          desc: "Determine feasibility, analyze your data infrastructure, and map out AI use cases with calculated ROI projections."
+                        },
+                        {
+                          step: "02",
+                          title: "Sandbox Prototyping",
+                          desc: "Build functional proof-of-concepts inside our AgentClamp sandbox to test agent logic, tools, and RAG retrieval accuracy."
+                        },
+                        {
+                          step: "03",
+                          title: "Production Scaling",
+                          desc: "Deploy self-hosted, telemetry-monitored agent systems complete with strict safety guardrails and prompt security."
+                        }
+                      ].map((phase, index) => (
+                        <div key={index} style={{
+                          display: 'flex',
+                          gap: '15px',
+                          alignItems: 'flex-start',
+                          position: 'relative'
+                        }}>
+                          <div style={{
+                            fontSize: '1.8rem',
+                            fontWeight: 900,
+                            color: 'rgba(139, 92, 246, 0.15)',
+                            fontFamily: 'Orbitron, sans-serif',
+                            lineHeight: 1,
+                            flexShrink: 0
+                          }}>
+                            {phase.step}
+                          </div>
+                          <div>
+                            <h5 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#fff', marginBottom: '6px' }}>{phase.title}</h5>
+                            <p style={{ fontSize: '0.8rem', color: 'var(--text-dim)', lineHeight: 1.45 }}>{phase.desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+                    <button onClick={() => handleApply('consulting')} className="glow-btn" style={{ background: 'var(--secondary)', color: '#fff', border: 'none', padding: '12px 28px', fontSize: '0.9rem', cursor: 'pointer', boxShadow: '0 4px 15px rgba(139,92,246,0.3)' }}>
+                      Request AI Consultation
+                    </button>
+                    <button onClick={() => document.getElementById('consulting')?.scrollIntoView({ behavior: 'smooth' })} className="glass-card" style={{ padding: '12px 28px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer' }}>
+                      Explore Advisory Pillars
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
+      </section>
+
+      {/* Why trainVector Section */}
+      <section id="why-trainvector" style={{ padding: '30px 5% 60px', background: 'rgba(255,255,255,0.01)', position: 'relative', overflow: 'hidden' }}>
+        {/* Subtle decorative background glows */}
+        <div style={{
+          position: 'absolute',
+          top: '20%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '500px',
+          height: '250px',
+          background: 'radial-gradient(circle, rgba(249, 115, 22, 0.05) 0%, rgba(139, 92, 246, 0.05) 50%, transparent 100%)',
+          filter: 'blur(60px)',
+          pointerEvents: 'none',
+          zIndex: 1
+        }} />
+        
+        <div style={{ textAlign: 'center', marginBottom: '50px', position: 'relative', zIndex: 2 }}>
+          <h2 style={{ fontSize: '2.2rem', marginBottom: '15px', fontFamily: 'Orbitron, sans-serif' }}>
+            WHY <span style={{ color: 'var(--primary)' }}>TRAINVECTOR</span>?
+          </h2>
+          <p style={{ color: 'var(--text-dim)', maxWidth: '700px', margin: '0 auto', fontSize: '0.95rem', lineHeight: '1.6' }}>
+            A dual-engine learning and advisory ecosystem designed to build high-performance AI professionals and production-ready cognitive systems.
+          </p>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '30px',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          position: 'relative',
+          zIndex: 2
+        }}>
+          {[
+            {
+              title: "GenAI Academy",
+              subtitle: "Structured Learning. Practical Experience. Enterprise Impact.",
+              description: "Transition from basic prompting to deploying complex, production-ready cognitive architectures. Our curriculum focuses on hands-on software engineering practices for AI models.",
+              icon: <GraduationCap size={28} />,
+              color: "var(--primary)",
+              bgGlow: "rgba(249, 115, 22, 0.1)",
+              borderColor: "rgba(249, 115, 22, 0.25)",
+              hoverBorder: "var(--primary)",
+              badge: "ENGINEERING ACADEMY"
+            },
+            {
+              title: "Advisory & Consulting",
+              subtitle: "Bespoke Systems. Safety Guardrails. Measured ROI.",
+              description: "Partnering with organizations to scope high-value use cases, assess data readiness, and deploy secure agent networks with compliance, safety, and strict cost controls.",
+              icon: <Briefcase size={28} />,
+              color: "var(--secondary)",
+              bgGlow: "rgba(139, 92, 246, 0.1)",
+              borderColor: "rgba(139, 92, 246, 0.25)",
+              hoverBorder: "var(--secondary)",
+              badge: "ENTERPRISE SOLUTIONS"
+            },
+            {
+              title: "AgentClamp™ Sandbox",
+              subtitle: "High-Fidelity Sandbox & Observability",
+              description: "The core engine that powers both: allowing students to learn by building, and enterprises to prototype safely with full telemetry, real-time logging, and system observability.",
+              icon: <Terminal size={28} />,
+              color: "var(--accent-blue)",
+              bgGlow: "rgba(59, 130, 246, 0.1)",
+              borderColor: "rgba(59, 130, 246, 0.25)",
+              hoverBorder: "var(--accent-blue)",
+              badge: "PROTOTYPING ENGINE"
+            }
+          ].map((pillar, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              whileHover={{ 
+                y: -6, 
+                borderColor: pillar.hoverBorder,
+                boxShadow: `0 12px 30px rgba(0, 0, 0, 0.3), 0 0 15px ${pillar.borderColor}`
+              }}
+              style={{
+                background: 'var(--glass)',
+                backdropFilter: 'blur(12px)',
+                border: '1px solid var(--border)',
+                borderRadius: '16px',
+                padding: '30px 24px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+            >
+              <div>
+                {/* Badge header */}
+                <div style={{
+                  fontSize: '0.65rem',
+                  fontWeight: 900,
+                  color: pillar.color,
+                  textTransform: 'uppercase',
+                  letterSpacing: '2px',
+                  marginBottom: '15px'
+                }}>
+                  {pillar.badge}
+                </div>
+
+                {/* Icon & Title */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '54px',
+                    height: '54px',
+                    borderRadius: '12px',
+                    background: pillar.bgGlow,
+                    color: pillar.color,
+                    border: `1px solid ${pillar.borderColor}`,
+                    boxShadow: `0 0 15px ${pillar.bgGlow}`,
+                    flexShrink: 0
+                  }}>
+                    {pillar.icon}
+                  </div>
+                  <h3 style={{
+                    fontSize: '1.25rem',
+                    fontWeight: 800,
+                    margin: 0,
+                    color: '#fff',
+                    fontFamily: 'Orbitron, sans-serif'
+                  }}>
+                    {pillar.title}
+                  </h3>
+                </div>
+
+                {/* Subtitle */}
+                <p style={{
+                  fontSize: '0.88rem',
+                  fontWeight: 700,
+                  color: pillar.color,
+                  lineHeight: 1.4,
+                  marginBottom: '12px'
+                }}>
+                  {pillar.subtitle}
+                </p>
+
+                {/* Description */}
+                <p style={{
+                  fontSize: '0.82rem',
+                  color: 'var(--text-dim)',
+                  lineHeight: 1.6,
+                  margin: 0
+                }}>
+                  {pillar.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
 
@@ -836,13 +1235,17 @@ const App = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
+              onClick={() => setIsVideoModalOpen(true)}
               style={{ 
                 position: 'relative',
                 borderRadius: '12px',
                 overflow: 'hidden',
                 border: '1.5px solid #f97316',
-                boxShadow: '0 30px 60px rgba(0,0,0,0.5)'
+                boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
+                cursor: 'pointer'
               }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
             >
               <img 
                 src={agentclampPreview} 
@@ -857,6 +1260,35 @@ const App = () => {
                 pointerEvents: 'none'
               }} />
               
+              {/* Play Button Overlay */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'rgba(5, 6, 10, 0.15)',
+                transition: 'all 0.3s ease',
+              }}>
+                <motion.div 
+                  whileHover={{ scale: 1.15, backgroundColor: 'rgba(249, 115, 22, 1)' }}
+                  style={{
+                    width: '68px',
+                    height: '68px',
+                    borderRadius: '50%',
+                    background: 'rgba(249, 115, 22, 0.85)',
+                    display: 'grid',
+                    placeItems: 'center',
+                    boxShadow: '0 0 25px rgba(249, 115, 22, 0.5)',
+                    color: '#000',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" style={{ transform: 'translateX(2px)' }}>
+                    <polygon points="6,4 20,12 6,20" />
+                  </svg>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -990,7 +1422,7 @@ const App = () => {
                 WHO THIS IS <span style={{ color: '#06b6d4' }}>DESIGNED FOR</span>
               </h2>
               <p style={{ color: 'var(--text-dim)', fontSize: '0.95rem', lineHeight: '1.65', marginBottom: '35px' }}>
-                Zero prior coding experience or specialized AI background is required. We teach you from the absolute ground up. To thrive in this cohort, you only need to bring:
+                No prior coding experience or specialized AI background is required. We teach you from the absolute ground up. To thrive in this cohort, you only need to bring:
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
@@ -1243,16 +1675,105 @@ const App = () => {
               </div>
               <h3 className="team-card-name">Phani Prasad Thimmapuram</h3>
               <div className="team-card-role" style={{ color: 'var(--primary)' }}>Founder and CTO</div>
+              <div style={{
+                fontSize: '0.7rem',
+                color: 'var(--accent-blue)',
+                fontWeight: 800,
+                marginTop: '4px',
+                marginBottom: '10px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                letterSpacing: '0.5px'
+              }}>
+                <BookOpen size={12} style={{ flexShrink: 0 }} />
+                <span>Author: "Agentic AI Handbook" & "Kubernetes"</span>
+              </div>
               <p className="team-card-bio" style={{ marginBottom: '0px' }}>
-                Visionary Engineering and Transformation leader with 29 years of IT experience driving large-scale digital transformations across global banking and financial services enterprises. Deep technical expertise leading major programs in GenAI architecture, cloud transformation (AWS, GCP), and microservices. Expert at translating ambiguous business strategy into executable roadmaps, building high-performing engineering cultures, and scaling AI-ready platforms.
+                Transformation leader with 29 years of IT experience directing GenAI architecture, cloud migration, and systems engineering for global financial institutions. Specialized in translating business strategy into high-performing engineering cultures and scaling AI-ready platforms.
               </p>
+               
+              {/* Professional Certifications */}
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '6px',
+                justifyContent: 'center',
+                margin: '15px 0 8px',
+                paddingTop: '12px',
+                borderTop: '1px solid rgba(255,255,255,0.08)'
+              }}>
+                {[
+                  {
+                    name: "TOGAF 10",
+                    icon: (
+                      <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '5px', flexShrink: 0 }}>
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                      </svg>
+                    )
+                  },
+                  {
+                    name: "AWS CCP",
+                    icon: (
+                      <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginRight: '5px', flexShrink: 0 }}>
+                        <path d="M6 14c2.5 3 9.5 3 12 0" />
+                        <path d="M17 13l2.5 3L21 12" />
+                      </svg>
+                    )
+                  },
+                  {
+                    name: "MS AI Leader",
+                    icon: (
+                      <svg viewBox="0 0 23 23" width="9" height="9" style={{ marginRight: '5px', flexShrink: 0 }}>
+                        <rect x="0" y="0" width="10" height="10" fill="#f25022"/>
+                        <rect x="12" y="0" width="10" height="10" fill="#7fba00"/>
+                        <rect x="0" y="12" width="10" height="10" fill="#00a4ef"/>
+                        <rect x="12" y="12" width="10" height="10" fill="#ffb900"/>
+                      </svg>
+                    )
+                  },
+                  {
+                    name: "Agile SPC 6.0",
+                    icon: (
+                      <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor" style={{ marginRight: '5px', flexShrink: 0 }}>
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                      </svg>
+                    )
+                  },
+                  {
+                    name: "Databricks",
+                    icon: (
+                      <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '5px', flexShrink: 0 }}>
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                      </svg>
+                    )
+                  }
+                ].map((cert) => (
+                  <span key={cert.name} style={{
+                    fontSize: '0.62rem',
+                    fontWeight: 800,
+                    padding: '3px 8px',
+                    borderRadius: '4px',
+                    background: 'rgba(249, 115, 22, 0.05)',
+                    border: '1px solid rgba(249, 115, 22, 0.2)',
+                    color: 'var(--primary)',
+                    letterSpacing: '0.5px',
+                    display: 'inline-flex',
+                    alignItems: 'center'
+                  }}>
+                    {cert.icon}
+                    {cert.name}
+                  </span>
+                ))}
+              </div>
               
               <div style={{ 
                 width: '100%', 
-                marginTop: '0px', 
-                marginBottom: '25px', 
+                marginTop: '8px', 
+                marginBottom: '18px', 
                 borderTop: '1px solid rgba(255,255,255,0.08)', 
-                paddingTop: '18px',
+                paddingTop: '12px',
                 textAlign: 'center'
               }}>
                 <span style={{ 
@@ -1591,6 +2112,9 @@ const App = () => {
           </a>
           <a href="https://www.instagram.com/trainvector9/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', transition: 'color 0.3s ease' }} className="social-link">
             <Instagram size={20} color="var(--text-dim)" />
+          </a>
+          <a href="https://www.youtube.com/@trainVector" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', transition: 'color 0.3s ease' }} className="social-link">
+            <Youtube size={20} color="var(--text-dim)" />
           </a>
         </div>
       </footer>
@@ -2006,6 +2530,91 @@ const App = () => {
                   </AnimatePresence>
                 </form>
               )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {isVideoModalOpen && (
+          <div style={{ 
+            position: 'fixed', 
+            inset: 0, 
+            zIndex: 2000, 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            padding: '20px' 
+          }}>
+            {/* Dark background overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsVideoModalOpen(false)}
+              style={{ 
+                position: 'absolute', 
+                inset: 0, 
+                background: 'rgba(5, 6, 10, 0.95)', 
+                backdropFilter: 'blur(12px)' 
+              }}
+            />
+
+            {/* Modal Container */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              style={{
+                width: '100%',
+                maxWidth: '900px',
+                aspectRatio: '16/9',
+                position: 'relative',
+                zIndex: 2001,
+                borderRadius: '16px',
+                overflow: 'hidden',
+                border: '1px solid rgba(249, 115, 22, 0.3)',
+                boxShadow: '0 25px 60px rgba(0,0,0,0.8)'
+              }}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setIsVideoModalOpen(false)}
+                style={{ 
+                  position: 'absolute', 
+                  top: '15px', 
+                  right: '15px', 
+                  background: 'rgba(5, 6, 10, 0.8)', 
+                  border: 'none', 
+                  color: '#fff', 
+                  width: '36px', 
+                  height: '36px', 
+                  borderRadius: '50%', 
+                  display: 'grid', 
+                  placeItems: 'center', 
+                  cursor: 'pointer',
+                  zIndex: 2002,
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.5)',
+                  transition: 'background 0.3s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'var(--primary)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(5, 6, 10, 0.8)'}
+              >
+                <X size={20} />
+              </button>
+
+              {/* YouTube Embed iFrame */}
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/vRStdEutf5s?autoplay=1"
+                title="AgentClamp Sandbox Demo"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                style={{ border: 'none' }}
+              />
             </motion.div>
           </div>
         )}
