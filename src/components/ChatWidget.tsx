@@ -58,7 +58,7 @@ Students get exclusive access to the AgentClamp sandbox for deploying complex mu
 - Safety, Governance & Scale (PII detection, prompt injection protection)
 
 ## Team
-- **Phani Prasad Thimmapuram** — Founder & CTO. 29 years IT experience, ex-Bank of America, J.P. Morgan, DBS, Société Générale, Virtusa, IBM.
+- **Phani Prasad Thimmapuram** — Founder & CTO, pursuing PhD in Gen AI and Agentic AI in SCM Eco system. 30 years IT experience, ex-Bank of America, J.P. Morgan, DBS, Société Générale, Virtusa, IBM.
 - **K. Sreedhar** — COO. Enterprise operations leader, ex-FIS, GE, Ramco Systems.
 
 ## Contact

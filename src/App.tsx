@@ -1676,6 +1676,17 @@ const App = () => {
               <h3 className="team-card-name">Phani Prasad Thimmapuram</h3>
               <div className="team-card-role" style={{ color: 'var(--primary)' }}>Founder and CTO</div>
               <div style={{
+                fontSize: '0.72rem',
+                color: '#e2e8f0',
+                fontWeight: 700,
+                marginTop: '2px',
+                marginBottom: '6px',
+                letterSpacing: '0.3px',
+                opacity: 0.9
+              }}>
+                Pursuing PhD in Gen AI and Agentic AI in SCM Eco system
+              </div>
+              <div style={{
                 fontSize: '0.7rem',
                 color: 'var(--accent-blue)',
                 fontWeight: 800,
@@ -1690,7 +1701,7 @@ const App = () => {
                 <span>Author: "Agentic AI Handbook" & "Kubernetes"</span>
               </div>
               <p className="team-card-bio" style={{ marginBottom: '0px' }}>
-                Transformation leader with 29 years of IT experience directing GenAI architecture, cloud migration, and systems engineering for global financial institutions. Specialized in translating business strategy into high-performing engineering cultures and scaling AI-ready platforms.
+                Transformation leader with 30 years of IT experience directing GenAI architecture, cloud migration, and systems engineering for global financial institutions. Specialized in translating business strategy into high-performing engineering cultures and scaling AI-ready platforms.
               </p>
                
               {/* Professional Certifications */}
