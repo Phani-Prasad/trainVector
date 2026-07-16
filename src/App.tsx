@@ -40,6 +40,8 @@ import {
 import logo from './assets/logo_new.png';
 import agentclampPreview from './assets/agentclamp_preview.png';
 import phaniProfile from './assets/phani_profile.png';
+import rukmaProfile from './assets/Rukma.jpeg';
+import sreeProfile from './assets/Sree.jpeg';
 
 
 const App = () => {
@@ -52,7 +54,7 @@ const App = () => {
   const [formError, setFormError] = useState('');
   const [userType, setUserType] = useState<'student' | 'professional' | 'consulting' | null>(null);
   const [activeProfRoadmap, setActiveProfRoadmap] = useState<'developer' | 'executive'>('developer');
-  const [heroTab, setHeroTab] = useState<'academy' | 'consulting'>('academy');
+  const [heroTab, setHeroTab] = useState<'academy' | 'consulting'>('consulting');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -422,8 +424,8 @@ const App = () => {
           <span style={{ color: 'var(--primary)', letterSpacing: '4px', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase' }}>
             GenAI Academy & Enterprise Consulting
           </span>
-          <h1 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', marginTop: '20px', lineHeight: 1.25, marginBottom: '35px', fontWeight: 800 }}>
-            FROM <span style={{ color: 'var(--primary)', textShadow: '0 0 20px var(--primary-glow)' }}>AI SKILLS</span> TO <span style={{ color: 'var(--text-dim)' }}>ENTERPRISE IMPACT</span>
+          <h1 style={{ fontSize: 'clamp(1.2rem, 2.6vw, 2.1rem)', marginTop: '20px', lineHeight: 1.25, marginBottom: '35px', fontWeight: 800, whiteSpace: 'nowrap' }}>
+            FROM <span style={{ color: 'var(--primary)', textShadow: '0 0 20px var(--primary-glow)' }}>AI CAPABILITY BUILDING</span> TO <span style={{ color: 'var(--text-dim)' }}>ENTERPRISE IMPACT</span>
           </h1>
 
           {/* Premium Segmented Tab Switcher */}
@@ -1674,16 +1676,24 @@ const App = () => {
                 />
               </div>
               <h3 className="team-card-name">Phani Prasad Thimmapuram</h3>
-              <div className="team-card-role" style={{ color: 'var(--primary)' }}>Founder and CTO</div>
+              <div className="team-card-role" style={{ color: 'var(--primary)' }}>Co-Founder and CTO</div>
               <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '7px',
                 fontSize: '0.72rem',
-                color: '#e2e8f0',
-                fontWeight: 700,
-                marginTop: '2px',
-                marginBottom: '6px',
-                letterSpacing: '0.3px',
-                opacity: 0.9
+                color: '#fbbf24',
+                fontWeight: 800,
+                marginTop: '6px',
+                marginBottom: '8px',
+                letterSpacing: '0.4px',
+                padding: '5px 12px',
+                borderRadius: '20px',
+                background: 'rgba(251, 191, 36, 0.08)',
+                border: '1px solid rgba(251, 191, 36, 0.3)',
+                boxShadow: '0 0 12px rgba(251, 191, 36, 0.12)',
               }}>
+                <GraduationCap size={13} style={{ flexShrink: 0 }} />
                 Pursuing PhD in Gen AI and Agentic AI in SCM Eco system
               </div>
               <div style={{
@@ -1893,12 +1903,22 @@ const App = () => {
             <div className="team-card team-blue">
               <div className="avatar-container">
                 <div className="avatar-glow"></div>
-                <div className="avatar-image-placeholder">
-                  <Briefcase size={36} color="var(--accent-blue)" />
-                </div>
+                <img
+                  src={sreeProfile}
+                  alt="K. Sreedhar"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '50%',
+                    objectFit: 'cover',
+                    zIndex: 2,
+                    position: 'relative',
+                    border: '2px solid rgba(255, 255, 255, 0.1)'
+                  }}
+                />
               </div>
               <h3 className="team-card-name">K. Sreedhar</h3>
-              <div className="team-card-role" style={{ color: 'var(--accent-blue)' }}>Chief Operating Officer</div>
+              <div className="team-card-role" style={{ color: 'var(--accent-blue)' }}>Co-Founder and Chief Operating Officer</div>
               <p className="team-card-bio">
                 Seasoned operations leader with deep expertise in scaling enterprise programs, driving cross-functional alignment, and operationalizing AI-led transformation initiatives across complex, multi-stakeholder environments.
               </p>
@@ -1983,6 +2003,132 @@ const App = () => {
                 </a>
               </div>
             </div>
+
+            {/* Rukma G */}
+            <div className="team-card team-purple" style={{ border: '1px solid rgba(139, 92, 246, 0.25)', background: 'rgba(139, 92, 246, 0.02)' }}>
+              <div className="avatar-container">
+                <div className="avatar-glow" style={{ background: 'radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%)' }}></div>
+                <img
+                  src={rukmaProfile}
+                  alt="Rukma G"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '50%',
+                    objectFit: 'cover',
+                    zIndex: 2,
+                    position: 'relative',
+                    border: '2px solid rgba(255, 255, 255, 0.1)'
+                  }}
+                />
+              </div>
+              <h3 className="team-card-name">Rukma G</h3>
+              <div className="team-card-role" style={{ color: 'var(--secondary)' }}>Co-Founder &amp; Chief Business Transformation Officer</div>
+
+              {/* Education Badge */}
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '0.7rem',
+                color: 'var(--secondary)',
+                fontWeight: 800,
+                marginTop: '4px',
+                marginBottom: '10px',
+                letterSpacing: '0.5px'
+              }}>
+                <GraduationCap size={12} style={{ flexShrink: 0 }} />
+                <span>MBA – Data Science &amp; Business Analytics</span>
+              </div>
+
+              <p className="team-card-bio" style={{ marginBottom: '0px' }}>
+                Business transformation leader with over 25 years of experience driving digital transformation, enterprise consulting, customer success and business process innovation. With expertise spanning HR &amp; Payroll, enterprise solutions, government transformation and business operations, partners with organizations to identify and implement AI, automation and data-driven solutions to improve business efficiency and customer experience.
+              </p>
+
+              {/* Prior Enterprise Leadership */}
+              <div style={{
+                width: '100%',
+                marginTop: '8px',
+                marginBottom: '18px',
+                borderTop: '1px solid rgba(255,255,255,0.08)',
+                paddingTop: '12px',
+                textAlign: 'center'
+              }}>
+                <span style={{
+                  display: 'block',
+                  fontSize: '0.68rem',
+                  color: 'var(--text-dim)',
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                  marginBottom: '15px',
+                  fontWeight: 700
+                }}>
+                  Prior Enterprise Leadership
+                </span>
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '15px 24px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  opacity: 0.6,
+                  color: 'var(--text-bright)',
+                  transition: 'opacity 0.3s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '0.95'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.6'}
+                >
+                  {/* Ramco */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="Ramco Systems">
+                    <svg viewBox="0 0 100 100" width="16" height="16" fill="currentColor" style={{ flexShrink: 0 }}>
+                      <polygon points="50,10 90,35 90,65 50,90 10,65 10,35" fill="none" stroke="currentColor" strokeWidth="8" />
+                      <circle cx="50" cy="50" r="12" />
+                    </svg>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.3px' }}>Ramco</span>
+                  </div>
+
+                  <span style={{ color: 'var(--secondary)', fontSize: '0.8rem', fontWeight: 900 }}>•</span>
+
+                  {/* EY */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="Ernst & Young">
+                    <svg viewBox="0 0 100 100" width="16" height="16" fill="currentColor" style={{ flexShrink: 0 }}>
+                      <path d="M10 20 h80 M10 50 h50 M10 80 h80" stroke="currentColor" strokeWidth="12" strokeLinecap="round" fill="none" />
+                    </svg>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 900, letterSpacing: '1px' }}>EY</span>
+                  </div>
+
+                  <span style={{ color: 'var(--secondary)', fontSize: '0.8rem', fontWeight: 900 }}>•</span>
+
+                  {/* Cloudpay */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="Cloudpay">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+                    </svg>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.3px' }}>Cloudpay</span>
+                  </div>
+
+                  <span style={{ color: 'var(--secondary)', fontSize: '0.8rem', fontWeight: 900 }}>•</span>
+
+                  {/* CGI */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title="CGI">
+                    <svg viewBox="0 0 100 100" width="16" height="16" fill="currentColor" style={{ flexShrink: 0 }}>
+                      <path d="M50 10 A40 40 0 1 0 90 50 L70 50 A20 20 0 1 1 50 30 Z" />
+                    </svg>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 900, letterSpacing: '1px' }}>CGI</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="team-socials">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="team-social-link">
+                  <Linkedin size={18} />
+                </a>
+                <a href="mailto:rukma@trainvector.ai" className="team-social-link">
+                  <Mail size={18} />
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
