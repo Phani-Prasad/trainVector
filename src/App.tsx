@@ -48,6 +48,7 @@ const App = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -375,13 +376,13 @@ const App = () => {
       <div className="glow-orb" style={{ width: '300px', height: '300px', top: '40%', right: '20%', background: 'var(--accent-blue)', animationDelay: '-5s' }} />
 
       {/* Navbar */}
-      <nav style={{
+      <nav className={isMobileMenuOpen ? 'mobile-menu-open' : ''} style={{
         position: 'fixed',
         top: 0,
         width: '100%',
         zIndex: 100,
-        padding: '20px 5%',
-        background: 'rgba(5, 6, 10, 0.8)',
+        padding: '16px 5%',
+        background: 'rgba(5, 6, 10, 0.92)',
         backdropFilter: 'blur(10px)',
         borderBottom: '1px solid var(--border)',
         display: 'flex',
@@ -394,9 +395,9 @@ const App = () => {
             alt="trainVector™ Logo"
             draggable={false}
             style={{
-              height: 'var(--logo-height, 70px)',
-              maxHeight: '12vw',
-              minHeight: '40px',
+              height: 'var(--logo-height, 60px)',
+              maxHeight: '10vw',
+              minHeight: '36px',
               borderRadius: '6px',
               userSelect: 'none',
               WebkitUserDrag: 'none'
@@ -404,14 +405,36 @@ const App = () => {
           />
         </div>
         <div className="nav-links">
-          <a href="#why-trainvector" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Why trainVector</a>
-          <a href="#student-roadmap" onClick={() => setHeroTab('academy')} className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Academy Roadmaps</a>
-          <a href="#agentclamp" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>AgentClamp</a>
-          <a href="#consulting" onClick={() => setHeroTab('consulting')} className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Consulting & Advisory</a>
-          <a href="#team" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Team</a>
-          <a href="#faq" className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>FAQ</a>
-          <button onClick={() => handleApply()} className="glow-btn" style={{ fontSize: 'min(0.8rem, 3vw)', padding: '8px 20px' }}>Join Cohort</button>
+          <a href="#why-trainvector" onClick={() => setIsMobileMenuOpen(false)} className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Why trainVector</a>
+          <a href="#student-roadmap" onClick={() => { setHeroTab('academy'); setIsMobileMenuOpen(false); }} className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Academy Roadmaps</a>
+          <a href="#agentclamp" onClick={() => setIsMobileMenuOpen(false)} className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>AgentClamp</a>
+          <a href="#consulting" onClick={() => { setHeroTab('consulting'); setIsMobileMenuOpen(false); }} className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Consulting & Advisory</a>
+          <a href="#team" onClick={() => setIsMobileMenuOpen(false)} className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Team</a>
+          <a href="#faq" onClick={() => setIsMobileMenuOpen(false)} className="nav-link-text" style={{ color: 'var(--text-dim)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>FAQ</a>
+          <button onClick={() => { handleApply(); setIsMobileMenuOpen(false); }} className="glow-btn" style={{ fontSize: 'min(0.8rem, 3vw)', padding: '8px 20px' }}>Join Cohort</button>
         </div>
+        {/* Hamburger button - only visible on mobile via CSS */}
+        <button
+          className="hamburger-btn"
+          onClick={() => setIsMobileMenuOpen(v => !v)}
+          aria-label="Toggle menu"
+          style={{
+            display: 'none', // shown via CSS on mobile
+            background: 'transparent',
+            border: '1px solid var(--border)',
+            borderRadius: '8px',
+            padding: '8px',
+            cursor: 'pointer',
+            flexDirection: 'column',
+            gap: '5px',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <span style={{ display: 'block', width: '22px', height: '2px', background: isMobileMenuOpen ? 'var(--primary)' : 'var(--text-dim)', transition: 'all 0.3s ease', transform: isMobileMenuOpen ? 'rotate(45deg) translateY(7px)' : 'none' }} />
+          <span style={{ display: 'block', width: '22px', height: '2px', background: isMobileMenuOpen ? 'var(--primary)' : 'var(--text-dim)', transition: 'all 0.3s ease', opacity: isMobileMenuOpen ? 0 : 1 }} />
+          <span style={{ display: 'block', width: '22px', height: '2px', background: isMobileMenuOpen ? 'var(--primary)' : 'var(--text-dim)', transition: 'all 0.3s ease', transform: isMobileMenuOpen ? 'rotate(-45deg) translateY(-7px)' : 'none' }} />
+        </button>
       </nav>
 
       {/* Hero Section */}
@@ -424,12 +447,12 @@ const App = () => {
           <span style={{ color: 'var(--primary)', letterSpacing: '4px', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase' }}>
             GenAI Academy & Enterprise Consulting
           </span>
-          <h1 style={{ fontSize: 'clamp(1.2rem, 2.6vw, 2.1rem)', marginTop: '20px', lineHeight: 1.25, marginBottom: '35px', fontWeight: 800, whiteSpace: 'nowrap' }}>
+          <h1 style={{ fontSize: 'clamp(1.1rem, 4vw, 2.1rem)', marginTop: '20px', lineHeight: 1.3, marginBottom: '35px', fontWeight: 800, whiteSpace: 'normal' }}>
             FROM <span style={{ color: 'var(--primary)', textShadow: '0 0 20px var(--primary-glow)' }}>AI CAPABILITY BUILDING</span> TO <span style={{ color: 'var(--text-dim)' }}>ENTERPRISE IMPACT</span>
           </h1>
 
           {/* Premium Segmented Tab Switcher */}
-          <div style={{
+          <div className="hero-tab-switcher" style={{
             display: 'inline-flex',
             background: 'rgba(255, 255, 255, 0.03)',
             border: '1px solid var(--border)',
@@ -1048,7 +1071,7 @@ const App = () => {
         </div>
 
         {/* Roadmap Selector Tabs */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '50px', flexWrap: 'wrap' }}>
+        <div className="prof-roadmap-tabs" style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '50px', flexWrap: 'wrap' }}>
           <button
             onClick={() => setActiveProfRoadmap('developer')}
             style={{
@@ -1488,7 +1511,7 @@ const App = () => {
                 YOUR WEEKLY <span style={{ color: 'var(--primary)', textShadow: '0 0 15px rgba(249,115,22,0.2)' }}>SCHEDULE</span>
               </h2>
               <p style={{ color: 'var(--text-dim)', fontSize: '0.95rem', lineHeight: '1.65', marginBottom: '35px' }}>
-                A structured commitment of **10 hours per week**, divided as follows:
+                A structured commitment of <strong style={{ color: 'var(--text-bright)' }}>10 hours per week</strong>, divided as follows:
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>

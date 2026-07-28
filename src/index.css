@@ -17,6 +17,7 @@
   --secondary: #8b5cf6; /* Purple from logo */
   --accent-blue: #3b82f6; /* Blue from logo */
   --text-main: #ffffff;
+  --text-bright: #e2e8f0;
   --text-dim: #94a3b8;
   --border: rgba(255, 255, 255, 0.1);
   --glass: rgba(13, 15, 23, 0.7);
@@ -106,26 +107,51 @@ h1, h2, h3, .font-orbitron {
 /* Mobile Optimizations */
 @media (max-width: 768px) {
   section {
-    padding: 60px 5% !important;
+    padding: 50px 4% !important;
   }
   
   .hero-section {
-    padding-top: 120px !important;
+    padding-top: 110px !important;
   }
 
   h1 {
-    font-size: 2.2rem !important;
+    font-size: 1.6rem !important;
+    white-space: normal !important;
+  }
+
+  h2 {
+    font-size: 1.6rem !important;
   }
 
   .nav-links {
-    gap: 10px !important;
+    gap: 8px !important;
   }
   
   .nav-link-text {
     display: none !important;
   }
 
-  .temple-pillars-container {
+  .mobile-menu-open .nav-links {
+    display: flex !important;
+    flex-direction: column !important;
+    position: fixed !important;
+    top: 70px !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: rgba(5, 6, 10, 0.97) !important;
+    backdrop-filter: blur(20px) !important;
+    padding: 20px !important;
+    border-bottom: 1px solid var(--border) !important;
+    z-index: 99 !important;
+    gap: 16px !important;
+  }
+
+  .mobile-menu-open .nav-link-text {
+    display: block !important;
+    font-size: 1rem !important;
+  }
+
+  .template-pillars-container {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 0 !important;
     border-bottom: 1px solid var(--border);
@@ -167,12 +193,117 @@ h1, h2, h3, .font-orbitron {
     grid-template-columns: 1fr !important;
     gap: 30px !important;
   }
+
+  /* Roadmap selector tabs on mobile */
+  .prof-roadmap-tabs {
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+  }
+
+  .prof-roadmap-tabs button {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    font-size: 0.8rem !important;
+    padding: 10px 16px !important;
+  }
+
+  /* Hero tab buttons on mobile */
+  .hero-tab-switcher {
+    flex-direction: column !important;
+    border-radius: 16px !important;
+    width: calc(100% - 40px) !important;
+  }
+
+  .hero-tab-switcher button {
+    border-radius: 12px !important;
+    padding: 10px 16px !important;
+    font-size: 0.8rem !important;
+    width: 100% !important;
+  }
+
+  /* Prereq / Schedule grid */
+  .prereq-schedule-grid {
+    gap: 40px !important;
+  }
+
+  /* Consulting section pillars */
+  .consulting-cta-btn {
+    width: 100% !important;
+  }
+
+  /* Team grid single column */
+  .team-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Footer contact block */
+  .footer {
+    padding: 40px 4% !important;
+  }
 }
 
 .nav-links {
   display: flex;
   gap: 30px;
   align-items: center;
+}
+
+/* Hamburger button: hidden on desktop, flex on mobile */
+.hamburger-btn {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: flex !important;
+  }
+
+  /* On mobile, hide only the nav-text links; keep the Join Cohort button visible */
+  .nav-links {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0 !important;
+    align-items: center !important;
+  }
+
+  /* Hide all nav link texts */
+  .nav-links .nav-link-text {
+    display: none !important;
+  }
+
+  /* When mobile menu is open, show the full dropdown */
+  .mobile-menu-open .nav-links {
+    display: flex !important;
+    flex-direction: column !important;
+    position: fixed !important;
+    top: 68px !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: rgba(5, 6, 10, 0.97) !important;
+    backdrop-filter: blur(20px) !important;
+    padding: 24px 20px !important;
+    border-bottom: 1px solid var(--border) !important;
+    z-index: 99 !important;
+    gap: 16px !important;
+    align-items: flex-start !important;
+  }
+
+  /* Show nav link texts in open mobile menu */
+  .mobile-menu-open .nav-links .nav-link-text {
+    display: block !important;
+    font-size: 1rem !important;
+    padding: 4px 0 !important;
+    width: 100% !important;
+  }
+
+  /* Full width CTA in open menu */
+  .mobile-menu-open .nav-links .glow-btn {
+    width: 100% !important;
+    text-align: center !important;
+    margin-top: 8px !important;
+  }
 }
 
 .temple-pillars-grid {
