@@ -1699,7 +1699,7 @@ const App = () => {
                 />
               </div>
               <h3 className="team-card-name">Phani Prasad Thimmapuram</h3>
-              <div className="team-card-role" style={{ color: 'var(--primary)' }}>Co-Founder and CTO</div>
+              <div className="team-card-role" style={{ color: 'var(--primary)' }}>Founder and CTO</div>
               <div style={{
                 display: 'inline-flex',
                 alignItems: 'center',
