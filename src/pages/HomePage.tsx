@@ -216,7 +216,7 @@ const HomePage: React.FC = () => {
                   fontWeight: 800,
                   textTransform: 'uppercase'
                 }}>
-                  Intelligence in Action
+                  What We Do
                 </span>
               </div>
 
