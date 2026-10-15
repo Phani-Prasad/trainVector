@@ -230,7 +230,7 @@ const HomePage: React.FC = () => {
                 letterSpacing: '-0.025em',
                 fontFamily: "'Plus Jakarta Sans', Inter, sans-serif",
               }}>
-                We Build <span className="tv-grad-text">AI Products</span>, Architect <span className="tv-grad-text">Enterprise Systems</span> &amp; Capability Building.
+                We Build <span className="tv-grad-text">AI Products</span>, Architect <span className="tv-grad-text">Enterprise Solutions</span> &amp; Empower Talent.
               </h1>
 
               {/* Value Narrative (Clean & punchy) */}
