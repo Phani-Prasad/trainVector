@@ -18,74 +18,76 @@ const AGENTCLAMP_API_URL = (import.meta.env.VITE_AGENTCLAMP_API_URL || 'http://l
 const AGENTCLAMP_API_KEY = import.meta.env.VITE_AGENTCLAMP_API_KEY || 'gvn_trainvector_live_key';
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY || '';
 
-const SYSTEM_PROMPT = `You are the official AI admissions & program advisor for trainVector™ — a premier GenAI Academy and Enterprise Consulting firm.
+const SYSTEM_PROMPT = `You are the official AI assistant for trainVector™ — an AI enterprise firm offering Proprietary AI Products, Enterprise Cognitive Consulting, and Applied AI Academy Cohorts.
 
-## CRITICAL BEHAVIORAL RULE:
-- You are EXCLUSIVELY an advisor for trainVector™. You MUST NOT act as a general-purpose programming tutor, code generator, or general AI encyclopedia.
-- When a user asks about technical AI topics (such as RAG, Agentic AI, LangGraph, LoRA, Transformers, Presidio, etc.), DO NOT write standalone tutorials or Python code samples. Instead, ALWAYS explain how trainVector teaches and covers that topic in its 5-week cohort curriculum (e.g., Week 3 of the Student Track or Week 2 of the Developer Track) and how learners build production capstone systems around it.
-- Keep answers concise (2–4 sentences), focused, and always guide the visitor to enroll, apply on the website, or call +91 83105 90859.
+## CORE DIRECTIVES:
+1. KEEP ALL ANSWERS SIMPLE, DIRECT, AND SHORT (1 to 3 concise sentences). Never write long essays, complex tutorials, or walls of text.
+2. ALWAYS INVITE THE USER TO CONTACT US at our direct phone/WhatsApp number **+91 83105 90859** or email **contact@trainvector.com** for demos, consulting inquiries, admissions, or partnerships.
+3. You represent three core offerings:
+   - **Proprietary AI Software Products**:
+     • **BrainBuddy™**: Personalized cognitive AI learning companion for students and schools (adaptive homework guidance, concept mastery, and interactive learning).
+     • **AgentClamp™**: Real-time enterprise security, governance, PII masking, and prompt-injection defense gateway for autonomous AI agents.
+     • **KREOMAX™**: Next-gen creator studio and interactive AI education platform for schools and students.
+   - **Enterprise Cognitive Consulting**:
+     • Enterprise AI strategy, architectural roadmaps, and ROI scoping.
+     • Bespoke multi-agent workflows, autonomous system orchestration, and production RAG pipelines.
+     • AI security, governance, and audit-ready observability using AgentClamp.
+   - **Applied AI Academy (Training Cohorts)**:
+     • 5-Week intensive cohorts for: (1) Students & Fresh Graduates, (2) Working Professional Developers & Architects, and (3) Executives & Product Managers.
+     • Hands-on production capstones, live mentor support from 30+ year enterprise architects, AgentClamp sandbox access, and verifiable completion certification.
 
-## About trainVector™
-trainVector accelerates Enterprise AI Transformation through intensive 5-week cohort programs and enterprise consulting services.
-
-## Training Programs & Syllabus
-
-### 1. Student / Fresh Graduate Track (5 Weeks)
-- Week 1: Foundations of AI & Python Programming (ML basics, NumPy, Pandas, Vibe Coding)
-- Week 2: Generative AI & Large Language Models (Transformers, OpenAI, Groq, Ollama)
-- Week 3: Retrieval-Augmented Generation (RAG, Vector DBs, embeddings, semantic search)
-- Week 4: Agentic AI & Multi-Agent Systems (CrewAI, LangGraph, MCP, multi-agent workflows)
-- Week 5: Enterprise AI, Governance & Observability (safety rails, responsible AI, monitoring)
-
-### 2. Working Professional — Developer / Architect Track (5 Weeks)
-- Week 1: GenAI Foundations & Core Mechanics (tokenization, production constraints)
-- Week 2: Grounding AI with RAG & Context Engineering (vector stores, chunking strategies, hybrid search)
-- Week 3: The Agentic Leap & Stateful Orchestration (LangChain, LangGraph, MCP)
-- Week 4: Model Fine-Tuning & Local Execution (LoRA, QLoRA, Ollama)
-- Week 5: AI Evals, Security & Production Readiness (Langfuse, LangSmith, red teaming)
-
-### 3. Working Professional — Executives, PMs & Analysts Track (5 Weeks)
-- Week 1: AI Opportunity Identification & Use Case Mapping
-- Week 2: AI Feasibility Assessment & Data Readiness
-- Week 3: AI Value Realization & ROI Scoping
-- Week 4: AI Adoption & Change Leadership
-- Week 5: AI Governance, Risk & Observability
-
-## What Every Cohort Includes
-- Interactive Live Sessions (4 hours/week)
-- Weekly Projects & Hands-On Capstone Build (3 hours/week)
-- Self-Directed Learning (3 hours/week)
-- Lifetime Material Access & Updates
-- Verifiable trainVector™ AI Completion Certificate
-- Exclusive access to the AgentClamp sandbox platform for agent governance & observability
-- Targeted Career & Interview Prep
-
-## Enterprise Consulting Services
-- AI Strategy & Use Case Mapping
-- Bespoke Cognitive Systems (multi-agent pipelines, enterprise RAG engines)
-- Safety, Governance & Scale (PII detection, prompt injection protection with AgentClamp)
-
-## Leadership Team
-- **Phani Prasad Thimmapuram** — Founder & CTO, pursuing PhD in Gen AI and Agentic AI in SCM Ecosystem. 30 years IT experience, ex-Bank of America, J.P. Morgan, DBS, Société Générale, Virtusa, IBM.
-- **K. Sreedhar** — COO. Enterprise operations leader, ex-FIS, GE, Ramco Systems.
-
-## Contact & Admissions
-- Phone: +91 83105 90859
+## Leadership & Contact Details:
+- Founder & CTO: Phani Prasad Thimmapuram (30+ years IT/AI leadership, ex-Bank of America, JP Morgan, DBS, SocGen, Virtusa, IBM)
+- COO: K. Sreedhar (enterprise operations leader, ex-FIS, GE, Ramco Systems)
+- Phone / WhatsApp: +91 83105 90859
+- Email: contact@trainvector.com
+- Website: trainvector.com
 - Address: 50, Bethel Nagar, KR Puram, Bangalore - 560036
-- Website: trainvector.ai
 
-## Formatting & Structure:
-- Structure your responses with clean bullet points and short paragraphs.
-- Never write large walls of unformatted text.
-- Use bolding on program names and key track names.
-- Always conclude with a clear next step (Apply at trainvector.ai or call +91 83105 90859).`;
+## STRICT DOMAIN & EMAIL RULE:
+- The official email address is STRICTLY contact@trainvector.com (ending in .com, NEVER .ai).
+- Under NO circumstance should you ever output 'contact@trainvector.ai' or any '.ai' email address. Always write contact@trainvector.com.
+
+## Tone & Style:
+Professional, warm, clear, and very concise. Answer the user's specific question simply in 1-2 sentences, and always close with a prompt to contact us at **+91 83105 90859** or **contact@trainvector.com**.`;
 
 const SUGGESTED_QUESTIONS = [
-  'What tracks do you offer?',
-  'Is this suitable for beginners?',
-  'What is the time commitment?',
-  'Do I get a certificate?',
+  'Tell me about your AI Products',
+  'What Enterprise Consulting do you offer?',
+  'What Training Tracks are available?',
+  'How can I contact your team?',
 ];
+
+function getSmartFallbackReply(query: string): string {
+  const q = query.toLowerCase();
+
+  if (q.includes('product') || q.includes('brainbuddy') || q.includes('agentclamp') || q.includes('clamp') || q.includes('kreomax')) {
+    if (q.includes('brainbuddy')) {
+      return "BrainBuddy™ is our personalized AI learning companion for students and schools, offering adaptive concept mastery and interactive homework guidance. For a school partnership or live demo, please call or WhatsApp us at **+91 83105 90859**!";
+    }
+    if (q.includes('agentclamp') || q.includes('clamp')) {
+      return "AgentClamp™ is our enterprise AI governance platform providing real-time security, PII masking, and prompt-injection defense for autonomous agents. To request an enterprise demo, please contact us at **+91 83105 90859**.";
+    }
+    if (q.includes('kreomax')) {
+      return "KREOMAX™ is our next-gen creator studio and interactive AI education platform for schools and students. To learn more or enroll, please call or WhatsApp us at **+91 83105 90859**!";
+    }
+    return "We offer three proprietary AI products: **BrainBuddy™** (personalized student learning), **AgentClamp™** (enterprise agent security & governance), and **KREOMAX™** (creator studio & interactive learning). For live demos or product inquiries, please call or WhatsApp us at **+91 83105 90859**!";
+  }
+
+  if (q.includes('consult') || q.includes('enterprise') || q.includes('advisory') || q.includes('custom') || q.includes('service') || q.includes('strategy') || q.includes('transform')) {
+    return "Our enterprise cognitive consulting helps organizations build production-grade multi-agent workflows, secure RAG engines, and enterprise AI roadmaps with full governance. Please connect directly with our leadership team at **+91 83105 90859** to discuss your use case!";
+  }
+
+  if (q.includes('course') || q.includes('train') || q.includes('cohort') || q.includes('track') || q.includes('academ') || q.includes('syllabus') || q.includes('fee') || q.includes('student') || q.includes('developer') || q.includes('certificate')) {
+    return "Our Applied AI Academy offers intensive 5-week cohort tracks for **Students & Fresh Graduates**, **Developers & Architects**, and **Executives & PMs**, featuring hands-on capstone builds and verifiable certification. To enroll or learn more, please contact us at **+91 83105 90859**!";
+  }
+
+  if (q.includes('contact') || q.includes('phone') || q.includes('call') || q.includes('number') || q.includes('reach') || q.includes('email') || q.includes('location') || q.includes('address') || q.includes('whatsapp')) {
+    return "You can reach our team directly at **+91 83105 90859** (call or WhatsApp) or email us at **contact@trainvector.com**. We are located at 50, Bethel Nagar, KR Puram, Bangalore.";
+  }
+
+  return "At trainVector, we provide proprietary AI Products (BrainBuddy, AgentClamp, Kreomax), Enterprise Cognitive Consulting, and 5-week Applied AI Academy cohorts. Please contact us directly at **+91 83105 90859** (call or WhatsApp) to discuss how we can help you!";
+}
 
 function renderInlineMarkdown(text: string): React.ReactNode {
   const parts: React.ReactNode[] = [];
@@ -99,23 +101,24 @@ function renderInlineMarkdown(text: string): React.ReactNode {
     }
     if (match[2]) {
       parts.push(
-        <strong key={match.index} style={{ color: '#fff', fontWeight: 700 }}>
+        <strong key={match.index} style={{ color: '#0f172a', fontWeight: 700 }}>
           {match[2]}
         </strong>
       );
     } else if (match[3]) {
-      parts.push(<em key={match.index} style={{ color: '#cbd5e1' }}>{match[3]}</em>);
+      parts.push(<em key={match.index} style={{ color: '#334155' }}>{match[3]}</em>);
     } else if (match[4]) {
       parts.push(
         <code
           key={match.index}
           style={{
-            background: 'rgba(255,255,255,0.1)',
+            background: '#f1f5f9',
             padding: '2px 5px',
             borderRadius: '4px',
             fontSize: '0.82em',
             fontFamily: 'monospace',
-            color: 'var(--primary)',
+            color: '#ea580c',
+            border: '1px solid #e2e8f0',
           }}
         >
           {match[4]}
@@ -207,7 +210,7 @@ const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi! 👋 I'm the trainVector AI assistant. I can help you learn about our programs, tracks, and how to get started. What would you like to know?",
+      content: "Hi! 👋 I'm the trainVector AI assistant. How can I help you? You can ask me about our **AI Products** (BrainBuddy, AgentClamp, Kreomax), **Enterprise Consulting**, or **Applied AI Academy** cohorts. For quick inquiries, feel free to call or WhatsApp us at **+91 83105 90859**!",
     },
   ]);
   const [input, setInput] = useState('');
@@ -302,8 +305,8 @@ const ChatWidget: React.FC = () => {
       // ── Step 2: Fallback to direct Groq if AgentClamp is waking up / offline ──
       if (!usedAgentClamp && !reply) {
         if (!GROQ_API_KEY || GROQ_API_KEY === 'your_groq_api_key_here') {
-          await new Promise((r) => setTimeout(r, 1000));
-          reply = 'I am connecting to our AI server. Please reach out to us at **+91 83105 90859** or apply on the website!';
+          await new Promise((r) => setTimeout(r, 400));
+          reply = getSmartFallbackReply(trimmed);
         } else {
           const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
@@ -329,18 +332,25 @@ const ChatWidget: React.FC = () => {
       }
 
       if (!reply) {
-        reply = "I'm having trouble connecting to the AI assistant right now. Please reach out to us directly at **+91 83105 90859** or apply through the website!";
+        reply = getSmartFallbackReply(trimmed);
       }
 
-      setMessages([...updatedMessages, { role: 'assistant', content: reply, governance: govMeta }]);
+      // Guarantee contact@trainvector.com in all assistant outputs
+      const sanitizedReply = reply
+        .replace(/contact@trainvector\.ai/gi, 'contact@trainvector.com')
+        .replace(/@trainvector\.ai/gi, '@trainvector.com');
+
+      setMessages([...updatedMessages, { role: 'assistant', content: sanitizedReply, governance: govMeta }]);
     } catch (error) {
       console.error('Fetch error:', error);
+      const fallbackReply = getSmartFallbackReply(trimmed)
+        .replace(/contact@trainvector\.ai/gi, 'contact@trainvector.com')
+        .replace(/@trainvector\.ai/gi, '@trainvector.com');
       setMessages([
         ...updatedMessages,
         {
           role: 'assistant',
-          content:
-            "I'm having trouble connecting to the AI assistant right now. Please reach out to us directly at **+91 83105 90859** or apply through the website!",
+          content: fallbackReply,
         },
       ]);
     } finally {
@@ -426,12 +436,12 @@ const ChatWidget: React.FC = () => {
               position: 'fixed',
               bottom: '102px',
               right: '30px',
-              width: 'min(380px, calc(100vw - 40px))',
-              height: 'min(560px, calc(100vh - 140px))',
-              background: 'var(--bg-card)',
-              border: '1px solid rgba(249,115,22,0.3)',
+              width: 'min(390px, calc(100vw - 40px))',
+              height: 'min(580px, calc(100vh - 140px))',
+              background: '#ffffff',
+              border: '1px solid #fed7aa',
               borderRadius: '20px',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(249,115,22,0.1)',
+              boxShadow: '0 20px 50px rgba(15,23,42,0.18), 0 0 0 1px rgba(249,115,22,0.15)',
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
@@ -441,8 +451,8 @@ const ChatWidget: React.FC = () => {
             {/* Header */}
             <div style={{
               padding: '16px 20px',
-              background: 'linear-gradient(135deg, rgba(249,115,22,0.15), rgba(139,92,246,0.08))',
-              borderBottom: '1px solid rgba(255,255,255,0.07)',
+              background: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)',
+              borderBottom: '1px solid #fed7aa',
               display: 'flex',
               alignItems: 'center',
               gap: '12px',
@@ -452,27 +462,27 @@ const ChatWidget: React.FC = () => {
                 width: '38px',
                 height: '38px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, var(--primary), #ff9a44)',
+                background: 'linear-gradient(135deg, var(--primary), #ea580c)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,
-                boxShadow: '0 0 12px rgba(249,115,22,0.4)',
+                boxShadow: '0 2px 10px rgba(249,115,22,0.3)',
               }}>
-                <Bot size={20} color="#000" strokeWidth={2.5} />
+                <Bot size={20} color="#ffffff" strokeWidth={2.5} />
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 800, fontSize: '0.92rem', color: '#fff', fontFamily: 'Orbitron, sans-serif', letterSpacing: '0.5px' }}>
+                <div style={{ fontWeight: 800, fontSize: '0.94rem', color: '#0f172a', fontFamily: "'Plus Jakarta Sans', Orbitron, sans-serif", letterSpacing: '0.2px' }}>
                   trainVector AI
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: '2px' }}>
-                  <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#22c55e' }} />
-                  <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Online · Typically replies instantly</span>
+                  <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#16a34a' }} />
+                  <span style={{ fontSize: '0.72rem', color: '#475569', fontWeight: 500 }}>Online · Typically replies instantly</span>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '4px' }}
+                style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', padding: '4px' }}
                 aria-label="Close chat"
               >
                 <X size={18} />
@@ -487,8 +497,9 @@ const ChatWidget: React.FC = () => {
               display: 'flex',
               flexDirection: 'column',
               gap: '12px',
+              background: '#ffffff',
               scrollbarWidth: 'thin',
-              scrollbarColor: 'rgba(255,255,255,0.1) transparent',
+              scrollbarColor: '#cbd5e1 transparent',
             }}>
               {messages.map((msg, i) => (
                 <motion.div
@@ -509,36 +520,37 @@ const ChatWidget: React.FC = () => {
                     height: '28px',
                     borderRadius: '50%',
                     background: msg.role === 'user'
-                      ? 'rgba(59,130,246,0.2)'
-                      : 'linear-gradient(135deg, var(--primary), #ff9a44)',
+                      ? '#eff6ff'
+                      : 'linear-gradient(135deg, var(--primary), #ea580c)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0,
-                    border: msg.role === 'user' ? '1px solid rgba(59,130,246,0.3)' : 'none',
+                    border: msg.role === 'user' ? '1px solid #bfdbfe' : 'none',
                   }}>
                     {msg.role === 'user'
-                      ? <User size={14} color="#3b82f6" />
-                      : <Bot size={14} color="#000" strokeWidth={2.5} />
+                      ? <User size={14} color="#2563eb" />
+                      : <Bot size={14} color="#ffffff" strokeWidth={2.5} />
                     }
                   </div>
 
                   {/* Bubble Container */}
-                  <div style={{ maxWidth: '80%', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ maxWidth: '82%', display: 'flex', flexDirection: 'column' }}>
                     <div style={{
                       padding: '10px 14px',
                       borderRadius: msg.role === 'user' ? '16px 4px 16px 16px' : '4px 16px 16px 16px',
                       background: msg.role === 'user'
-                        ? 'rgba(59,130,246,0.15)'
-                        : 'rgba(255,255,255,0.05)',
+                        ? 'linear-gradient(135deg, #fff7ed, #ffedd5)'
+                        : '#f8fafc',
                       border: msg.role === 'user'
-                        ? '1px solid rgba(59,130,246,0.25)'
-                        : '1px solid rgba(255,255,255,0.08)',
+                        ? '1px solid #fdba74'
+                        : '1px solid #e2e8f0',
                       fontSize: '0.875rem',
                       lineHeight: '1.55',
-                      color: '#e2e8f0',
+                      color: '#0f172a',
                       whiteSpace: 'pre-wrap',
                       wordBreak: 'break-word',
+                      boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
                     }}>
                       <FormattedMessage content={msg.content} role={msg.role} />
                     </div>
@@ -551,7 +563,7 @@ const ChatWidget: React.FC = () => {
                         gap: '6px',
                         marginTop: '4px',
                         fontSize: '0.68rem',
-                        color: msg.governance.blocked ? '#f59e0b' : '#10b981',
+                        color: msg.governance.blocked ? '#b45309' : '#047857',
                         paddingLeft: '2px',
                       }}>
                         <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontWeight: 600 }}>
@@ -576,16 +588,16 @@ const ChatWidget: React.FC = () => {
                 >
                   <div style={{
                     width: '28px', height: '28px', borderRadius: '50%',
-                    background: 'linear-gradient(135deg, var(--primary), #ff9a44)',
+                    background: 'linear-gradient(135deg, var(--primary), #ea580c)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
                   }}>
-                    <Bot size={14} color="#000" strokeWidth={2.5} />
+                    <Bot size={14} color="#ffffff" strokeWidth={2.5} />
                   </div>
                   <div style={{
                     padding: '10px 14px',
                     borderRadius: '4px 16px 16px 16px',
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.08)',
+                    background: '#f8fafc',
+                    border: '1px solid #e2e8f0',
                   }}>
                     <TypingIndicator />
                   </div>
@@ -603,27 +615,28 @@ const ChatWidget: React.FC = () => {
                 flexWrap: 'wrap',
                 gap: '6px',
                 flexShrink: 0,
+                background: '#ffffff',
               }}>
                 {SUGGESTED_QUESTIONS.map((q) => (
                   <button
                     key={q}
                     onClick={() => sendMessage(q)}
                     style={{
-                      background: 'rgba(249,115,22,0.08)',
-                      border: '1px solid rgba(249,115,22,0.25)',
+                      background: '#fff7ed',
+                      border: '1px solid #fdba74',
                       borderRadius: '20px',
                       padding: '5px 12px',
                       fontSize: '0.75rem',
-                      color: 'var(--primary)',
+                      color: '#c2410c',
                       cursor: 'pointer',
                       fontWeight: 600,
                       transition: 'all 0.2s ease',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(249,115,22,0.18)';
+                      e.currentTarget.style.background = '#ffedd5';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(249,115,22,0.08)';
+                      e.currentTarget.style.background = '#fff7ed';
                     }}
                   >
                     {q}
@@ -635,12 +648,12 @@ const ChatWidget: React.FC = () => {
             {/* Input */}
             <div style={{
               padding: '12px 16px',
-              borderTop: '1px solid rgba(255,255,255,0.07)',
+              borderTop: '1px solid #e2e8f0',
               display: 'flex',
               gap: '10px',
               alignItems: 'center',
               flexShrink: 0,
-              background: 'rgba(0,0,0,0.2)',
+              background: '#ffffff',
             }}>
               <input
                 ref={inputRef}
@@ -649,22 +662,28 @@ const ChatWidget: React.FC = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask about our programs..."
+                placeholder="Ask about products, consulting, or training..."
                 disabled={isLoading}
                 style={{
                   flex: 1,
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  background: '#f8fafc',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '10px',
                   padding: '10px 14px',
-                  color: '#fff',
+                  color: '#0f172a',
                   fontSize: '0.875rem',
                   outline: 'none',
-                  transition: 'border-color 0.2s ease',
+                  transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
                   fontFamily: 'Inter, sans-serif',
                 }}
-                onFocus={(e) => { e.target.style.borderColor = 'rgba(249,115,22,0.5)'; }}
-                onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.1)'; }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = 'var(--primary)';
+                  e.target.style.boxShadow = '0 0 0 3px rgba(249,115,22,0.12)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = '#cbd5e1';
+                  e.target.style.boxShadow = 'none';
+                }}
               />
               <motion.button
                 id="chat-widget-send"
@@ -676,7 +695,7 @@ const ChatWidget: React.FC = () => {
                   width: '38px',
                   height: '38px',
                   borderRadius: '10px',
-                  background: input.trim() && !isLoading ? 'var(--primary)' : 'rgba(255,255,255,0.06)',
+                  background: input.trim() && !isLoading ? 'linear-gradient(135deg, var(--primary), #ea580c)' : '#f1f5f9',
                   border: 'none',
                   cursor: input.trim() && !isLoading ? 'pointer' : 'not-allowed',
                   display: 'flex',
@@ -684,7 +703,7 @@ const ChatWidget: React.FC = () => {
                   justifyContent: 'center',
                   flexShrink: 0,
                   transition: 'background 0.2s ease',
-                  color: input.trim() && !isLoading ? '#000' : '#555',
+                  color: input.trim() && !isLoading ? '#ffffff' : '#94a3b8',
                 }}
               >
                 {isLoading ? <Loader size={16} className="spin" /> : <Send size={16} strokeWidth={2.5} />}
@@ -694,20 +713,20 @@ const ChatWidget: React.FC = () => {
             {/* Footer branding */}
             <div style={{
               textAlign: 'center',
-              padding: '6px 8px',
-              fontSize: '0.65rem',
+              padding: '7px 8px',
+              fontSize: '0.67rem',
               color: '#64748b',
-              borderTop: '1px solid rgba(255,255,255,0.04)',
-              background: 'rgba(0,0,0,0.25)',
+              borderTop: '1px solid #f1f5f9',
+              background: '#f8fafc',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '6px',
               flexShrink: 0,
             }}>
-              <span>Powered by <strong style={{ color: 'var(--primary)' }}>trainVector AI</strong></span>
+              <span>Powered by <strong style={{ color: '#ea580c' }}>trainVector AI</strong></span>
               <span>·</span>
-              <span style={{ color: '#f97316', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+              <span style={{ color: '#ea580c', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
                 🛡️ Governed by <strong>AgentClamp</strong>
               </span>
             </div>
