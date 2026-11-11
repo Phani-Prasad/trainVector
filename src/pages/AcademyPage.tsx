@@ -9,6 +9,33 @@ import {
 import { useApp } from '../context/AppContext';
 import { ACADEMY_TRACKS, DELIVERY_FORMATS } from '../data/tracksData';
 
+const WORKSHOPS = [
+  {
+    id: 'manufacturing-genai',
+    badge: 'Enterprise Workshop · Manufacturing',
+    title: 'Gen AI, Agentic AI & AI Governance: Hands-On for Manufacturing Teams',
+    description:
+      'An immersive, hands-on enterprise workshop that took a manufacturing organisation\'s teams from Generative AI and Prompt Engineering to building Agentic AI workflows, with AI Governance and Observability built in from day one. Participants left with working skills and the discipline to deploy AI with control, not just speed.',
+    photos: [
+      { src: '/images/training/manufacturing-genai-workshop-1.jpg', alt: 'Hands-on Gen AI and Agentic AI workshop for a manufacturing company with participants and laptops', caption: 'A full room, laptops open: hands-on learning, not just slides' },
+      { src: '/images/training/manufacturing-genai-workshop-2.jpg', alt: 'Trainer presenting end-to-end enterprise AI architecture and lifecycle control', caption: 'End-to-end enterprise architecture: deploy, execute, monitor, evaluate, update' },
+      { src: '/images/training/manufacturing-genai-workshop-3.jpg', alt: 'Trainer presenting the pre-deployment AI risk funnel', caption: 'The pre-deployment risk funnel: identify, analyse, evaluate, mitigate' },
+    ],
+  },
+  {
+    id: 'raichur-advocates',
+    badge: 'Professional Workshop · Legal',
+    title: 'AI Workshop for Lawyers & Advocates',
+    description:
+      'Organised by the Raichur Advocates\' Association. Practical, ready-to-use AI for legal research, drafting and productivity, grounded in Responsible AI, Data Privacy, Professional Ethics and AI Governance, so AI is adopted safely and responsibly in legal practice.',
+    photos: [
+      { src: '/images/training/raichur-advocates-ai-workshop-1.jpg', alt: 'Raichur Advocates\' Association AI Workshop inauguration on stage with guests', caption: 'Inauguration with the district judiciary and Bar leadership' },
+      { src: '/images/training/raichur-advocates-ai-workshop-2.jpg', alt: 'Trainer presenting the AI tool ecosystem for lawyers in India', caption: 'The AI tool ecosystem for lawyers in India' },
+      { src: '/images/training/raichur-advocates-ai-workshop-3.jpg', alt: 'Trainer presenting professional non-negotiables for AI use in legal practice', caption: 'Professional non-negotiables: responsible AI in legal practice' },
+    ],
+  },
+];
+
 interface PersonaConfig {
   id: string;
   label: string;
@@ -1057,6 +1084,64 @@ const AcademyPage: React.FC = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════ */}
+      {/* 5. TRAINING IN ACTION                                          */}
+      {/* ══════════════════════════════════════════════════════════════ */}
+      <section style={{ padding: '48px 5%', background: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
+        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+            <span style={{ fontSize: '0.74rem', fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase', color: '#ea580c', display: 'block', marginBottom: '8px' }}>
+              Training in Action
+            </span>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 2.8vw, 2.1rem)', fontWeight: 900, color: '#0f172a', margin: 0 }}>
+              Real Rooms. Real Teams. Real Capability.
+            </h2>
+          </div>
+
+          {WORKSHOPS.map((ws, wi) => (
+            <div key={ws.id} style={{ marginBottom: wi < WORKSHOPS.length - 1 ? '48px' : 0 }}>
+              <div style={{ textAlign: 'center', marginBottom: '22px' }}>
+                <span style={{ fontSize: '0.68rem', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', color: '#ea580c', background: 'rgba(249, 115, 22, 0.08)', border: '1px solid rgba(249, 115, 22, 0.25)', borderRadius: '20px', padding: '4px 12px', display: 'inline-block', marginBottom: '12px' }}>
+                  {ws.badge}
+                </span>
+                <h3 style={{ fontSize: 'clamp(1.2rem, 2.2vw, 1.6rem)', fontWeight: 900, color: '#0f172a', margin: '0 0 10px' }}>
+                  {ws.title}
+                </h3>
+                <p style={{ color: '#475569', maxWidth: '760px', margin: '0 auto', fontSize: '0.94rem', lineHeight: 1.65 }}>
+                  {ws.description}
+                </p>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+                {ws.photos.map((photo, i) => (
+                  <motion.figure
+                    key={photo.src}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                    style={{
+                      margin: 0, background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px',
+                      overflow: 'hidden', boxShadow: '0 4px 20px -2px rgba(15, 23, 42, 0.06)'
+                    }}
+                  >
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      loading="lazy"
+                      style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover', display: 'block' }}
+                    />
+                    <figcaption style={{ padding: '12px 16px', fontSize: '0.82rem', fontWeight: 600, color: '#334155' }}>
+                      {photo.caption}
+                    </figcaption>
+                  </motion.figure>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
     </div>
