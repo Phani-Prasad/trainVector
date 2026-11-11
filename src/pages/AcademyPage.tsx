@@ -9,7 +9,16 @@ import {
 import { useApp } from '../context/AppContext';
 import { ACADEMY_TRACKS, DELIVERY_FORMATS } from '../data/tracksData';
 
-const WORKSHOPS = [
+interface Workshop {
+  id: string;
+  badge: string;
+  title: string;
+  description: string;
+  photos: { src: string; alt: string; caption: string }[];
+  certificate?: { src: string; alt: string; caption: string };
+}
+
+const WORKSHOPS: Workshop[] = [
   {
     id: 'manufacturing-genai',
     badge: 'Enterprise Workshop · Manufacturing',
@@ -33,6 +42,19 @@ const WORKSHOPS = [
       { src: '/images/training/raichur-advocates-ai-workshop-2.jpg', alt: 'Trainer presenting the AI tool ecosystem for lawyers in India', caption: 'The AI tool ecosystem for lawyers in India' },
       { src: '/images/training/raichur-advocates-ai-workshop-3.jpg', alt: 'Trainer presenting professional non-negotiables for AI use in legal practice', caption: 'Professional non-negotiables: responsible AI in legal practice' },
     ],
+  },
+  {
+    id: 'law-teachers-india-fdp',
+    badge: 'National Programme · Academia',
+    title: 'Use of AI in Teaching & Research: National Level Faculty Development Programme',
+    description:
+      'Invited as a Resource Person for a One Week Online National Level Capacity Building Programme / Faculty Development Programme organised by Law Teachers India (November 2–8, 2026). Equipping faculty and researchers across the country to use AI confidently and responsibly in teaching, research and academic practice.',
+    photos: [],
+    certificate: {
+      src: '/images/training/law-teachers-india-certificate.jpg',
+      alt: 'Certificate of Appreciation from Law Teachers India for serving as Resource Person in the National Level FDP on Use of AI in Teaching and Research',
+      caption: 'Certificate of Appreciation from Law Teachers India',
+    },
   },
 ];
 
@@ -1115,7 +1137,29 @@ const AcademyPage: React.FC = () => {
                 </p>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+              {ws.certificate && (
+                <motion.figure
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  style={{
+                    margin: '0 auto', maxWidth: '380px', background: '#ffffff', border: '1px solid #e2e8f0',
+                    borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 20px -2px rgba(15, 23, 42, 0.06)'
+                  }}
+                >
+                  <img
+                    src={ws.certificate.src}
+                    alt={ws.certificate.alt}
+                    loading="lazy"
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                  />
+                  <figcaption style={{ padding: '12px 16px', fontSize: '0.82rem', fontWeight: 600, color: '#334155', textAlign: 'center' }}>
+                    {ws.certificate.caption}
+                  </figcaption>
+                </motion.figure>
+              )}
+
+              {ws.photos.length > 0 && <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
                 {ws.photos.map((photo, i) => (
                   <motion.figure
                     key={photo.src}
@@ -1139,7 +1183,7 @@ const AcademyPage: React.FC = () => {
                     </figcaption>
                   </motion.figure>
                 ))}
-              </div>
+              </div>}
             </div>
           ))}
         </div>

@@ -114,242 +114,116 @@ const INDUSTRIES = [
 ];
 
 /* ─── TESTIMONIALS DATA ───────────────────────────────────────────────── */
-const TESTIMONIALS = [
+// Real feedback only. To add another testimonial, add an entry below.
+interface Testimonial {
+  name: string;
+  role: string;
+  organization: string;
+  initials: string;
+  color: string;
+  quote: string;
+  engagement: string;
+}
+
+const TESTIMONIALS: Testimonial[] = [
   {
-    name: 'Ramesh Krishnaswamy',
-    role: 'VP of Engineering',
-    company: 'FinCorp Global',
-    avatar: null,
-    initials: 'RK',
-    color: '#f97316',
-    quote: 'trainVector™ transformed how our entire engineering division thinks about AI. The LangGraph and RAG architecture track was production-ready from day one — our team shipped a live multi-agent system within 3 weeks of completing the cohort.',
-    track: 'AI Engineering Track',
-  },
-  {
-    name: 'Dr. Priya Subramaniam',
-    role: 'Dean, Computer Science',
-    company: 'Saveetha University',
-    avatar: null,
-    initials: 'PS',
+    name: 'Dr. A. Suresh Kumar',
+    role: 'Department of Management Information Systems',
+    organization: 'Saveetha College of Liberal Arts and Sciences, SIMATS University, Chennai',
+    initials: 'SK',
     color: '#8b5cf6',
-    quote: 'The Faculty Development Programme by trainVector™ completely reshaped our AI curriculum. Phani\'s depth in agentic AI and his ability to translate it for academic audiences is unmatched. Our FDP received the highest faculty satisfaction scores in 5 years.',
-    track: 'AI for Faculty (FDP)',
+    quote:
+      '[Phani\'s] insightful presentation and engaging discussion on Generative AI and Agentic AI provided valuable perspectives on the emerging developments in artificial intelligence and their applications in education, industry, innovation, and research. [His] expertise and practical insights helped enhance the knowledge and understanding of the faculty members present, inspiring them to explore the potential of these transformative technologies in their academic and professional endeavours.',
+    engagement: 'Virtual FDP · Generative AI & Agentic AI: Shaping the Future with SDG 9 · 29 June 2026',
   },
   {
-    name: 'Arun Mehta',
-    role: 'Chief AI Officer',
-    company: 'HealthPath Systems',
-    avatar: null,
-    initials: 'AM',
+    name: 'Sudheer K',
+    role: 'Head of Operations & Growth',
+    organization: 'Wiztek IT Solutions',
+    initials: 'SK',
     color: '#0284c7',
-    quote: 'AgentClamp™ is the only enterprise governance solution we evaluated that works sub-15ms. We went from zero AI governance to a full HIPAA-compliant prompt firewall in 6 weeks. The trainVector™ consulting team held our hand through every step.',
-    track: 'AI Governance & AgentClamp™',
-  },
-  {
-    name: 'Nithya Balakrishnan',
-    role: 'Head of Digital Transformation',
-    company: 'Ramco Group',
-    avatar: null,
-    initials: 'NB',
-    color: '#10b981',
-    quote: 'We ran a custom enterprise cohort for 40 of our architects and senior developers. The 1:1 mentorship sessions were phenomenal — deeply contextualised to our SAP landscape and cloud stack. Best AI upskilling investment we\'ve made.',
-    track: 'AI Architecture Track',
-  },
-  {
-    name: 'Kiran Reddy',
-    role: 'Founder & CEO',
-    company: 'UrbanLegal Tech',
-    avatar: null,
-    initials: 'KR',
-    color: '#f97316',
-    quote: 'The AI for Legal track is the only programme I\'ve seen that actually understands how law firms work. The private RAG setup and contract redlining automation module alone saved our associates 12 hours per week. Absolutely transformative.',
-    track: 'AI for Legal Track',
-  },
-  {
-    name: 'Sanjay Iyer',
-    role: 'Director of Sales',
-    company: 'CloudPivot Solutions',
-    avatar: null,
-    initials: 'SI',
-    color: '#8b5cf6',
-    quote: 'I was sceptical about an "AI for Sales" track but the Clay + AI outreach automation module completely changed my perspective. We 3x\'d our outbound reply rates within a month. The capstone project is a live deal intelligence engine we still use today.',
-    track: 'AI for B2B Sales Track',
-  },
-  {
-    name: 'Meera Chandrasekhar',
-    role: 'AI Research Engineer',
-    company: 'WizTekit',
-    avatar: null,
-    initials: 'MC',
-    color: '#0284c7',
-    quote: 'The LLMOps track is exactly what was missing in the market. We learned vLLM PagedAttention, automated semantic caching, and built a CI/CD pipeline for prompt regression testing — things you don\'t find in any online course. World-class content.',
-    track: 'AI Operations (LLMOps) Track',
-  },
-  {
-    name: 'Prof. Venkat Rao',
-    role: 'Head of AI Innovation Cell',
-    company: 'JNTU Engineering',
-    avatar: null,
-    initials: 'VR',
-    color: '#10b981',
-    quote: 'trainVector™ set up our entire Campus AI Center of Excellence in 8 weeks — curriculum, lab infrastructure, student club charters, and even our first industry hackathon with 3 enterprise problem statements. Our placement rate jumped 28% this cycle.',
-    track: 'Campus AI CoE Track',
+    quote:
+      'trainVector has been an exceptional partner in our AI transformation journey. Their team designed and implemented an Enterprise AI Knowledge Assistant powered by GenAI and Retrieval-Augmented Generation (RAG), giving our consultants instant access to proposals, solution accelerators, project documentation, and organizational knowledge. The platform has significantly boosted productivity, accelerated proposal development, and improved collaboration across our delivery teams. What impressed us most was TrainVector\'s deep expertise in Enterprise AI paired with a practical, business-first approach to solving real challenges.',
+    engagement: 'Enterprise AI Knowledge Assistant · GenAI & RAG',
   },
 ];
 
 /* ─── TESTIMONIALS COMPONENT ──────────────────────────────────────────── */
-const TICKER_KEYFRAME = `
-@keyframes testimonialsScroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-@keyframes testimonialsScrollReverse {
-  0%   { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-}
-`;
-
-const TestimonialsSection: React.FC = () => {
-  // Split into two rows — odd/even indices
-  const row1 = TESTIMONIALS;
-  const row2 = [...TESTIMONIALS].reverse();
-
-  const renderCard = (t: typeof TESTIMONIALS[0], idx: number) => (
-    <div
-      key={idx}
-      style={{
-        flexShrink: 0,
-        width: '340px',
-        background: '#ffffff',
-        border: '1px solid #e2e8f0',
-        borderRadius: '16px',
-        padding: '22px 22px 20px',
-        boxShadow: '0 4px 16px rgba(15, 23, 42, 0.05)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '14px',
-        margin: '0 10px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Top accent bar */}
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: t.color }} />
-
-      {/* Quote mark */}
-      <div style={{ fontSize: '2.8rem', lineHeight: 1, color: `${t.color}30`, fontFamily: 'Georgia, serif', marginBottom: '-8px' }}>"</div>
-
-      {/* Quote text */}
-      <p style={{
-        fontSize: '0.83rem',
-        color: '#334155',
-        lineHeight: 1.65,
-        fontStyle: 'italic',
-        margin: 0,
-        flex: 1,
-      }}>
-        {t.quote}
-      </p>
-
-      {/* Track badge */}
-      <div style={{
-        fontSize: '0.62rem',
-        fontWeight: 800,
-        letterSpacing: '0.6px',
-        textTransform: 'uppercase',
-        color: t.color,
-        background: `${t.color}10`,
-        border: `1px solid ${t.color}25`,
-        padding: '3px 9px',
-        borderRadius: '5px',
-        alignSelf: 'flex-start',
-      }}>
-        {t.track}
-      </div>
-
-      {/* Person */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', paddingTop: '12px', borderTop: '1px solid #f1f5f9' }}>
-        {/* Avatar circle with initials */}
-        <div style={{
-          width: '42px',
-          height: '42px',
-          borderRadius: '50%',
-          background: `${t.color}18`,
-          border: `2px solid ${t.color}40`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-          fontSize: '0.78rem',
-          fontWeight: 900,
-          color: t.color,
-          letterSpacing: '0.5px',
-        }}>
-          {t.initials}
-        </div>
-        <div>
-          <div style={{ fontSize: '0.88rem', fontWeight: 800, color: '#0f172a', lineHeight: 1.2 }}>{t.name}</div>
-          <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '2px', lineHeight: 1.3 }}>
-            {t.role} · <span style={{ color: t.color, fontWeight: 700 }}>{t.company}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <section style={{
-      padding: '36px 0',
-      background: '#f8fafc',
-      borderTop: '1px solid #e2e8f0',
-      borderBottom: '1px solid #e2e8f0',
-      overflow: 'hidden',
-      position: 'relative',
-    }}>
-      <style>{TICKER_KEYFRAME}</style>
-
-      {/* Fade edges */}
-      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '100px', background: 'linear-gradient(90deg, #f8fafc, transparent)', zIndex: 2, pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '100px', background: 'linear-gradient(-90deg, #f8fafc, transparent)', zIndex: 2, pointerEvents: 'none' }} />
-
-      {/* Section Header */}
-      <div style={{ textAlign: 'center', marginBottom: '28px', padding: '0 5%', position: 'relative', zIndex: 1 }}>
+const TestimonialsSection: React.FC = () => (
+  <section style={{
+    padding: '40px 5%',
+    background: '#f8fafc',
+    borderTop: '1px solid #e2e8f0',
+    borderBottom: '1px solid #e2e8f0',
+  }}>
+    <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      <div style={{ textAlign: 'center', marginBottom: '28px' }}>
         <span style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#ea580c', display: 'block', marginBottom: '8px' }}>
-          Client Impact · Practitioner Results
+          Testimonials
         </span>
         <h2 style={{ fontSize: 'clamp(1.5rem, 2.8vw, 2.1rem)', fontWeight: 900, color: '#0f172a', fontFamily: "'Plus Jakarta Sans', Inter, sans-serif", margin: 0 }}>
-          Trusted by Leaders Across Industries
+          What Our Partners Say
         </h2>
         <p style={{ color: '#475569', fontSize: '0.96rem', maxWidth: '560px', margin: '10px auto 0', lineHeight: 1.6 }}>
-          Hear from enterprise leaders, faculty, and practitioners who've transformed their AI capability with trainVector™.
+          Feedback from the institutions and teams we have trained.
         </p>
       </div>
 
-      {/* Row 1 — scrolls left */}
-      <div style={{ overflow: 'hidden', marginBottom: '14px' }}>
-        <div style={{
-          display: 'flex',
-          width: 'max-content',
-          animation: 'testimonialsScroll 55s linear infinite',
-        }}>
-          {/* Duplicate rows for seamless loop */}
-          {[...row1, ...row1].map((t, i) => renderCard(t, i))}
-        </div>
-      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px' }}>
+        {TESTIMONIALS.map((t) => (
+          <div
+            key={t.name}
+            style={{
+              flex: '1 1 320px',
+              maxWidth: '720px',
+              background: '#ffffff',
+              border: '1px solid #e2e8f0',
+              borderRadius: '16px',
+              padding: '26px 26px 22px',
+              boxShadow: '0 4px 16px rgba(15, 23, 42, 0.05)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '14px',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: t.color }} />
+            <div style={{ fontSize: '2.8rem', lineHeight: 1, color: `${t.color}30`, fontFamily: 'Georgia, serif', marginBottom: '-8px' }}>"</div>
 
-      {/* Row 2 — scrolls right (reverse) */}
-      <div style={{ overflow: 'hidden' }}>
-        <div style={{
-          display: 'flex',
-          width: 'max-content',
-          animation: 'testimonialsScrollReverse 60s linear infinite',
-        }}>
-          {[...row2, ...row2].map((t, i) => renderCard(t, i))}
-        </div>
+            <p style={{ fontSize: '0.95rem', color: '#334155', lineHeight: 1.7, fontStyle: 'italic', margin: 0, flex: 1 }}>
+              {t.quote}
+            </p>
+
+            <div style={{
+              fontSize: '0.64rem', fontWeight: 800, letterSpacing: '0.6px', textTransform: 'uppercase',
+              color: t.color, background: `${t.color}10`, border: `1px solid ${t.color}25`,
+              padding: '4px 10px', borderRadius: '5px', alignSelf: 'flex-start', lineHeight: 1.4,
+            }}>
+              {t.engagement}
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', paddingTop: '14px', borderTop: '1px solid #f1f5f9' }}>
+              <div style={{
+                width: '44px', height: '44px', borderRadius: '50%', background: `${t.color}18`,
+                border: `2px solid ${t.color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0, fontSize: '0.8rem', fontWeight: 900, color: t.color, letterSpacing: '0.5px',
+              }}>
+                {t.initials}
+              </div>
+              <div>
+                <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#0f172a', lineHeight: 1.2 }}>{t.name}</div>
+                <div style={{ fontSize: '0.76rem', color: '#64748b', marginTop: '2px', lineHeight: 1.4 }}>
+                  {t.role} · <span style={{ color: t.color, fontWeight: 700 }}>{t.organization}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 /* ─── HOMEPAGE ────────────────────────────────────────────────────────── */
 /* ── Gradient headline keyframes injected once ── */
@@ -1120,7 +994,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════ */}
-      {/* 4. TESTIMONIALS — Auto-Scroll Infinite Carousel                */}
+      {/* 4. TESTIMONIALS                                                */}
       {/* ══════════════════════════════════════════════════════════════ */}
       <section style={{ padding: '40px 5%', background: '#ffffff', borderTop: '1px solid #e2e8f0' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>

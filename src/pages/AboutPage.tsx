@@ -292,6 +292,9 @@ const AboutPage: React.FC = () => {
                   <span key={cert} style={{ fontSize: '0.68rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: '#f1f5f9', border: '1px solid #e2e8f0', color: '#334155' }}>{cert}</span>
                 ))}
               </div>
+              <div style={{ fontSize: '0.74rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px', padding: '8px 10px', borderRadius: '8px', background: 'rgba(249,115,22,0.06)', border: '1px solid rgba(249,115,22,0.2)' }}>
+                <strong style={{ color: '#ea580c' }}>Resource Person</strong>, National Level FDP on "Use of AI in Teaching &amp; Research", Law Teachers India (Nov 2026)
+              </div>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '12px' }}>
                 <a href="mailto:phani@trainvector.com" style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#f1f5f9', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ea580c', textDecoration: 'none' }}><Mail size={16} /></a>
               </div>
