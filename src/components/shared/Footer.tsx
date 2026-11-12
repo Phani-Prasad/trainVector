@@ -216,10 +216,6 @@ const Footer: React.FC = () => (
         <div>
           &copy; {new Date().getFullYear()} <span style={{ color: '#ffffff', fontWeight: 700 }}>trainVector™</span> · Applied AI Company. All Rights Reserved.
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4ade80', display: 'inline-block', boxShadow: '0 0 6px #4ade80' }} />
-          <span style={{ color: '#f1f5f9', fontSize: '0.72rem', fontWeight: 500 }}>Production AI Systems Active</span>
-        </div>
       </div>
     </div>
   </footer>

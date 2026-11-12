@@ -5,59 +5,37 @@ import {
   ArrowRight, Cpu, Briefcase, GraduationCap,
   Sparkles, ShieldCheck, ChevronRight, Award,
   Building2, HeartPulse, Factory, ShoppingCart, BookOpen, Code2,
-  CheckCircle2, Layers, Bot, Database, Zap, ArrowUpRight
+  CheckCircle2, Layers, Bot, Database, Zap, ArrowUpRight, Target
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 /* ─── 3 CORE PILLARS DATA ─────────────────────────────────────────────── */
-const HERO_TABS = [
+const PILLAR_ROWS = [
   {
-    id: 'products',
-    label: '01. AI Products',
     icon: Cpu,
-    color: '#f97316',
-    badge: 'ENTERPRISE & EDTECH',
-    title: 'Shipped AI Platforms & Systems',
-    desc: 'AgentClamp™ — Production-grade software spanning enterprise governance. BrainBuddy™ — An intelligent, curriculum-aware AI tutor that adapts to each student\'s learning pace. KREOMAX™ — Cognitive learning for students and schools.',
-    points: [
-      'Enterprise Governance: AgentClamp™ real-time prompt shields & PII redaction',
-      'K–12 Education: BrainBuddy™ adaptive Socratic tutor for schools',
-      'Youth Innovation: KREOMAX™ creative AI building for ages 12+',
-    ],
+    name: 'AI Products',
+    line: 'Production-ready platforms for enterprises, schools and young innovators',
     link: '/products',
-    cta: 'Explore All Platforms',
+    products: [
+      { name: 'AgentClamp™', text: 'Real-time AI Governance and Observability' },
+      { name: 'BrainBuddy™', text: 'Adaptive AI tutor for Students / Schools' },
+      { name: 'KREOMAX™', text: 'Creative AI invention platform, ages 12+' },
+      { name: 'Legaify™', text: 'Legal learning and drafting platform' },
+    ],
   },
   {
-    id: 'consulting',
-    label: '02. Enterprise Consulting',
     icon: Briefcase,
-    color: '#f97316',
-    badge: 'SYSTEMS & GOVERNANCE',
-    title: 'Architecture, Strategy & Governance',
-    desc: 'We architect, govern, and deploy production multi-agent swarms, zero-trust prompt firewalls, and private enterprise RAG topologies.',
-    points: [
-      'Enterprise AI Governance, zero-trust prompt shields & policy enforcement',
-      'Autonomous Multi-Agent Workflows (LangGraph, CrewAI) & LLM Gateways',
-      'Enterprise Hybrid RAG on private data with zero hallucination',
-    ],
+    name: 'Enterprise Consulting',
+    line: 'Architecture, strategy and governance for production AI',
     link: '/consulting',
-    cta: 'Explore Consulting Scope',
+    products: null,
   },
   {
-    id: 'academy',
-    label: '03. Capability Building',
     icon: GraduationCap,
-    color: '#f97316',
-    badge: '12 APPLIED TRACKS',
-    title: 'Applied GenAI Academy & Upskilling',
-    desc: 'Role-specific, practitioner-led AI tracks designed to turn software engineers, architects, legal counsel, and academic faculty into AI builders.',
-    points: [
-      '12 Role-Based Tracks for engineers, architects, CXOs, and universities',
-      'Hands-on sandbox capstones with real production tooling',
-      'Live executive masterclasses & customized enterprise workforce cohorts',
-    ],
+    name: 'Capability Building',
+    line: '12 role-specific tracks, from engineers to CXOs',
     link: '/academy',
-    cta: 'Explore 12 Academy Tracks',
+    products: null,
   },
 ];
 
@@ -133,7 +111,7 @@ const TESTIMONIALS: Testimonial[] = [
     initials: 'SK',
     color: '#8b5cf6',
     quote:
-      '[Phani\'s] insightful presentation and engaging discussion on Generative AI and Agentic AI provided valuable perspectives on the emerging developments in artificial intelligence and their applications in education, industry, innovation, and research. [His] expertise and practical insights helped enhance the knowledge and understanding of the faculty members present, inspiring them to explore the potential of these transformative technologies in their academic and professional endeavours.',
+      'Phani\'s insightful presentation and engaging discussion on Generative AI and Agentic AI provided valuable perspectives on the emerging developments in artificial intelligence and their applications in education, industry, innovation, and research. His expertise and practical insights helped enhance the knowledge and understanding of the faculty members present, inspiring them to explore the potential of these transformative technologies in their academic and professional endeavours.',
     engagement: 'Virtual FDP · Generative AI & Agentic AI: Shaping the Future with SDG 9 · 29 June 2026',
   },
   {
@@ -149,7 +127,19 @@ const TESTIMONIALS: Testimonial[] = [
 ];
 
 /* ─── TESTIMONIALS COMPONENT ──────────────────────────────────────────── */
-const TestimonialsSection: React.FC = () => (
+const CERT_SRC = '/images/training/law-teachers-india-certificate.jpg';
+
+const TestimonialsSection: React.FC = () => {
+  const [certOpen, setCertOpen] = useState(false);
+
+  useEffect(() => {
+    if (!certOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setCertOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [certOpen]);
+
+  return (
   <section style={{
     padding: '40px 5%',
     background: '#f8fafc',
@@ -164,9 +154,6 @@ const TestimonialsSection: React.FC = () => (
         <h2 style={{ fontSize: 'clamp(1.5rem, 2.8vw, 2.1rem)', fontWeight: 900, color: '#0f172a', fontFamily: "'Plus Jakarta Sans', Inter, sans-serif", margin: 0 }}>
           What Our Partners Say
         </h2>
-        <p style={{ color: '#475569', fontSize: '0.96rem', maxWidth: '560px', margin: '10px auto 0', lineHeight: 1.6 }}>
-          Feedback from the institutions and teams we have trained.
-        </p>
       </div>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px' }}>
@@ -219,11 +206,65 @@ const TestimonialsSection: React.FC = () => (
               </div>
             </div>
           </div>
+
         ))}
+
+        {/* Recognition: certificate card sits beside the testimonials (click to enlarge) */}
+        <button
+          onClick={() => setCertOpen(true)}
+          aria-label="View certificate of appreciation from Law Teachers India"
+          style={{
+            flex: '0 0 230px',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '12px',
+            background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px',
+            padding: '24px 18px 20px', cursor: 'pointer', position: 'relative', overflow: 'hidden',
+            boxShadow: '0 4px 16px rgba(15, 23, 42, 0.05)', fontFamily: 'inherit',
+          }}
+        >
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: '#f97316' }} />
+          <span style={{ fontSize: '0.64rem', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', color: '#ea580c' }}>
+            Recognition
+          </span>
+          <img
+            src={CERT_SRC}
+            alt="Certificate of Appreciation from Law Teachers India"
+            loading="lazy"
+            style={{ width: '120px', height: 'auto', borderRadius: '4px', border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(15, 23, 42, 0.12)', display: 'block' }}
+          />
+          <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#0f172a', lineHeight: 1.35 }}>
+            Resource Person, National Level FDP on "Use of AI in Teaching &amp; Research"
+          </div>
+          <div style={{ fontSize: '0.74rem', color: '#64748b', lineHeight: 1.4 }}>
+            Law Teachers India · Nov 2–8, 2026
+          </div>
+          <span style={{ fontSize: '0.78rem', color: '#ea580c', fontWeight: 800, marginTop: 'auto' }}>
+            View certificate →
+          </span>
+        </button>
       </div>
     </div>
+
+    {certOpen && (
+      <div
+        onClick={() => setCertOpen(false)}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Certificate of Appreciation from Law Teachers India"
+        style={{
+          position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(15, 23, 42, 0.78)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', cursor: 'zoom-out',
+        }}
+      >
+        <img
+          src={CERT_SRC}
+          alt="Certificate of Appreciation from Law Teachers India"
+          style={{ maxHeight: '100%', maxWidth: '100%', width: 'auto', height: 'auto', borderRadius: '8px', boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}
+        />
+      </div>
+    )}
   </section>
-);
+  );
+};
 
 /* ─── HOMEPAGE ────────────────────────────────────────────────────────── */
 /* ── Gradient headline keyframes injected once ── */
@@ -263,15 +304,15 @@ const GRADIENT_STYLE = `
   animation: shimmerSweep 2.2s linear infinite;
 }
 .tv-shimmer-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249,115,22,0.45) !important; }
+.tv-pillar { transition: border-color .2s ease, background-color .2s ease, transform .2s ease; }
+.tv-pillar:hover { border-color: #fdba74 !important; background: #fff7ed !important; transform: translateX(3px); }
 .tv-stat-card { transition: all 0.25s ease; }
 .tv-stat-card:hover { border-color: #f97316 !important; box-shadow: 0 0 0 3px rgba(249,115,22,0.12), 0 8px 20px rgba(15,23,42,0.08) !important; transform: translateY(-2px); }
 `;
 
 const HomePage: React.FC = () => {
   const { handleApply } = useApp();
-  const [activeTab, setActiveTab] = useState(0);
 
-  const currentTab = HERO_TABS[activeTab];
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', position: 'relative' }}>
@@ -394,7 +435,7 @@ const HomePage: React.FC = () => {
               </div>
             </div>
 
-            {/* ── Right Column: Interactive Connected Vertical Stepper Deck (Light Card) ── */}
+            {/* ── Right Column: Core Pillars (all three visible, each links to its page) ── */}
             <div>
               <div style={{
                 background: '#ffffff',
@@ -403,140 +444,58 @@ const HomePage: React.FC = () => {
                 boxShadow: '0 20px 45px -10px rgba(15, 23, 42, 0.08)',
                 padding: '22px 20px',
               }}>
-                {/* Header inside card */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid #f1f5f9' }}>
-                  <div>
-                    <span style={{ fontSize: '0.68rem', fontWeight: 800, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#ea580c' }}>
-                      Applied AI Ecosystem
-                    </span>
-                    <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#0f172a', marginTop: '2px' }}>
-                      Our Core Pillars
-                    </h3>
-                  </div>
-                  <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontFamily: 'monospace' }}>
-                    0{activeTab + 1} / 0{HERO_TABS.length}
+                <div style={{ marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid #f1f5f9' }}>
+                  <span style={{ fontSize: '0.68rem', fontWeight: 800, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#ea580c' }}>
+                    Applied AI Ecosystem
                   </span>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#0f172a', marginTop: '2px' }}>
+                    Our Core Pillars
+                  </h3>
                 </div>
 
-                {/* Vertical Connected List */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {HERO_TABS.map((tab, idx) => {
-                    const isSelected = activeTab === idx;
-                    const Icon = tab.icon;
-
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {PILLAR_ROWS.map((row) => {
+                    const Icon = row.icon;
                     return (
-                      <motion.div
-                        key={tab.id}
-                        onClick={() => setActiveTab(idx)}
+                      <Link
+                        key={row.name}
+                        to={row.link}
+                        className="tv-pillar"
                         style={{
+                          display: 'block',
+                          textDecoration: 'none',
                           borderRadius: '12px',
-                          border: isSelected ? '1px solid #fdba74' : '1px solid #f1f5f9',
-                          background: isSelected ? '#fff7ed' : '#f8fafc',
-                          padding: isSelected ? '14px 16px' : '11px 16px',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s ease',
-                          position: 'relative',
-                          overflow: 'hidden',
+                          border: row.products ? '1px solid #fdba74' : '1px solid #f1f5f9',
+                          background: row.products ? '#fff7ed' : '#f8fafc',
+                          padding: '14px 16px',
                         }}
                       >
-                        {/* Selected Indicator Accent */}
-                        {isSelected && (
-                          <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '3px', background: '#f97316' }} />
-                        )}
-
-                        {/* Pillar Header Item */}
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                            <div style={{
-                              width: isSelected ? '34px' : '30px',
-                              height: isSelected ? '34px' : '30px',
-                              borderRadius: '8px',
-                              background: isSelected ? '#f97316' : '#e2e8f0',
-                              display: 'flex', alignItems: 'center', justifyContent: 'center',
-                              flexShrink: 0,
-                              boxShadow: isSelected ? '0 0 12px rgba(249,115,22,0.35)' : 'none',
-                              transition: 'all 0.2s ease',
-                            }}>
-                              <Icon size={isSelected ? 16 : 15} color={isSelected ? '#ffffff' : '#475569'} />
-                            </div>
-                            <div>
-                              <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#0f172a' }}>
-                                {tab.label}
-                              </div>
-                              {!isSelected && (
-                                <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '1px' }}>
-                                  {tab.title}
-                                </div>
-                              )}
-                            </div>
+                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                          <div style={{
+                            width: '34px', height: '34px', borderRadius: '8px', background: '#f97316',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                            boxShadow: '0 0 12px rgba(249,115,22,0.30)',
+                          }}>
+                            <Icon size={16} color="#ffffff" />
                           </div>
-
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span style={{
-                              fontSize: '0.6rem',
-                              fontWeight: 800,
-                              letterSpacing: '0.8px',
-                              textTransform: 'uppercase',
-                              color: isSelected ? '#c2410c' : '#64748b',
-                              background: isSelected ? '#ffedd5' : '#e2e8f0',
-                              padding: '2px 7px',
-                              borderRadius: '5px',
-                            }}>
-                              {tab.badge}
-                            </span>
-                            <ChevronRight
-                              size={15}
-                              color={isSelected ? '#f97316' : '#94a3b8'}
-                              style={{ transform: isSelected ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s ease' }}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Streamlined Details when selected */}
-                        {isSelected && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            transition={{ duration: 0.2 }}
-                            style={{ marginTop: '10px', paddingTop: '10px', borderTop: '1px solid #fed7aa' }}
-                          >
-                            {tab.id === 'products' ? (
-                              <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', marginBottom: '10px' }}>
-                                {[
-                                  { name: 'AgentClamp™', blurb: 'Production-grade software spanning enterprise governance.' },
-                                  { name: 'BrainBuddy™', blurb: 'An intelligent, curriculum-aware AI tutor that adapts to each student\'s learning pace.' },
-                                  { name: 'KREOMAX™', blurb: 'Cognitive learning for students and schools.' },
-                                ].map((p) => (
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontSize: '0.98rem', fontWeight: 800, color: '#0f172a' }}>{row.name}</div>
+                            <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '2px', lineHeight: 1.45 }}>{row.line}</div>
+                            {row.products && (
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '10px', paddingTop: '10px', borderTop: '1px solid #fed7aa' }}>
+                                {row.products.map((p) => (
                                   <div key={p.name} style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.4 }}>
                                     <span style={{ fontWeight: 800, color: '#ea580c' }}>{p.name}</span>
                                     <span style={{ color: '#94a3b8', margin: '0 4px' }}>—</span>
-                                    {p.blurb}
+                                    {p.text}
                                   </div>
                                 ))}
                               </div>
-                            ) : (
-                              <p style={{ fontSize: '0.82rem', color: '#475569', lineHeight: 1.5, marginBottom: '10px' }}>
-                                {tab.desc}
-                              </p>
                             )}
-
-                            <Link
-                              to={tab.link}
-                              style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '5px',
-                                fontSize: '0.8rem',
-                                fontWeight: 800,
-                                color: '#ea580c',
-                                textDecoration: 'none',
-                              }}
-                            >
-                              {tab.cta} <ArrowUpRight size={13} />
-                            </Link>
-                          </motion.div>
-                        )}
-                      </motion.div>
+                          </div>
+                          <ArrowRight size={16} color="#f97316" style={{ flexShrink: 0, marginTop: '8px' }} />
+                        </div>
+                      </Link>
                     );
                   })}
                 </div>
@@ -551,10 +510,9 @@ const HomePage: React.FC = () => {
             gap: '12px',
           }}>
             {[
-              { val: '30+',  suffix: ' Yrs',       lbl: 'Enterprise Leadership',      icon: '🏆', color: '#f97316' },
-              { val: '3',    suffix: ' Platforms', lbl: 'Production AI Products',     icon: '🚀', color: '#8b5cf6' },
-              { val: '12',   suffix: ' Tracks',    lbl: 'Applied AI Specializations', icon: '🎯', color: '#3b82f6' },
-              { val: '99.8', suffix: '%',          lbl: 'Governance & Safety Guard',  icon: '🛡️', color: '#10b981' },
+              { val: '30+',  suffix: ' Yrs',       lbl: 'Enterprise Leadership',      icon: Award,  color: '#f97316' },
+              { val: '3',    suffix: ' Platforms', lbl: 'Production AI Products',     icon: Layers, color: '#8b5cf6' },
+              { val: '12',   suffix: ' Tracks',    lbl: 'Applied AI Specializations', icon: Target, color: '#3b82f6' },
             ].map((stat, i) => (
               <div key={i} className="tv-stat-card" style={{
                 background: '#ffffff',
@@ -567,8 +525,8 @@ const HomePage: React.FC = () => {
                 gap: '12px',
                 cursor: 'default',
               }}>
-                <div style={{ fontSize: '1.5rem', width: '38px', height: '38px', borderRadius: '9px', background: `${stat.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  {stat.icon}
+                <div style={{ width: '38px', height: '38px', borderRadius: '9px', background: `${stat.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <stat.icon size={20} color={stat.color} strokeWidth={2} />
                 </div>
                 <div>
                   <div style={{ fontSize: '1.3rem', fontWeight: 900, color: stat.color, lineHeight: 1, fontFamily: 'monospace' }}>
@@ -1005,17 +963,21 @@ const HomePage: React.FC = () => {
             <h2 style={{ fontSize: 'clamp(1.4rem, 2.6vw, 2rem)', fontWeight: 900, color: '#0f172a', margin: '0 0 10px' }}>
               Real Rooms. Real Teams. Real Capability.
             </h2>
-            <p style={{ color: '#475569', maxWidth: '640px', margin: '0 auto', fontSize: '0.92rem', lineHeight: 1.6 }}>
-              From factory-floor enterprise teams to the courtroom, we turn AI from a buzzword into working skill.
-            </p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
             {[
               { img: '/images/training/manufacturing-genai-workshop-1.jpg', tag: 'Enterprise · Manufacturing', title: 'Gen AI, Agentic AI & AI Governance', text: 'Hands-on Gen AI and Prompt Engineering, agentic workflows, AI Governance and Observability for a manufacturing organisation.' },
-              { img: '/images/training/raichur-advocates-ai-workshop-1.jpg', tag: 'Professional · Legal', title: 'AI Workshop for Lawyers & Advocates', text: "Organised by the Raichur Advocates' Association: AI for legal research and drafting, with Responsible AI, Data Privacy and Ethics." },
+              { img: '/images/training/raichur-advocates-ai-workshop-1.jpg', img2: '/images/training/raichur-advocates-ai-workshop-2.jpg', tag: 'Professional · Legal', title: 'AI Workshop for Lawyers & Advocates', text: "Organised by the Raichur Advocates' Association: AI for legal research and drafting, with Responsible AI, Data Privacy and Ethics." },
             ].map((w) => (
               <div key={w.title} style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 20px -2px rgba(15, 23, 42, 0.08)' }}>
-                <img src={w.img} alt={w.title} loading="lazy" style={{ width: '100%', aspectRatio: '16 / 10', objectFit: 'cover', display: 'block' }} />
+                {w.img2 ? (
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3px', aspectRatio: '16 / 10', background: '#ffffff' }}>
+                    <img src={w.img} alt={w.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    <img src={w.img2} alt={`${w.title} — presentation`} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  </div>
+                ) : (
+                  <img src={w.img} alt={w.title} loading="lazy" style={{ width: '100%', aspectRatio: '16 / 10', objectFit: 'cover', display: 'block' }} />
+                )}
                 <div style={{ padding: '16px 18px 20px' }}>
                   <span style={{ fontSize: '0.64rem', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', color: '#ea580c' }}>{w.tag}</span>
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 900, color: '#0f172a', margin: '6px 0 8px', lineHeight: 1.3 }}>{w.title}</h3>

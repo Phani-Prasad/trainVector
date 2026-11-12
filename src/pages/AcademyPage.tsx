@@ -185,6 +185,12 @@ const getTrackTheme = (trackId: string): TrackTheme => {
   }
 };
 
+const TRACK_GROUPS = [
+  { category: 'tech', title: 'Enterprise & Technology Teams', subtitle: 'for leaders, architects and engineers building production AI' },
+  { category: 'domain', title: 'Domain Professionals', subtitle: 'for legal, sales and marketing teams applying AI in their craft' },
+  { category: 'academic', title: 'Academia & Students', subtitle: 'for faculty, institutions and early-career talent' },
+] as const;
+
 const PERSONAS: PersonaConfig[] = [
   {
     id: 'all',
@@ -236,8 +242,6 @@ const PERSONAS: PersonaConfig[] = [
 const AcademyPage: React.FC = () => {
   const { handleApply } = useApp();
   const [selectedPersona, setSelectedPersona] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [viewMode, setViewMode] = useState<'grid' | 'compact'>('compact');
   const [selectedTrackForModal, setSelectedTrackForModal] = useState<typeof ACADEMY_TRACKS[0] | null>(null);
 
   const iconMap: Record<string, React.ReactNode> = {
@@ -252,24 +256,12 @@ const AcademyPage: React.FC = () => {
   }, [selectedPersona]);
 
   const filteredTracks = useMemo(() => {
-    return ACADEMY_TRACKS.filter(track => {
-      const matchesPersona = selectedPersona === 'all' || activePersonaObj.trackIds.includes(track.id);
-
-      if (!searchQuery.trim()) return matchesPersona;
-      const query = searchQuery.toLowerCase();
-      const matchesSearch =
-        track.title.toLowerCase().includes(query) ||
-        track.shortDesc.toLowerCase().includes(query) ||
-        track.targetAudience.toLowerCase().includes(query) ||
-        track.roleBadge.toLowerCase().includes(query) ||
-        track.tools.some(t => t.toLowerCase().includes(query));
-
-      return matchesPersona && matchesSearch;
-    });
-  }, [selectedPersona, activePersonaObj, searchQuery]);
+    return ACADEMY_TRACKS.filter(track => selectedPersona === 'all' || activePersonaObj.trackIds.includes(track.id));
+  }, [selectedPersona, activePersonaObj]);
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a' }}>
+      <style>{`.ac-track-card { transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; } .ac-track-card:hover { border-color: #cbd5e1; box-shadow: 0 8px 24px -6px rgba(15,23,42,0.10); transform: translateY(-2px); } .ac-track-card:focus-visible { outline: 2px solid #ea580c; }`}</style>
       {/* ══════════════════════════════════════════════════════════════ */}
       {/* 1. HERO SECTION: Applied AI Capability Building                */}
       {/* ══════════════════════════════════════════════════════════════ */}
@@ -385,7 +377,9 @@ const AcademyPage: React.FC = () => {
             </h2>
           </div>
 
-          {/* ── INNOVATIVE PERSONA SELECTOR BAR ── */}
+          <div style={{ textAlign: 'center', fontSize: '0.84rem', fontWeight: 700, color: '#64748b', marginBottom: '10px' }}>I am a…</div>
+
+          {/* ── PERSONA SELECTOR BAR ── */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
@@ -436,420 +430,109 @@ const AcademyPage: React.FC = () => {
             })}
           </div>
 
-          {/* ── PERSONA CONTEXT BANNER + LIVE SEARCH & VIEW TOGGLE ── */}
-          <div style={{
-            background: '#ffffff',
-            borderRadius: '18px',
-            border: '1px solid #e2e8f0',
-            padding: '20px 26px',
-            marginBottom: '22px',
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '18px',
-            boxShadow: '0 4px 20px -2px rgba(15, 23, 42, 0.05)'
-          }}>
-            {/* Left: Persona Context */}
-            <div style={{ flex: '1 1 420px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                <span style={{ fontSize: '1.2rem' }}>{activePersonaObj.icon}</span>
-                <span style={{
-                  fontSize: '0.70rem', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase',
-                  color: '#ea580c', background: 'rgba(249,115,22,0.08)', border: '1px solid rgba(249,115,22,0.25)',
-                  borderRadius: '20px', padding: '2px 10px'
-                }}>
-                  {activePersonaObj.badge}
-                </span>
-              </div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0f172a', margin: '0 0 4px 0' }}>
-                {activePersonaObj.headline}
-              </h3>
-              <p style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.45, margin: 0 }}>
-                {activePersonaObj.description}
-              </p>
-            </div>
-
-            {/* Right: Instant Search, Counter & View Mode Switcher */}
-            <div style={{ flex: '0 1 380px', width: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  background: '#f8fafc',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '10px',
-                  padding: '9px 12px',
-                  gap: '8px',
-                  flex: 1
-                }}>
-                  <Search size={15} color="#ea580c" />
-                  <input
-                    type="text"
-                    placeholder="Search by track, skill, or tool..."
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      outline: 'none',
-                      color: '#0f172a',
-                      fontSize: '0.84rem',
-                      width: '100%'
-                    }}
-                  />
-                  {searchQuery && (
-                    <button
-                      onClick={() => setSearchQuery('')}
-                      style={{ background: 'transparent', border: 'none', color: '#64748b', cursor: 'pointer', padding: 0 }}
-                    >
-                      <X size={14} />
-                    </button>
-                  )}
-                </div>
-
-                {/* View Mode Toggle */}
-                <div style={{
-                  display: 'flex',
-                  background: '#f1f5f9',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '10px',
-                  padding: '3px'
-                }}>
-                  <button
-                    onClick={() => setViewMode('compact')}
-                    title="Simple Compact View"
-                    style={{
-                      background: viewMode === 'compact' ? '#ffffff' : 'transparent',
-                      color: viewMode === 'compact' ? '#0f172a' : '#64748b',
-                      border: 'none',
-                      borderRadius: '7px',
-                      padding: '6px 12px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      fontSize: '0.74rem',
-                      fontWeight: 700,
-                      gap: '5px',
-                      boxShadow: viewMode === 'compact' ? '0 2px 6px rgba(15,23,42,0.08)' : 'none',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <Terminal size={13} /> Simple View
-                  </button>
-                  <button
-                    onClick={() => setViewMode('grid')}
-                    title="Grid Card View"
-                    style={{
-                      background: viewMode === 'grid' ? '#ffffff' : 'transparent',
-                      color: viewMode === 'grid' ? '#0f172a' : '#64748b',
-                      border: 'none',
-                      borderRadius: '7px',
-                      padding: '6px 12px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      fontSize: '0.74rem',
-                      fontWeight: 700,
-                      gap: '5px',
-                      boxShadow: viewMode === 'grid' ? '0 2px 6px rgba(15,23,42,0.08)' : 'none',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <Layers size={13} /> Cards
-                  </button>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 4px' }}>
-                <span style={{ fontSize: '0.74rem', color: '#64748b' }}>
-                  Showing <strong style={{ color: '#0f172a' }}>{filteredTracks.length}</strong> of 12 Specializations
-                </span>
-                {searchQuery && (
-                  <span style={{ fontSize: '0.74rem', color: '#ea580c', fontWeight: 600 }}>
-                    Filtered by "{searchQuery}"
-                  </span>
-                )}
-              </div>
-            </div>
+          {/* ── PERSONA CONTEXT (short intro for the selected audience) ── */}
+          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 36px' }}>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+              {activePersonaObj.headline}
+            </h3>
           </div>
 
-          {/* ── TRACKS DISPLAY (Compact Simple Grid vs Compact Simple Matrix) ── */}
-          {filteredTracks.length === 0 ? (
-            <div style={{
-              textAlign: 'center',
-              padding: '40px 20px',
-              background: '#ffffff',
-              borderRadius: '14px',
-              border: '1px dashed #cbd5e1'
-            }}>
-              <p style={{ color: '#475569', fontSize: '0.94rem', marginBottom: '12px' }}>
-                No tracks matched your search for "{searchQuery}".
-              </p>
+          {/* ── TRACKS, GROUPED BY AUDIENCE ── */}
+          {TRACK_GROUPS.map((group) => {
+            const groupTracks = filteredTracks.filter(t => t.category === group.category);
+            if (groupTracks.length === 0) return null;
+            return (
+              <div key={group.category} style={{ marginBottom: '40px' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', gap: '4px 12px', paddingBottom: '10px', marginBottom: '18px', borderBottom: '1px solid #e2e8f0' }}>
+                  <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+                    {group.title}
+                  </h3>
+                  <span style={{ fontSize: '0.82rem', color: '#64748b' }}>
+                    {groupTracks.length} {groupTracks.length === 1 ? 'track' : 'tracks'} · {group.subtitle}
+                  </span>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '18px' }}>
+                  {groupTracks.map((track) => (
+                    <div
+                      key={track.id}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setSelectedTrackForModal(track)}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedTrackForModal(track); } }}
+                      className="ac-track-card"
+                      style={{
+                        background: '#ffffff',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '12px',
+                        padding: '22px 22px 18px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        cursor: 'pointer',
+                        outlineOffset: '2px',
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+                        <div style={{
+                          width: '42px', height: '42px', borderRadius: '10px', background: '#f1f5f9',
+                          border: '1px solid #e2e8f0', color: '#0b1f3a',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        }}>
+                          {iconMap[track.iconName] || <Cpu size={20} />}
+                        </div>
+                        <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'inline-flex', alignItems: 'center', gap: '5px', fontWeight: 600 }}>
+                          <Clock size={13} /> {track.weeks.length} weeks
+                        </span>
+                      </div>
+
+                      <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0f172a', margin: '0 0 6px', lineHeight: 1.3 }}>
+                        {track.title}
+                      </h4>
+                      <div style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '12px', lineHeight: 1.4 }}>
+                        For: <span style={{ color: '#334155', fontWeight: 600 }}>{track.roleBadge.replace(' | Powered by AgentClamp', '')}</span>
+                      </div>
+                      <p style={{ fontSize: '0.88rem', color: '#475569', lineHeight: 1.6, margin: '0 0 16px', flex: 1 }}>
+                        {track.shortDesc}
+                      </p>
+                      <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '12px', fontSize: '0.84rem', fontWeight: 800, color: '#ea580c', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        View syllabus <ArrowRight size={14} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+
+          {/* ── NOT SURE? ── */}
+          <div style={{
+            marginTop: '8px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px',
+            padding: '24px 28px', display: 'flex', flexWrap: 'wrap', alignItems: 'center',
+            justifyContent: 'space-between', gap: '16px',
+          }}>
+            <div style={{ flex: '1 1 320px' }}>
+              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0f172a', marginBottom: '4px' }}>
+                Not sure which track fits you or your team?
+              </div>
+              <div style={{ fontSize: '0.88rem', color: '#475569' }}>
+                Tell us your role and goals and we'll recommend the right track and format.
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               <button
-                onClick={() => { setSearchQuery(''); setSelectedPersona('all'); }}
-                style={{
-                  padding: '8px 18px',
-                  borderRadius: '8px',
-                  background: '#f97316',
-                  color: '#ffffff',
-                  border: 'none',
-                  fontWeight: 700,
-                  fontSize: '0.8rem',
-                  cursor: 'pointer'
-                }}
+                onClick={() => handleApply('professional', 'Academy Track Guidance')}
+                style={{ padding: '11px 22px', borderRadius: '8px', border: 'none', background: '#ea580c', color: '#ffffff', fontWeight: 800, fontSize: '0.88rem', cursor: 'pointer' }}
               >
-                Reset Filters
+                Talk to us
+              </button>
+              <button
+                onClick={() => handleApply('professional', 'Next Cohort Application')}
+                style={{ padding: '11px 22px', borderRadius: '8px', border: '1px solid #cbd5e1', background: '#ffffff', color: '#0f172a', fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer' }}
+              >
+                Apply for next cohort
               </button>
             </div>
-          ) : viewMode === 'grid' ? (
-            /* ──── 1. COMPACT STREAMLINED CARD GRID ──── */
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '14px'
-            }}>
-              {filteredTracks.map((track, i) => {
-                const theme = getTrackTheme(track.id);
-
-                return (
-                  <motion.div
-                    key={track.id}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.03 }}
-                    whileHover={{ y: -3, boxShadow: '0 8px 24px -4px rgba(15, 23, 42, 0.08)' }}
-                    style={{
-                      background: '#ffffff',
-                      border: '1px solid #e2e8f0',
-                      borderRadius: '12px',
-                      padding: '16px 18px',
-                      boxShadow: '0 2px 8px rgba(15, 23, 42, 0.04)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      position: 'relative',
-                      overflow: 'hidden',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    {/* Top Accent Line */}
-                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: theme.accentColor }} />
-
-                    {/* Header: Domain Badge + Duration Pill */}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '10px' }}>
-                      <span style={{
-                        fontSize: '0.64rem',
-                        fontWeight: 800,
-                        letterSpacing: '0.6px',
-                        textTransform: 'uppercase',
-                        color: theme.accentColor,
-                        background: `${theme.accentColor}12`,
-                        border: `1px solid ${theme.accentColor}30`,
-                        borderRadius: '20px',
-                        padding: '2px 8px',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '4px'
-                      }}>
-                        <span>{theme.archetypeIcon}</span>
-                        <span>{theme.archetype}</span>
-                      </span>
-
-                      <span style={{
-                        fontSize: '0.66rem',
-                        color: '#64748b',
-                        background: '#f1f5f9',
-                        border: '1px solid #e2e8f0',
-                        borderRadius: '10px',
-                        padding: '2px 7px',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '3px',
-                        fontWeight: 600
-                      }}>
-                        <Clock size={10} color={theme.accentColor} /> {track.weeks.length}w
-                      </span>
-                    </div>
-
-                    {/* Title + Icon Row */}
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '8px' }}>
-                      <div style={{
-                        display: 'inline-flex', padding: '6px',
-                        background: `${theme.accentColor}12`,
-                        borderRadius: '8px', border: `1px solid ${theme.accentColor}30`,
-                        color: theme.accentColor, flexShrink: 0
-                      }}>
-                        {iconMap[track.iconName] || <Cpu size={16} />}
-                      </div>
-
-                      <div style={{ flex: 1 }}>
-                        <h3 style={{ fontSize: '0.98rem', fontWeight: 800, margin: 0, color: '#0f172a', lineHeight: 1.3 }}>
-                          {track.title}
-                        </h3>
-                        <span style={{ fontSize: '0.68rem', color: '#64748b', fontWeight: 600 }}>
-                          {track.roleBadge}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Punchy Clean Summary (No Tool Chips) */}
-                    <p style={{ color: '#475569', fontSize: '0.80rem', lineHeight: 1.45, marginBottom: '12px', flex: 1 }}>
-                      {track.shortDesc}
-                    </p>
-
-                    {/* Streamlined Action Bar */}
-                    <div style={{ display: 'flex', gap: '8px', marginTop: 'auto' }}>
-                      <button
-                        onClick={() => setSelectedTrackForModal(track)}
-                        style={{
-                          flex: 1,
-                          padding: '7px 10px',
-                          borderRadius: '8px',
-                          background: '#ffffff',
-                          border: '1px solid #cbd5e1',
-                          color: '#0f172a',
-                          fontWeight: 700,
-                          fontSize: '0.76rem',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '4px',
-                          transition: 'all 0.2s ease'
-                        }}
-                      >
-                        <FileText size={12} /> Syllabus
-                      </button>
-                      <button
-                        onClick={() => handleApply(track.category === 'academic' && track.id === 'ai-students' ? 'student' : track.category === 'academic' ? 'academic' : track.category === 'domain' ? 'domain' : 'professional', track.title)}
-                        style={{
-                          flex: 1,
-                          padding: '7px 10px',
-                          borderRadius: '8px',
-                          border: 'none',
-                          background: theme.accentColor,
-                          color: '#ffffff',
-                          fontWeight: 800,
-                          fontSize: '0.76rem',
-                          cursor: 'pointer',
-                          boxShadow: `0 3px 10px ${theme.accentColor}35`,
-                          transition: 'all 0.2s ease'
-                        }}
-                      >
-                        Enroll →
-                      </button>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          ) : (
-            /* ──── 2. COMPACT SIMPLE MATRIX VIEW ──── */
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '8px'
-            }}>
-              {filteredTracks.map((track, i) => {
-                const theme = getTrackTheme(track.id);
-
-                return (
-                  <motion.div
-                    key={track.id}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.02 }}
-                    whileHover={{ x: 3, background: '#ffffff', boxShadow: '0 6px 18px -2px rgba(15, 23, 42, 0.06)' }}
-                    style={{
-                      background: '#ffffff',
-                      border: '1px solid #e2e8f0',
-                      borderRadius: '10px',
-                      padding: '10px 16px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      flexWrap: 'wrap',
-                      gap: '12px',
-                      boxShadow: '0 1px 4px rgba(15, 23, 42, 0.03)',
-                      transition: 'all 0.2s ease',
-                      borderLeft: `4px solid ${theme.accentColor}`
-                    }}
-                  >
-                    {/* Left: Icon + Title & Role */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: '1 1 280px' }}>
-                      <div style={{
-                        display: 'inline-flex', padding: '6px',
-                        background: `${theme.accentColor}12`,
-                        borderRadius: '6px', border: `1px solid ${theme.accentColor}30`,
-                        color: theme.accentColor, flexShrink: 0
-                      }}>
-                        {iconMap[track.iconName] || <Cpu size={14} />}
-                      </div>
-                      <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <h4 style={{ fontSize: '0.90rem', fontWeight: 800, margin: 0, color: '#0f172a' }}>
-                            {track.title}
-                          </h4>
-                          <span style={{ fontSize: '0.62rem', color: theme.accentColor, background: `${theme.accentColor}12`, padding: '1px 6px', borderRadius: '6px', fontWeight: 700 }}>
-                            {theme.archetype}
-                          </span>
-                        </div>
-                        <span style={{ fontSize: '0.68rem', color: '#64748b' }}>
-                          {track.roleBadge} · <Clock size={10} style={{ display: 'inline', verticalAlign: 'middle' }} /> {track.weeks.length}w
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Middle: Concise Clean Description */}
-                    <div style={{ flex: '2 1 320px', fontSize: '0.78rem', color: '#475569', lineHeight: 1.4 }}>
-                      {track.shortDesc}
-                    </div>
-
-                    {/* Right: Quick Action Buttons */}
-                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
-                      <button
-                        onClick={() => setSelectedTrackForModal(track)}
-                        style={{
-                          padding: '6px 12px',
-                          borderRadius: '6px',
-                          background: '#ffffff',
-                          border: '1px solid #cbd5e1',
-                          color: '#0f172a',
-                          fontWeight: 700,
-                          fontSize: '0.74rem',
-                          cursor: 'pointer',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '4px',
-                          transition: 'all 0.15s ease'
-                        }}
-                      >
-                        <FileText size={11} /> Syllabus
-                      </button>
-                      <button
-                        onClick={() => handleApply(track.category === 'academic' && track.id === 'ai-students' ? 'student' : track.category === 'academic' ? 'academic' : track.category === 'domain' ? 'domain' : 'professional', track.title)}
-                        style={{
-                          padding: '6px 14px',
-                          borderRadius: '6px',
-                          border: 'none',
-                          background: theme.accentColor,
-                          color: '#ffffff',
-                          fontWeight: 800,
-                          fontSize: '0.74rem',
-                          cursor: 'pointer',
-                          boxShadow: `0 3px 8px ${theme.accentColor}30`,
-                          transition: 'all 0.15s ease'
-                        }}
-                      >
-                        Enroll →
-                      </button>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          )}
+          </div>
         </div>
       </section>
 
